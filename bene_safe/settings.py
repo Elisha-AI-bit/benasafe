@@ -27,6 +27,11 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.localhost', '.ngrok.io','benasafe-production.up.railway.app']
 
+# CSRF trusted origins for Railway deployment
+CSRF_TRUSTED_ORIGINS = [
+    'https://benasafe-production.up.railway.app',
+]
+
 
 # Application definition
 
