@@ -115,7 +115,7 @@ class UserProfile(models.Model):
     
     # Profile information
     profile_picture = models.ImageField(upload_to='profile_pics/', blank=True, null=True)
-    is_email_verified = models.BooleanField(default=False)
+    is_email_verified = models.BooleanField(default=True)
     
     # Subscription details
     subscription_active = models.BooleanField(default=True)

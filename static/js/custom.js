@@ -1,6 +1,6 @@
 // BeneSafe Custom JavaScript
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // Initialize tooltips
     var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
     var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
@@ -14,9 +14,9 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Auto-hide alerts after 5 seconds
-    setTimeout(function() {
+    setTimeout(function () {
         var alerts = document.querySelectorAll('.alert');
-        alerts.forEach(function(alert) {
+        alerts.forEach(function (alert) {
             if (!alert.classList.contains('alert-permanent')) {
                 var bsAlert = new bootstrap.Alert(alert);
                 bsAlert.close();
@@ -41,15 +41,15 @@ document.addEventListener('DOMContentLoaded', function() {
 function setupFileUploadPreview() {
     const fileInputs = document.querySelectorAll('input[type="file"]');
 
-    fileInputs.forEach(function(input) {
-        input.addEventListener('change', function(e) {
+    fileInputs.forEach(function (input) {
+        input.addEventListener('change', function (e) {
             const file = e.target.files[0];
             if (file) {
                 const preview = input.parentNode.querySelector('.file-preview');
                 if (preview) {
                     if (file.type.startsWith('image/')) {
                         const reader = new FileReader();
-                        reader.onload = function(e) {
+                        reader.onload = function (e) {
                             preview.src = e.target.result;
                             preview.style.display = 'block';
                         };
@@ -67,7 +67,7 @@ function setupFileUploadPreview() {
 function setupDragAndDrop() {
     const dropZones = document.querySelectorAll('.drop-zone');
 
-    dropZones.forEach(function(zone) {
+    dropZones.forEach(function (zone) {
         ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
             zone.addEventListener(eventName, preventDefaults, false);
         });
@@ -114,15 +114,15 @@ function setupDragAndDrop() {
 function setupFormValidation() {
     const forms = document.querySelectorAll('form');
 
-    forms.forEach(function(form) {
-        form.addEventListener('submit', function(e) {
+    forms.forEach(function (form) {
+        form.addEventListener('submit', function (e) {
             if (!form.checkValidity()) {
                 e.preventDefault();
                 e.stopPropagation();
 
                 // Show validation feedback
                 const invalidInputs = form.querySelectorAll(':invalid');
-                invalidInputs.forEach(function(input) {
+                invalidInputs.forEach(function (input) {
                     input.classList.add('is-invalid');
                 });
             }
@@ -190,7 +190,7 @@ function initializeCharts() {
                     y: {
                         beginAtZero: true,
                         ticks: {
-                            callback: function(value) {
+                            callback: function (value) {
                                 return '$' + value.toLocaleString();
                             }
                         }
@@ -203,10 +203,11 @@ function initializeCharts() {
 
 // Utility Functions
 function formatCurrency(amount) {
-    return new Intl.NumberFormat('en-US', {
+    return new Intl.NumberFormat('en-ZM', {
         style: 'currency',
-        currency: 'USD'
-    }).format(amount);
+        currency: 'ZMW',
+        currencyDisplay: 'symbol'
+    }).format(amount).replace('ZMW', 'K');
 }
 
 function formatDate(date) {
@@ -238,7 +239,7 @@ function makeRequest(url, method, data, successCallback, errorCallback) {
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.setRequestHeader('X-CSRFToken', document.querySelector('[name=csrfmiddlewaretoken]')?.value);
 
-    xhr.onreadystatechange = function() {
+    xhr.onreadystatechange = function () {
         if (xhr.readyState === 4) {
             if (xhr.status === 200) {
                 successCallback(JSON.parse(xhr.responseText));

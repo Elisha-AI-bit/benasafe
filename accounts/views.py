@@ -37,7 +37,7 @@ def custom_login(request):
                         return redirect(next_url)
                     return redirect('core:dashboard')
                 else:
-                    messages.error(request, 'Your account is not verified yet. Please check your email to verify your account before logging in.')
+                    messages.error(request, 'Your account has been deactivated. Please contact support.')
             else:
                 messages.error(request, 'Invalid username or password.')
         else:
@@ -56,16 +56,17 @@ def register(request):
         form = RegistrationForm(request.POST, request.FILES)
         if form.is_valid():
             user = form.save(commit=False)
-            user.is_active = False  # Require email verification
+            user.is_active = True  # Enable account immediately
             user.save()
 
-            # Send verification email
-            send_verification_email(request, user)
+            # No email verification required
+            # send_verification_email(request, user)
+            
+            # Log the user in directly
+            login(request, user)
 
-            messages.success(request,
-                'Registration successful! Please check your email (including spam folder) to verify your account before you can log in. '
-                'If you don\'t see the email, you can also check the console output if using development email backend.')
-            return redirect('accounts:login')
+            messages.success(request, 'Registration successful! Welcome to BeneSafe.')
+            return redirect('core:dashboard')
     else:
         form = RegistrationForm()
 

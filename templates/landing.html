@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BeneSafe - Secure Your Digital Legacy</title>
+
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    {% load static %}
+    <!-- Custom CSS -->
+    <link href="{% static 'css/modern.css' %}" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .navbar-landing {
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary-900) 0%, var(--primary-800) 100%);
+            color: white;
+            padding: 120px 0 100px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('{% static "img/auth_bg.png" %}');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.1;
+        }
+
+        .feature-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: default;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1) !important;
+        }
+
+        .cta-section {
+            background-color: var(--brand-accent);
+            background: linear-gradient(135deg, var(--brand-accent) 0%, var(--primary-500) 100%);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-landing fixed-top">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center fw-bold text-dark" href="#">
+                <i class="fas fa-shield-alt text-primary me-2 fs-4"></i>
+                <span style="letter-spacing: -0.5px;">BeneSafe</span>
+            </a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link text-dark fw-medium px-3" href="#features">Features</a></li>
+                    <li class="nav-item"><a class="nav-link text-dark fw-medium px-3" href="#pricing">Pricing</a></li>
+                    <li class="nav-item"><a class="nav-link text-dark fw-medium px-3" href="#contact">Contact</a></li>
+                    <li class="nav-item ms-lg-2">
+                        <a href="{% url 'accounts:login' %}"
+                            class="btn btn-outline-primary px-4 fw-bold rounded-pill">Login</a>
+                    </li>
+                    <li class="nav-item ms-2">
+                        <a href="{% url 'accounts:register' %}"
+                            class="btn btn-primary px-4 fw-bold rounded-pill shadow-sm">Get Started</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container position-relative z-1">
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-5 mb-lg-0">
+                    <span class="badge bg-warning text-dark fw-bold mb-3 px-3 py-2 rounded-pill">
+                        <i class="fas fa-star me-1"></i> #1 Digital Asset Manager in Zambia
+                    </span>
+                    <h1 class="display-3 fw-bold mb-4" style="line-height: 1.1;">
+                        Protect Your <span class="text-info">Legacy</span>, Secure Your Future.
+                    </h1>
+                    <p class="lead mb-5 opacity-75">
+                        BeneSafe ensures your assets, documents, and final wishes are securely stored and transferred to
+                        your beneficiaries. Simple, secure, and compliant with Zambian laws.
+                    </p>
+                    <div class="d-flex flex-column flex-sm-row gap-3">
+                        <a href="{% url 'accounts:register' %}"
+                            class="btn btn-light text-primary btn-lg fw-bold px-5 rounded-pill shadow-lg">
+                            Create Free Account
+                        </a>
+                        <a href="#how-it-works" class="btn btn-outline-light btn-lg fw-bold px-5 rounded-pill">
+                            How It Works
+                        </a>
+                    </div>
+                    <div class="mt-5 d-flex align-items-center opacity-75 small">
+                        <div class="d-flex me-4">
+                            <i class="fas fa-check-circle text-success me-2 fs-5"></i>
+                            <span>Bank-Grade Security</span>
+                        </div>
+                        <div class="d-flex">
+                            <i class="fas fa-check-circle text-success me-2 fs-5"></i>
+                            <span>Legal Compliance</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <img src="{% static 'img/auth_bg.png' %}"
+                        class="img-fluid rounded-4 shadow-lg border border-5 border-white border-opacity-10"
+                        alt="Dashboard Preview">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-5 bg-white">
+        <div class="container py-5">
+            <div class="text-center mb-5 mw-700 mx-auto">
+                <h2 class="fw-bold display-6 mb-3">Why Choose BeneSafe?</h2>
+                <p class="text-muted lead">We provide a comprehensive platform to track everything you own and owe,
+                    ensuring peace of mind for you and your loved ones.</p>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 shadow-sm feature-card p-4 rounded-4 bg-light">
+                        <div class="card-body">
+                            <div class="mb-4 bg-white p-3 rounded-circle d-inline-block shadow-sm text-primary">
+                                <i class="fas fa-university fa-2x"></i>
+                            </div>
+                            <h4 class="fw-bold mb-3">Asset Tracking</h4>
+                            <p class="text-muted">Easily catalogue your bank accounts, properties, insurance policies,
+                                and vehicles in one secure dashboard. Values tracked in ZMW.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 shadow-sm feature-card p-4 rounded-4 bg-light">
+                        <div class="card-body">
+                            <div class="mb-4 bg-white p-3 rounded-circle d-inline-block shadow-sm text-success">
+                                <i class="fas fa-file-contract fa-2x"></i>
+                            </div>
+                            <h4 class="fw-bold mb-3">Document Storage</h4>
+                            <p class="text-muted">Upload and organize critical documents like wills, title deeds, and
+                                certificates. Encrypted and accessible only by you.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 shadow-sm feature-card p-4 rounded-4 bg-light">
+                        <div class="card-body">
+                            <div class="mb-4 bg-white p-3 rounded-circle d-inline-block shadow-sm text-info">
+                                <i class="fas fa-users fa-2x"></i>
+                            </div>
+                            <h4 class="fw-bold mb-3">Beneficiary Management</h4>
+                            <p class="text-muted">Clearly define who inherits what. Ensure your loved ones are taken
+                                care of without legal hassles.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How it works (brief) -->
+    <section id="how-it-works" class="py-5 bg-light">
+        <div class="container py-5">
+            <div class="row align-items-center">
+                <div class="col-lg-5 mb-5 mb-lg-0">
+                    <h2 class="display-6 fw-bold mb-4">Simple, Secure, sorted.</h2>
+                    <div class="d-flex mb-4">
+                        <div class="me-4">
+                            <span class="display-4 fw-bold text-primary opacity-25">01</span>
+                        </div>
+                        <div>
+                            <h4 class="fw-bold">Create Account</h4>
+                            <p class="text-muted">Sign up in seconds. No complex paperwork required to get started.</p>
+                        </div>
+                    </div>
+                    <div class="d-flex mb-4">
+                        <div class="me-4">
+                            <span class="display-4 fw-bold text-primary opacity-25">02</span>
+                        </div>
+                        <div>
+                            <h4 class="fw-bold">Add Assets</h4>
+                            <p class="text-muted">List your assets and liabilities using our intuitive wizards.</p>
+                        </div>
+                    </div>
+                    <div class="d-flex">
+                        <div class="me-4">
+                            <span class="display-4 fw-bold text-primary opacity-25">03</span>
+                        </div>
+                        <div>
+                            <h4 class="fw-bold">Secure Your Legacy</h4>
+                            <p class="text-muted">Assign beneficiaries and rest easy knowing your information is safe.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 offset-lg-1">
+                    <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+                        <!-- Placeholder for screenshot or illustration -->
+                        <img src="{% static 'img/auth_bg.png' %}" class="img-fluid" style="filter: brightness(0.9);"
+                            alt="App Workflow">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section py-5 text-white">
+        <div class="container py-5 text-center">
+            <h2 class="display-5 fw-bold mb-4">Ready to Secure Your Future?</h2>
+            <p class="lead mb-5 opacity-90 mx-auto" style="max-width: 600px;">Join thousands of prudent Zambians who
+                trust BeneSafe with their most important information.</p>
+            <a href="{% url 'accounts:register' %}"
+                class="btn btn-light text-primary btn-lg fw-bold px-5 py-3 rounded-pill shadow-lg display-6">
+                Get Started for Free <i class="fas fa-arrow-right ms-2"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-5">
+        <div class="container">
+            <div class="row g-4 mb-5">
+                <div class="col-lg-4">
+                    <h4 class="fw-bold mb-3"><i class="fas fa-shield-alt text-primary me-2"></i> BeneSafe</h4>
+                    <p class="text-secondary small">Your trusted partner in digital asset management and legacy
+                        planning. Built for Zambia.</p>
+                </div>
+                <div class="col-6 col-lg-2 offset-lg-1">
+                    <h6 class="fw-bold text-light mb-3">Platform</h6>
+                    <ul class="list-unstyled small">
+                        <li class="mb-2"><a href="#" class="text-secondary text-decoration-none">Features</a></li>
+                        <li class="mb-2"><a href="#" class="text-secondary text-decoration-none">Pricing</a></li>
+                        <li class="mb-2"><a href="#" class="text-secondary text-decoration-none">Security</a></li>
+                    </ul>
+                </div>
+                <div class="col-6 col-lg-2">
+                    <h6 class="fw-bold text-light mb-3">Company</h6>
+                    <ul class="list-unstyled small">
+                        <li class="mb-2"><a href="#" class="text-secondary text-decoration-none">About Us</a></li>
+                        <li class="mb-2"><a href="#" class="text-secondary text-decoration-none">Contact</a></li>
+                        <li class="mb-2"><a href="#" class="text-secondary text-decoration-none">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3">
+                    <h6 class="fw-bold text-light mb-3">Contact Us</h6>
+                    <p class="text-secondary small mb-1"><i class="fas fa-envelope me-2"></i> support@benesafe.zm</p>
+                    <p class="text-secondary small"><i class="fas fa-phone me-2"></i> +260 977 000 000</p>
+                </div>
+            </div>
+            <div class="border-top border-secondary pt-4 text-center">
+                <p class="small text-secondary mb-0">&copy; {% now "Y" %} BeneSafe. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

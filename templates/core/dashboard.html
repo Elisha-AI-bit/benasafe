@@ -1,89 +1,280 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}Dashboard - BeneSafe{% endblock %}
 
 {% block content %}
-<div class="row">
+<div class="row g-4 mb-4">
     <!-- Stats Cards -->
-    <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card border-left-primary shadow h-100 py-2">
-            <div class="card-body">
-                <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                            Total Assets
-                        </div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">
-                            {{ total_assets|default:0 }}
-                        </div>
-                    </div>
-                    <div class="col-auto">
-                        <i class="fas fa-box fa-2x text-gray-300"></i>
-                    </div>
+    <div class="col-xl-3 col-md-6">
+        <div class="card stat-card h-100">
+            <div class="d-flex justify-content-between align-items-start">
+                <div>
+                    <div class="stat-label">Total Assets</div>
+                    <div class="stat-value text-kwacha">{{ total_assets_value|default:"0.00"|floatformat:2 }}</div>
                 </div>
+                <div class="bg-primary bg-opacity-10 p-2 rounded-circle">
+                    <i class="fas fa-box fa-lg text-primary"></i>
+                </div>
+            </div>
+            <div class="mt-3 text-muted small">
+                <span class="text-success"><i class="fas fa-arrow-up"></i> {{ total_assets|default:0 }}</span> items
+                tracked
             </div>
         </div>
     </div>
 
-    <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card border-left-success shadow h-100 py-2">
-            <div class="card-body">
-                <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                            Total Liabilities
-                        </div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">
-                            {{ total_liabilities|default:0 }}
-                        </div>
-                    </div>
-                    <div class="col-auto">
-                        <i class="fas fa-credit-card fa-2x text-gray-300"></i>
-                    </div>
+    <div class="col-xl-3 col-md-6">
+        <div class="card stat-card h-100">
+            <div class="d-flex justify-content-between align-items-start">
+                <div>
+                    <div class="stat-label">Total Liabilities</div>
+                    <div class="stat-value text-kwacha">{{ total_liabilities_value|default:"0.00"|floatformat:2 }}</div>
                 </div>
+                <div class="bg-danger bg-opacity-10 p-2 rounded-circle">
+                    <i class="fas fa-credit-card fa-lg text-danger"></i>
+                </div>
+            </div>
+            <div class="mt-3 text-muted small">
+                <span class="text-danger">{{ total_liabilities|default:0 }}</span> active loans
             </div>
         </div>
     </div>
 
-    <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card border-left-info shadow h-100 py-2">
-            <div class="card-body">
-                <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                            Net Worth
-                        </div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">
-                            ${{ net_worth|default:"0.00"|floatformat:2 }}
-                        </div>
-                    </div>
-                    <div class="col-auto">
-                        <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
-                    </div>
+    <div class="col-xl-3 col-md-6">
+        <div class="card stat-card h-100">
+            <div class="d-flex justify-content-between align-items-start">
+                <div>
+                    <div class="stat-label">Net Worth</div>
+                    <div class="stat-value text-kwacha">{{ net_worth|default:"0.00"|floatformat:2 }}</div>
                 </div>
+                <div class="bg-success bg-opacity-10 p-2 rounded-circle">
+                    <i class="fas fa-chart-line fa-lg text-success"></i>
+                </div>
+            </div>
+            <div class="mt-3 text-muted small">
+                Updated today
             </div>
         </div>
     </div>
 
-    <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card border-left-warning shadow h-100 py-2">
-            <div class="card-body">
-                <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                            Documents
-                        </div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">
-                            {{ total_documents|default:0 }}
-                        </div>
+    <div class="col-xl-3 col-md-6">
+        <div class="card stat-card h-100">
+            <div class="d-flex justify-content-between align-items-start">
+                <div>
+                    <div class="stat-label">Documents</div>
+                    <div class="stat-value">{{ total_documents|default:0 }}</div>
+                </div>
+                <div class="bg-warning bg-opacity-10 p-2 rounded-circle">
+                    <i class="fas fa-file-alt fa-lg text-warning"></i>
+                </div>
+            </div>
+            <div class="mt-3 text-muted small">
+                Files stored securely
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4">
+    <!-- Recent Assets -->
+    <div class="col-lg-8">
+        <div class="card h-100">
+            <div
+                class="card-header d-flex justify-content-between align-items-center bg-white border-bottom-0 pt-4 px-4">
+                <h5 class="mb-0 fw-bold">Recent Assets</h5>
+                <a href="{% url 'assets:bank_account_list' %}" class="btn btn-sm btn-light">View All</a>
+            </div>
+            <div class="card-body px-4">
+                {% if recent_assets %}
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle">
+                        <thead class="text-muted small text-uppercase">
+                            <tr>
+                                <th class="fw-semibold">Name</th>
+                                <th class="fw-semibold">Type</th>
+                                <th class="fw-semibold">Value</th>
+                                <th class="fw-semibold">Date</th>
+                                <th class="fw-semibold text-end">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for asset in recent_assets %}
+                            <tr>
+                                <td class="fw-medium">{{ asset.name }}</td>
+                                <td><span class="badge bg-light text-dark border">{{ asset.get_asset_type_display
+                                        }}</span></td>
+                                <td class="text-kwacha fw-medium">{{ asset.value|default:"0.00"|floatformat:2 }}</td>
+                                <td class="text-muted">{{ asset.created_at|date:"M d, Y" }}</td>
+                                <td class="text-end">
+                                    <a href="{% url 'assets:asset_detail' asset.pk %}"
+                                        class="btn btn-sm btn-icon btn-light text-primary">
+                                        <i class="fas fa-chevron-right"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <div class="text-center py-5">
+                    <div class="mb-3 text-muted">
+                        <i class="fas fa-box-open fa-3x"></i>
                     </div>
-                    <div class="col-auto">
-                        <i class="fas fa-file-alt fa-2x text-gray-300"></i>
+                    <h6 class="fw-bold">No assets found</h6>
+                    <p class="text-muted small mb-4">Start by adding your first asset to track your wealth.</p>
+                    <a href="{% url 'assets:bank_account_create' %}" class="btn btn-primary">
+                        <i class="fas fa-plus me-2"></i> Add Asset
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions & Profile Info -->
+    <div class="col-lg-4">
+        <!-- Profile Card -->
+        <div class="card mb-4">
+            <div class="card-body text-center p-4">
+                <div class="mb-3 position-relative d-inline-block">
+                    {% if profile.profile_picture %}
+                    <img src="{{ profile.profile_picture.url }}" class="rounded-circle shadow-sm object-fit-cover"
+                        width="90" height="90" alt="Profile">
+                    {% else %}
+                    <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center mx-auto shadow-sm"
+                        style="width: 90px; height: 90px; font-size: 2rem;">
+                        {{ user.first_name|first|default:user.username|first|upper }}
                     </div>
+                    {% endif %}
+                    <span class="position-absolute bottom-0 end-0 p-1 bg-success border border-white rounded-circle">
+                        <span class="visually-hidden">Active</span>
+                    </span>
+                </div>
+
+                <h5 class="fw-bold mb-1">{{ user.get_full_name|default:user.username }}</h5>
+                <p class="text-muted small mb-3">{{ user.email }}</p>
+
+                {% if profile.bouquet %}
+                <div
+                    class="badge rounded-pill bg-{{ profile.bouquet }} px-3 py-2 mb-3 bg-opacity-10 text-{{ profile.bouquet }} border border-{{ profile.bouquet }}">
+                    {{ profile.bouquet|title }} Plan
+                </div>
+                {% endif %}
+
+                <div class="d-grid">
+                    <a href="{% url 'accounts:profile' %}" class="btn btn-outline-secondary btn-sm">
+                        Edit Profile
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="card">
+            <div class="card-header bg-white border-bottom-0 pt-4 px-4">
+                <h6 class="fw-bold mb-0">Quick Actions</h6>
+            </div>
+            <div class="card-body px-4 pb-4">
+                <div class="d-grid gap-2">
+                    <a href="{% url 'assets:bank_account_create' %}"
+                        class="btn btn-white border text-start p-3 d-flex align-items-center hover-shadow">
+                        <div class="bg-primary bg-opacity-10 p-2 rounded me-3 text-primary">
+                            <i class="fas fa-university"></i>
+                        </div>
+                        <span class="fw-medium">Add Bank Account</span>
+                    </a>
+
+                    <a href="{% url 'assets:insurance_create' %}"
+                        class="btn btn-white border text-start p-3 d-flex align-items-center hover-shadow">
+                        <div class="bg-success bg-opacity-10 p-2 rounded me-3 text-success">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <span class="fw-medium">Add Insurance</span>
+                    </a>
+
+                    <a href="{% url 'assets:motor_vehicle_create' %}"
+                        class="btn btn-white border text-start p-3 d-flex align-items-center hover-shadow">
+                        <div class="bg-info bg-opacity-10 p-2 rounded me-3 text-info">
+                            <i class="fas fa-car"></i>
+                        </div>
+                        <span class="fw-medium">Add Vehicle</span>
+                    </a>
+
+                    <a href="{% url 'assets:export_assets_pdf' %}"
+                        class="btn btn-white border text-start p-3 d-flex align-items-center hover-shadow">
+                        <div class="bg-warning bg-opacity-10 p-2 rounded me-3 text-warning">
+                            <i class="fas fa-file-export"></i>
+                        </div>
+                        <span class="fw-medium">Export Report</span>
+                    </a>
                 </div>
             </div>
         </div>
     </div>
+</div>
+{% endblock %}
+
+<div class="col-xl-3 col-md-6 mb-4">
+    <div class="card border-left-success shadow h-100 py-2">
+        <div class="card-body">
+            <div class="row no-gutters align-items-center">
+                <div class="col mr-2">
+                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                        Total Liabilities
+                    </div>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                        {{ total_liabilities|default:0 }}
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <i class="fas fa-credit-card fa-2x text-gray-300"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-xl-3 col-md-6 mb-4">
+    <div class="card border-left-info shadow h-100 py-2">
+        <div class="card-body">
+            <div class="row no-gutters align-items-center">
+                <div class="col mr-2">
+                    <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                        Net Worth
+                    </div>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                        ${{ net_worth|default:"0.00"|floatformat:2 }}
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-xl-3 col-md-6 mb-4">
+    <div class="card border-left-warning shadow h-100 py-2">
+        <div class="card-body">
+            <div class="row no-gutters align-items-center">
+                <div class="col mr-2">
+                    <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                        Documents
+                    </div>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                        {{ total_documents|default:0 }}
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <i class="fas fa-file-alt fa-2x text-gray-300"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </div>
 
 <div class="row">
@@ -95,41 +286,41 @@
             </div>
             <div class="card-body">
                 {% if recent_assets %}
-                    <div class="table-responsive">
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Type</th>
-                                    <th>Value</th>
-                                    <th>Date Added</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for asset in recent_assets %}
-                                <tr>
-                                    <td>{{ asset.name }}</td>
-                                    <td><span class="badge bg-secondary">{{ asset.get_asset_type_display }}</span></td>
-                                    <td>${{ asset.value|default:"0.00"|floatformat:2 }}</td>
-                                    <td>{{ asset.created_at|date:"M d, Y" }}</td>
-                                    <td>
-                                        <a href="{% url 'assets:asset_detail' asset.pk %}" class="btn btn-sm btn-info">
-                                            <i class="fas fa-eye"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Type</th>
+                                <th>Value</th>
+                                <th>Date Added</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for asset in recent_assets %}
+                            <tr>
+                                <td>{{ asset.name }}</td>
+                                <td><span class="badge bg-secondary">{{ asset.get_asset_type_display }}</span></td>
+                                <td>${{ asset.value|default:"0.00"|floatformat:2 }}</td>
+                                <td>{{ asset.created_at|date:"M d, Y" }}</td>
+                                <td>
+                                    <a href="{% url 'assets:asset_detail' asset.pk %}" class="btn btn-sm btn-info">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
                 {% else %}
-                    <p class="text-center text-muted">No assets added yet.</p>
-                    <div class="text-center">
-                        <a href="{% url 'assets:bank_account_create' %}" class="btn btn-primary">
-                            <i class="fas fa-plus"></i> Add Your First Asset
-                        </a>
-                    </div>
+                <p class="text-center text-muted">No assets added yet.</p>
+                <div class="text-center">
+                    <a href="{% url 'assets:bank_account_create' %}" class="btn btn-primary">
+                        <i class="fas fa-plus"></i> Add Your First Asset
+                    </a>
+                </div>
                 {% endif %}
             </div>
         </div>
@@ -144,18 +335,21 @@
             </div>
             <div class="card-body text-center">
                 {% if profile.profile_picture %}
-                    <img src="{{ profile.profile_picture.url }}" class="rounded-circle mb-3" width="80" height="80" alt="Profile Picture">
+                <img src="{{ profile.profile_picture.url }}" class="rounded-circle mb-3" width="80" height="80"
+                    alt="Profile Picture">
                 {% else %}
-                    <div class="bg-primary rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px;">
-                        <i class="fas fa-user fa-2x text-white"></i>
-                    </div>
+                <div class="bg-primary rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
+                    style="width: 80px; height: 80px;">
+                    <i class="fas fa-user fa-2x text-white"></i>
+                </div>
                 {% endif %}
                 <h5>{{ user.get_full_name|default:user.username }}</h5>
                 <p class="text-muted">{{ user.email }}</p>
                 {% if profile.bouquet %}
-                    <span class="badge bg-{% if profile.bouquet == 'blue' %}primary{% elif profile.bouquet == 'red' %}danger{% else %}warning{% endif %} fs-6">
-                        {{ profile.bouquet|title }} Plan
-                    </span>
+                <span
+                    class="badge bg-{% if profile.bouquet == 'blue' %}primary{% elif profile.bouquet == 'red' %}danger{% else %}warning{% endif %} fs-6">
+                    {{ profile.bouquet|title }} Plan
+                </span>
                 {% endif %}
                 <div class="mt-3">
                     <a href="{% url 'accounts:profile' %}" class="btn btn-outline-primary btn-sm">
