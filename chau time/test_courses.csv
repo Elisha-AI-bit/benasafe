@@ -1,0 +1,5 @@
+code,name,programme_code,year_of_study,semester,credits,lecturer_initials,preferred_room_type,requires_lab,requires_computers,hours_per_week,description
+AG101,Introduction to Agriculture,BSC-AGRIC,1,1,3,JD,LECTURE,FALSE,FALSE,3,Basic agricultural concepts
+AG102,Soil Science,BSC-AGRIC,1,2,3,SM,LAB,TRUE,FALSE,4,Soil composition and testing
+AG201,Crop Production,BSC-AGRIC,2,1,3,JD,LECTURE,FALSE,FALSE,3,Crop cultivation techniques
+AG202,Animal Husbandry,BSC-AGRIC,2,2,3,SM,LECTURE,FALSE,FALSE,3,Livestock management

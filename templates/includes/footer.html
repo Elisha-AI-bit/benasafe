@@ -1,0 +1,21 @@
+<footer class="footer mt-auto py-3 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <span class="text-muted">&copy; 2025 BeneSafe. All rights reserved.</span>
+            </div>
+            <div class="col-md-6 text-end">
+                <span class="text-muted">
+                    {% if user.is_authenticated %}
+                        Welcome, {{ user.get_full_name|default:user.username }}!
+                        {% if user.userprofile.bouquet %}
+                            <span class="badge bg-{% if user.userprofile.bouquet == 'blue' %}primary{% elif user.userprofile.bouquet == 'red' %}danger{% else %}warning{% endif %}">
+                                {{ user.userprofile.bouquet|title }} Plan
+                            </span>
+                        {% endif %}
+                    {% endif %}
+                </span>
+            </div>
+        </div>
+    </div>
+</footer>

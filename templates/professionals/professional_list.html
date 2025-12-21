@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Professionals - BeneSafe{% endblock %}
+{% block page_title %}Professionals{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">All Professionals</h5>
+                <a href="{% url 'professionals:professional_create' %}" class="btn btn-primary">
+                    <i class="fas fa-plus"></i> Add Professional
+                </a>
+            </div>
+            <div class="card-body">
+                {% if professionals %}
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Profession</th>
+                                    <th>Specialization</th>
+                                    <th>Phone</th>
+                                    <th>Email</th>
+                                    <th>Created</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for professional in professionals %}
+                                <tr>
+                                    <td>
+                                        <a href="{% url 'professionals:professional_detail' professional.pk %}" class="text-decoration-none">
+                                            {{ professional.name }}
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-primary">{{ professional.get_profession_display }}</span>
+                                    </td>
+                                    <td>{{ professional.specialization|default:"-" }}</td>
+                                    <td>{{ professional.phone|default:"-" }}</td>
+                                    <td>{{ professional.email|default:"-" }}</td>
+                                    <td>{{ professional.created_at|date:"M d, Y" }}</td>
+                                    <td>
+                                        <div class="btn-group btn-group-sm">
+                                            <a href="{% url 'professionals:professional_detail' professional.pk %}" 
+                                               class="btn btn-outline-primary" title="View">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                            <a href="{% url 'professionals:professional_update' professional.pk %}" 
+                                               class="btn btn-outline-secondary" title="Edit">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            <a href="{% url 'professionals:professional_delete' professional.pk %}" 
+                                               class="btn btn-outline-danger" title="Delete"
+                                               onclick="return confirm('Are you sure you want to delete this professional?')">
+                                                <i class="fas fa-trash"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <div class="text-center py-5">
+                        <i class="fas fa-user-md fa-3x text-muted mb-3"></i>
+                        <h5 class="text-muted">No professionals found</h5>
+                        <p class="text-muted">Start by adding your first professional contact.</p>
+                        <a href="{% url 'professionals:professional_create' %}" class="btn btn-primary">
+                            <i class="fas fa-plus"></i> Add Your First Professional
+                        </a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+

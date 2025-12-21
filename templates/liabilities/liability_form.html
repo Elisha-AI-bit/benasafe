@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{% if liability %}Edit Liability{% else %}Add Liability{% endif %} - BeneSafe{% endblock %}
+{% block page_title %}{% if liability %}Edit Liability{% else %}Add Liability{% endif %}{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    {% if liability %}
+                        <i class="fas fa-edit"></i> Edit Liability
+                    {% else %}
+                        <i class="fas fa-plus"></i> Add New Liability
+                    {% endif %}
+                </h5>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="name" class="form-label">Liability Name *</label>
+                            <input type="text" class="form-control" id="name" name="name" 
+                                   value="{% if liability %}{{ liability.name }}{% endif %}" required>
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label for="liability_type" class="form-label">Type *</label>
+                            <select class="form-select" id="liability_type" name="liability_type" required>
+                                <option value="">Select Type</option>
+                                <option value="loan" {% if liability.liability_type == 'loan' %}selected{% endif %}>Loan</option>
+                                <option value="credit_card" {% if liability.liability_type == 'credit_card' %}selected{% endif %}>Credit Card</option>
+                                <option value="mortgage" {% if liability.liability_type == 'mortgage' %}selected{% endif %}>Mortgage</option>
+                                <option value="personal_loan" {% if liability.liability_type == 'personal_loan' %}selected{% endif %}>Personal Loan</option>
+                                <option value="business_loan" {% if liability.liability_type == 'business_loan' %}selected{% endif %}>Business Loan</option>
+                                <option value="other" {% if liability.liability_type == 'other' %}selected{% endif %}>Other</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="amount" class="form-label">Amount *</label>
+                            <div class="input-group">
+                                <span class="input-group-text">$</span>
+                                <input type="number" class="form-control" id="amount" name="amount" 
+                                       step="0.01" min="0" 
+                                       value="{% if liability %}{{ liability.amount }}{% endif %}" required>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label for="due_date" class="form-label">Due Date</label>
+                            <input type="date" class="form-control" id="due_date" name="due_date" 
+                                   value="{% if liability.due_date %}{{ liability.due_date|date:'Y-m-d' }}{% endif %}">
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="source" class="form-label">Source/Lender</label>
+                        <input type="text" class="form-control" id="source" name="source" 
+                               value="{% if liability %}{{ liability.source }}{% endif %}"
+                               placeholder="e.g., Bank Name, Credit Card Company">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description</label>
+                        <textarea class="form-control" id="description" name="description" rows="3" 
+                                  placeholder="Additional details about this liability">{% if liability %}{{ liability.description }}{% endif %}</textarea>
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <a href="{% url 'liabilities:liability_list' %}" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left"></i> Cancel
+                        </a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> 
+                            {% if liability %}Update Liability{% else %}Create Liability{% endif %}
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+

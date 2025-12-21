@@ -1,0 +1,133 @@
+{% extends 'base.html' %}
+
+{% block title %}Assets - BeneSafe{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>My Assets</h2>
+    <div>
+        <a href="{% url 'assets:export_assets_pdf' %}" class="btn btn-outline-primary me-2">
+            <i class="fas fa-download"></i> Export PDF
+        </a>
+        <a href="{% url 'assets:export_assets_csv' %}" class="btn btn-outline-secondary">
+            <i class="fas fa-download"></i> Export CSV
+        </a>
+    </div>
+</div>
+
+<!-- Filters -->
+<div class="card mb-4">
+    <div class="card-body">
+        <form method="get" class="row g-3">
+            <div class="col-md-4">
+                <label for="type" class="form-label">Asset Type</label>
+                <select name="type" class="form-select" id="type">
+                    <option value="">All Types</option>
+                    {% for type_value, type_name in asset_types %}
+                        <option value="{{ type_value }}" {% if current_type == type_value %}selected{% endif %}>
+                            {{ type_name }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-6">
+                <label for="search" class="form-label">Search</label>
+                <input type="text" name="search" class="form-control" id="search"
+                       placeholder="Search assets..." value="{{ search }}">
+            </div>
+            <div class="col-md-2 d-flex align-items-end">
+                <button type="submit" class="btn btn-primary me-2">
+                    <i class="fas fa-search"></i> Filter
+                </button>
+                <a href="{% url 'assets:asset_list' %}" class="btn btn-outline-secondary">
+                    <i class="fas fa-times"></i> Clear
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Assets Grid -->
+{% if assets %}
+    <div class="row">
+        {% for asset in assets %}
+        <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div>
+                            <h5 class="card-title">{{ asset.name }}</h5>
+                            <p class="text-muted mb-2">{{ asset.get_asset_type_display }}</p>
+                        </div>
+                        <span class="badge bg-secondary">{{ asset.get_asset_type_display }}</span>
+                    </div>
+
+                    {% if asset.description %}
+                        <p class="card-text">{{ asset.description|truncatechars:100 }}</p>
+                    {% endif %}
+
+                    {% if asset.value %}
+                        <p class="text-success fw-bold">Value: ${{ asset.value|floatformat:2 }}</p>
+                    {% endif %}
+
+                    <div class="d-flex justify-content-between align-items-center mt-3">
+                        <small class="text-muted">
+                            Added {{ asset.created_at|date:"M d, Y" }}
+                        </small>
+                        <div>
+                            <a href="{% url 'assets:asset_documents' asset.pk %}" class="btn btn-sm btn-outline-primary">
+                                <i class="fas fa-file"></i> Docs
+                            </a>
+                            <a href="#" class="btn btn-sm btn-outline-info">
+                                <i class="fas fa-eye"></i> View
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Pagination -->
+    {% if is_paginated %}
+    <nav aria-label="Assets pagination">
+        <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page=1">First</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                </li>
+            {% endif %}
+
+            {% for num in page_obj.paginator.page_range %}
+                <li class="page-item {% if page_obj.number == num %}active{% endif %}">
+                    <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                </li>
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% endif %}
+
+{% else %}
+    <div class="text-center py-5">
+        <i class="fas fa-box-open fa-3x text-muted mb-3"></i>
+        <h4 class="text-muted">No assets found</h4>
+        <p class="text-muted mb-4">Start building your digital asset portfolio</p>
+        <a href="{% url 'assets:bank_account_create' %}" class="btn btn-primary">
+            <i class="fas fa-plus"></i> Add Your First Asset
+        </a>
+    </div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,142 @@
+{% extends 'base.html' %}
+
+{% block title %}Register - BeneSafe{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-xl-8 col-lg-9 col-md-10">
+        <div class="card o-hidden border-0 shadow-lg my-5">
+            <div class="card-body p-0">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="p-5">
+                            <div class="text-center">
+                                <h1 class="h4 text-gray-900 mb-4">Create Account</h1>
+                                <p class="text-muted">Join BeneSafe to securely manage your digital assets</p>
+                            </div>
+
+                            <form method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+
+                                {% if form.errors %}
+                                    <div class="alert alert-danger">
+                                        <strong>Please correct the following errors:</strong>
+                                        <ul class="mb-0">
+                                            {% for field in form %}
+                                                {% for error in field.errors %}
+                                                    <li>{{ field.label }}: {{ error }}</li>
+                                                {% endfor %}
+                                            {% endfor %}
+                                            {% for error in form.non_field_errors %}
+                                                <li>{{ error }}</li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                {% endif %}
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group mb-3">
+                                            {{ form.username.label_tag }}
+                                            {{ form.username }}
+                                            {% if form.username.errors %}
+                                                <div class="text-danger">{{ form.username.errors.0 }}</div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group mb-3">
+                                            {{ form.email.label_tag }}
+                                            {{ form.email }}
+                                            {% if form.email.errors %}
+                                                <div class="text-danger">{{ form.email.errors.0 }}</div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group mb-3">
+                                            {{ form.first_name.label_tag }}
+                                            {{ form.first_name }}
+                                            {% if form.first_name.errors %}
+                                                <div class="text-danger">{{ form.first_name.errors.0 }}</div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group mb-3">
+                                            {{ form.last_name.label_tag }}
+                                            {{ form.last_name }}
+                                            {% if form.last_name.errors %}
+                                                <div class="text-danger">{{ form.last_name.errors.0 }}</div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {% for field in form %}
+                                    {% if field.name not in 'username,email,first_name,last_name,password1,password2,bouquet' %}
+                                        <div class="form-group mb-3">
+                                            {{ field.label_tag }}
+                                            {{ field }}
+                                            {% if field.errors %}
+                                                <div class="text-danger">{{ field.errors.0 }}</div>
+                                            {% endif %}
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+
+                                <div class="form-group mb-3">
+                                    {{ form.bouquet.label_tag }}
+                                    {{ form.bouquet }}
+                                    {% if form.bouquet.errors %}
+                                        <div class="text-danger">{{ form.bouquet.errors.0 }}</div>
+                                    {% endif %}
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group mb-3">
+                                            {{ form.password1.label_tag }}
+                                            {{ form.password1 }}
+                                            {% if form.password1.errors %}
+                                                <div class="text-danger">{{ form.password1.errors.0 }}</div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group mb-3">
+                                            {{ form.password2.label_tag }}
+                                            {{ form.password2 }}
+                                            {% if form.password2.errors %}
+                                                <div class="text-danger">{{ form.password2.errors.0 }}</div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary btn-user btn-block">
+                                    Create Account
+                                </button>
+                            </form>
+
+                            <hr>
+
+                            <div class="text-center">
+                                <a class="small" href="{% url 'accounts:login' %}">
+                                    Already have an account? Login here
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

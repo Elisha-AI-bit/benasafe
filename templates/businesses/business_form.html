@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{% if business %}Edit Business{% else %}Add Business{% endif %} - BeneSafe{% endblock %}
+{% block page_title %}{% if business %}Edit Business{% else %}Add Business{% endif %}{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    {% if business %}
+                        <i class="fas fa-edit"></i> Edit Business
+                    {% else %}
+                        <i class="fas fa-plus"></i> Add New Business
+                    {% endif %}
+                </h5>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="name" class="form-label">Business Name *</label>
+                            <input type="text" class="form-control" id="name" name="name" 
+                                   value="{% if business %}{{ business.name }}{% endif %}" required>
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label for="business_type" class="form-label">Business Type *</label>
+                            <select class="form-select" id="business_type" name="business_type" required>
+                                <option value="">Select Type</option>
+                                <option value="sole_proprietorship" {% if business.business_type == 'sole_proprietorship' %}selected{% endif %}>Sole Proprietorship</option>
+                                <option value="partnership" {% if business.business_type == 'partnership' %}selected{% endif %}>Partnership</option>
+                                <option value="corporation" {% if business.business_type == 'corporation' %}selected{% endif %}>Corporation</option>
+                                <option value="llc" {% if business.business_type == 'llc' %}selected{% endif %}>LLC</option>
+                                <option value="other" {% if business.business_type == 'other' %}selected{% endif %}>Other</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="industry" class="form-label">Industry</label>
+                            <input type="text" class="form-control" id="industry" name="industry" 
+                                   value="{% if business %}{{ business.industry }}{% endif %}"
+                                   placeholder="e.g., Technology, Healthcare, Retail">
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label for="registration_number" class="form-label">Registration Number</label>
+                            <input type="text" class="form-control" id="registration_number" name="registration_number" 
+                                   value="{% if business %}{{ business.registration_number }}{% endif %}">
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="address" class="form-label">Business Address</label>
+                        <textarea class="form-control" id="address" name="address" rows="2" 
+                                  placeholder="Enter business address">{% if business %}{{ business.address }}{% endif %}</textarea>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="phone" class="form-label">Phone Number</label>
+                            <input type="tel" class="form-control" id="phone" name="phone" 
+                                   value="{% if business %}{{ business.phone }}{% endif %}">
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" 
+                                   value="{% if business %}{{ business.email }}{% endif %}">
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description</label>
+                        <textarea class="form-control" id="description" name="description" rows="3" 
+                                  placeholder="Describe your business activities">{% if business %}{{ business.description }}{% endif %}</textarea>
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <a href="{% url 'businesses:business_list' %}" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left"></i> Cancel
+                        </a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> 
+                            {% if business %}Update Business{% else %}Create Business{% endif %}
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+

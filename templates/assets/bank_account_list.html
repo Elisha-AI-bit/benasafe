@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Bank Accounts - Assets{% endblock %}
+{% block page_title %}Bank Accounts{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h5 class="mb-0">Bank Accounts</h5>
+        <a href="{% url 'assets:bank_account_create' %}" class="btn btn-primary">
+            <i class="fas fa-plus"></i> Add Bank Account
+        </a>
+    </div>
+    <div class="card-body">
+        {% if assets %}
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Bank</th>
+                        <th>Account Number</th>
+                        <th>Type</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for asset in assets %}
+                    <tr>
+                        <td><a href="{% url 'assets:bank_account_detail' asset.pk %}">{{ asset.name }}</a></td>
+                        <td>{{ asset.bankaccount.bank_name }}</td>
+                        <td>{{ asset.bankaccount.account_number }}</td>
+                        <td>{{ asset.bankaccount.account_type }}</td>
+                        <td>
+                            <div class="btn-group btn-group-sm">
+                                <a href="{% url 'assets:bank_account_detail' asset.pk %}" class="btn btn-outline-primary"><i class="fas fa-eye"></i></a>
+                                <a href="{% url 'assets:bank_account_update' asset.pk %}" class="btn btn-outline-secondary"><i class="fas fa-edit"></i></a>
+                                <a href="{% url 'assets:bank_account_delete' asset.pk %}" class="btn btn-outline-danger" onclick="return confirm('Delete this account?')"><i class="fas fa-trash"></i></a>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="text-center py-5">
+            <i class="fas fa-university fa-3x text-muted mb-3"></i>
+            <h5 class="text-muted">No bank accounts found</h5>
+            <a href="{% url 'assets:bank_account_create' %}" class="btn btn-primary">
+                <i class="fas fa-plus"></i> Add Your First Bank Account
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+
+
+
+
+

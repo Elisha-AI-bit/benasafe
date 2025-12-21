@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block title %}Account Setup Required - BeneSafe{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header bg-warning text-dark">
+                    <h4 class="mb-0">
+                        <i class="fas fa-exclamation-triangle"></i> Account Setup Required
+                    </h4>
+                </div>
+                <div class="card-body text-center">
+                    <div class="mb-4">
+                        <i class="fas fa-user-cog fa-4x text-muted mb-3"></i>
+                        <h5>Your account needs to be configured</h5>
+                        <p class="text-muted">
+                            Your account is missing some required configuration. An administrator needs to assign you a role and subscription bouquet.
+                        </p>
+                    </div>
+                    
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <div class="card border-{% if profile.role %}success{% else %}danger{% endif %}">
+                                <div class="card-body">
+                                    <h6>User Role</h6>
+                                    {% if profile.role %}
+                                        <span class="badge bg-success">{{ profile.role.name }}</span>
+                                    {% else %}
+                                        <span class="badge bg-danger">Not Assigned</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card border-{% if profile.bouquet %}success{% else %}danger{% endif %}">
+                                <div class="card-body">
+                                    <h6>Subscription Bouquet</h6>
+                                    {% if profile.bouquet %}
+                                        <span class="badge bg-success">{{ profile.bouquet.display_name }}</span>
+                                    {% else %}
+                                        <span class="badge bg-danger">Not Assigned</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="alert alert-info">
+                        <h6><i class="fas fa-info-circle"></i> What happens next?</h6>
+                        <ul class="list-unstyled text-start">
+                            <li>• An administrator will review your account</li>
+                            <li>• You'll be assigned an appropriate user role</li>
+                            <li>• Your subscription bouquet will be configured</li>
+                            <li>• You'll receive access to the appropriate dashboard</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                        <a href="{% url 'accounts:logout' %}" class="btn btn-secondary">
+                            <i class="fas fa-sign-out-alt"></i> Logout
+                        </a>
+                        <a href="{% url 'accounts:profile' %}" class="btn btn-primary">
+                            <i class="fas fa-user-edit"></i> Update Profile
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+

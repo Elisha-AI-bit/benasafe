@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{% if professional %}Edit Professional{% else %}Add Professional{% endif %} - BeneSafe{% endblock %}
+{% block page_title %}{% if professional %}Edit Professional{% else %}Add Professional{% endif %}{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    {% if professional %}
+                        <i class="fas fa-edit"></i> Edit Professional
+                    {% else %}
+                        <i class="fas fa-plus"></i> Add New Professional
+                    {% endif %}
+                </h5>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="name" class="form-label">Full Name *</label>
+                            <input type="text" class="form-control" id="name" name="name" 
+                                   value="{% if professional %}{{ professional.name }}{% endif %}" required>
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label for="profession" class="form-label">Profession *</label>
+                            <select class="form-select" id="profession" name="profession" required>
+                                <option value="">Select Profession</option>
+                                <option value="lawyer" {% if professional.profession == 'lawyer' %}selected{% endif %}>Lawyer</option>
+                                <option value="accountant" {% if professional.profession == 'accountant' %}selected{% endif %}>Accountant</option>
+                                <option value="financial_advisor" {% if professional.profession == 'financial_advisor' %}selected{% endif %}>Financial Advisor</option>
+                                <option value="insurance_agent" {% if professional.profession == 'insurance_agent' %}selected{% endif %}>Insurance Agent</option>
+                                <option value="real_estate_agent" {% if professional.profession == 'real_estate_agent' %}selected{% endif %}>Real Estate Agent</option>
+                                <option value="doctor" {% if professional.profession == 'doctor' %}selected{% endif %}>Doctor</option>
+                                <option value="dentist" {% if professional.profession == 'dentist' %}selected{% endif %}>Dentist</option>
+                                <option value="other" {% if professional.profession == 'other' %}selected{% endif %}>Other</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="specialization" class="form-label">Specialization</label>
+                            <input type="text" class="form-control" id="specialization" name="specialization" 
+                                   value="{% if professional %}{{ professional.specialization }}{% endif %}"
+                                   placeholder="e.g., Corporate Law, Tax Accounting">
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label for="company" class="form-label">Company/Organization</label>
+                            <input type="text" class="form-control" id="company" name="company" 
+                                   value="{% if professional %}{{ professional.company }}{% endif %}">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="phone" class="form-label">Phone Number</label>
+                            <input type="tel" class="form-control" id="phone" name="phone" 
+                                   value="{% if professional %}{{ professional.phone }}{% endif %}">
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" 
+                                   value="{% if professional %}{{ professional.email }}{% endif %}">
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="address" class="form-label">Address</label>
+                        <textarea class="form-control" id="address" name="address" rows="2" 
+                                  placeholder="Enter professional's address">{% if professional %}{{ professional.address }}{% endif %}</textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="notes" class="form-label">Notes</label>
+                        <textarea class="form-control" id="notes" name="notes" rows="3" 
+                                  placeholder="Additional notes about this professional">{% if professional %}{{ professional.notes }}{% endif %}</textarea>
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <a href="{% url 'professionals:professional_list' %}" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left"></i> Cancel
+                        </a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> 
+                            {% if professional %}Update Professional{% else %}Add Professional{% endif %}
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+

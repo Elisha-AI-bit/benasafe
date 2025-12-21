@@ -1,0 +1,267 @@
+{% extends 'base.html' %}
+
+{% block title %}Verifier Dashboard - BeneSafe{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="h3 mb-0 text-gray-800">
+        <i class="fas fa-user-check"></i> Verifier Dashboard
+    </h1>
+    <div class="text-muted">
+        <small>Welcome back, {{ user.get_full_name|default:user.username }}</small>
+    </div>
+</div>
+
+<!-- Verification Overview Cards -->
+<div class="row">
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-warning shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                            Pending Verifications
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                            {{ pending_verifications|default:0 }}
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-clock fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-success shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                            Approved Today
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                            {{ approved_verifications|default:0 }}
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-check-circle fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-danger shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                            Rejected Today
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                            {{ rejected_verifications|default:0 }}
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-times-circle fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-info shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                            Your Role
+                        </div>
+                        <div class="h6 mb-0 font-weight-bold text-gray-800">
+                            {{ profile.role.name|default:"Verifier" }}
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-user-shield fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <!-- Pending Verifications -->
+    <div class="col-lg-8 mb-4">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3 d-flex justify-content-between align-items-center">
+                <h6 class="m-0 font-weight-bold text-primary">Pending Verifications</h6>
+                <span class="badge bg-warning">{{ recent_pending|length }} pending</span>
+            </div>
+            <div class="card-body">
+                {% if recent_pending %}
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>User</th>
+                                    <th>Email</th>
+                                    <th>Bouquet</th>
+                                    <th>Registration Date</th>
+                                    <th>Documents</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for user_profile in recent_pending %}
+                                <tr>
+                                    <td>{{ user_profile.user.get_full_name|default:user_profile.user.username }}</td>
+                                    <td>{{ user_profile.user.email }}</td>
+                                    <td>
+                                        {% if user_profile.bouquet %}
+                                            <span class="badge bg-{% if user_profile.bouquet.name == 'blue' %}primary{% elif user_profile.bouquet.name == 'red' %}danger{% else %}warning{% endif %}">
+                                                {{ user_profile.bouquet.display_name }}
+                                            </span>
+                                        {% else %}
+                                            <span class="badge bg-secondary">No Bouquet</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ user_profile.created_at|date:"M d, Y" }}</td>
+                                    <td>
+                                        <span class="badge bg-info">View Documents</span>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-sm btn-success" onclick="approveUser({{ user_profile.id }})">
+                                            <i class="fas fa-check"></i> Approve
+                                        </button>
+                                        <button class="btn btn-sm btn-danger" onclick="rejectUser({{ user_profile.id }})">
+                                            <i class="fas fa-times"></i> Reject
+                                        </button>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <div class="text-center py-4">
+                        <i class="fas fa-check-circle fa-3x text-success mb-3"></i>
+                        <p class="text-muted">No pending verifications at this time.</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Verification Actions -->
+    <div class="col-lg-4 mb-4">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Verification Actions</h6>
+            </div>
+            <div class="card-body">
+                <div class="d-grid gap-2">
+                    <a href="#" class="btn btn-outline-primary">
+                        <i class="fas fa-search"></i> Search Documents
+                    </a>
+                    <a href="#" class="btn btn-outline-success">
+                        <i class="fas fa-check-double"></i> Bulk Approve
+                    </a>
+                    <a href="#" class="btn btn-outline-info">
+                        <i class="fas fa-download"></i> Download Reports
+                    </a>
+                    <a href="#" class="btn btn-outline-warning">
+                        <i class="fas fa-history"></i> Verification History
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Verification History -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Recent Verifications</h6>
+            </div>
+            <div class="card-body">
+                {% if recent_verifications %}
+                    {% for verification in recent_verifications %}
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <strong>{{ verification.user.username }}</strong>
+                                <br>
+                                <small class="text-muted">{{ verification.updated_at|date:"M d, Y H:i" }}</small>
+                            </div>
+                            <span class="badge bg-{% if verification.verification_status == 'approved' %}success{% else %}danger{% endif %}">
+                                {{ verification.get_verification_status_display }}
+                            </span>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <p class="text-center text-muted">No recent verifications.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Verification Statistics -->
+<div class="row">
+    <div class="col-lg-12 mb-4">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Verification Statistics</h6>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="text-center">
+                            <div class="h3 text-warning">{{ pending_verifications|default:0 }}</div>
+                            <div class="text-muted">Pending Reviews</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="text-center">
+                            <div class="h3 text-success">{{ approved_verifications|default:0 }}</div>
+                            <div class="text-muted">Approved</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="text-center">
+                            <div class="h3 text-danger">{{ rejected_verifications|default:0 }}</div>
+                            <div class="text-muted">Rejected</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function approveUser(userId) {
+    if (confirm('Are you sure you want to approve this user?')) {
+        // TODO: Implement approval logic
+        alert('User approved successfully!');
+        location.reload();
+    }
+}
+
+function rejectUser(userId) {
+    const reason = prompt('Please provide a reason for rejection:');
+    if (reason) {
+        // TODO: Implement rejection logic
+        alert('User rejected successfully!');
+        location.reload();
+    }
+}
+</script>
+{% endblock %}
+
+

@@ -1,0 +1,70 @@
+<nav class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+    <div class="position-sticky pt-3">
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link {% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}" href="{% url 'core:dashboard' %}">
+                    <i class="fas fa-tachometer-alt"></i> Dashboard
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="#assetsSubmenu" data-bs-toggle="collapse" role="button">
+                    <i class="fas fa-box"></i> Assets <i class="fas fa-chevron-down float-end"></i>
+                </a>
+                <ul class="collapse list-unstyled {% if 'assets' in request.resolver_match.app_name %}show{% endif %}" id="assetsSubmenu">
+                    <li><a class="nav-link" href="{% url 'assets:bank_account_list' %}">Bank Accounts</a></li>
+                    <li><a class="nav-link" href="{% url 'assets:insurance_list' %}">Insurance</a></li>
+                    <li><a class="nav-link" href="{% url 'assets:motor_vehicle_list' %}">Vehicles</a></li>
+                    <li><a class="nav-link" href="{% url 'assets:house_land_list' %}">Property</a></li>
+                    <li><a class="nav-link" href="{% url 'assets:project_list' %}">Projects</a></li>
+                </ul>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link {% if request.resolver_match.app_name == 'liabilities' %}active{% endif %}" href="{% url 'liabilities:liability_list' %}">
+                    <i class="fas fa-credit-card"></i> Liabilities
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link {% if request.resolver_match.app_name == 'businesses' %}active{% endif %}" href="{% url 'businesses:business_list' %}">
+                    <i class="fas fa-building"></i> Businesses
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link {% if request.resolver_match.app_name == 'professionals' %}active{% endif %}" href="{% url 'professionals:professional_list' %}">
+                    <i class="fas fa-users"></i> Professionals
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link {% if request.resolver_match.app_name == 'beneficiaries' %}active{% endif %}" href="{% url 'beneficiaries:beneficiary_list' %}">
+                    <i class="fas fa-heart"></i> Beneficiaries
+                </a>
+            </li>
+
+            {% if user.userprofile.role == 'verifier' or user.userprofile.role == 'admin' %}
+            <li class="nav-item">
+                <a class="nav-link {% if request.resolver_match.app_name == 'verification' %}active{% endif %}" href="{% url 'verification:verification_dashboard' %}">
+                    <i class="fas fa-check-circle"></i> Verification
+                </a>
+            </li>
+            {% endif %}
+
+            {% if user.userprofile.role == 'admin' %}
+            <li class="nav-item">
+                <a class="nav-link {% if request.resolver_match.app_name == 'billing' %}active{% endif %}" href="{% url 'billing:billing_dashboard' %}">
+                    <i class="fas fa-dollar-sign"></i> Billing
+                </a>
+            </li>
+            {% endif %}
+
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'documents:document_list' %}">
+                    <i class="fas fa-file-alt"></i> Documents
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>

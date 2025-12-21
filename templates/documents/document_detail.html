@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Document - BeneSafe{% endblock %}
+{% block page_title %}Document Details{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">{{ document.title|default:document.file.name }}</h5>
+                <div class="btn-group">
+                    <a href="{% url 'documents:document_download' document.pk %}" class="btn btn-outline-success">
+                        <i class="fas fa-download"></i> Download
+                    </a>
+                    <a href="{% url 'documents:document_delete' document.pk %}" class="btn btn-outline-danger" onclick="return confirm('Delete this document?')">
+                        <i class="fas fa-trash"></i> Delete
+                    </a>
+                </div>
+            </div>
+            <div class="card-body">
+                <table class="table table-borderless">
+                    <tr>
+                        <td class="fw-bold">File name:</td>
+                        <td>{{ document.file.name }}</td>
+                    </tr>
+                    <tr>
+                        <td class="fw-bold">Type:</td>
+                        <td>{{ document.file_type|upper|default:"-" }}</td>
+                    </tr>
+                    <tr>
+                        <td class="fw-bold">Uploaded:</td>
+                        <td>{{ document.created_at|date:"F d, Y" }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h6 class="mb-0">Quick Actions</h6>
+            </div>
+            <div class="card-body">
+                <div class="d-grid gap-2">
+                    <a href="{% url 'documents:document_list' %}" class="btn btn-outline-secondary">
+                        <i class="fas fa-list"></i> Back to List
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+
+
+

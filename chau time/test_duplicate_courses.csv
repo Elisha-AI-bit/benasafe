@@ -1,0 +1,4 @@
+code,name,programme_code,year_of_study,semester,credits,lecturer_initials,preferred_room_type,requires_lab,requires_computers,hours_per_week,description
+AG101,Introduction to Agriculture,BSC-AGRIC,1,1,3,JD,LECTURE,FALSE,FALSE,3,Basic agricultural concepts
+DUPLICATE101,Another Course,BSC-AGRIC,1,1,3,JD,LECTURE,FALSE,FALSE,3,This is a duplicate test
+AG101,Duplicate Course Code,BSC-AGRIC,1,2,3,SM,LAB,FALSE,FALSE,3,This should fail due to duplicate code
