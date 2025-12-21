@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-%ik=@@yv9*w_-g_#2+=va88kw@!r-u35&4_+(8ze4w-44b&=%_
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.localhost', '.ngrok.io']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.localhost', '.ngrok.io','benasafe-production.up.railway.app']
 
 
 # Application definition
