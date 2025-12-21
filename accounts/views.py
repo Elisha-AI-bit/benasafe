@@ -14,7 +14,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.core.paginator import Paginator
 from django.db.models import Q
 from .models import UserProfile, UserRole, Bouquet
-from .forms import RegistrationForm, ProfileForm, AdminUserForm
+from .forms import RegistrationForm, ProfileForm, AdminUserForm, LoginForm
 from .permissions import require_permission, require_role
 
 def custom_login(request):
@@ -23,7 +23,7 @@ def custom_login(request):
         return redirect('core:dashboard')
 
     if request.method == 'POST':
-        form = AuthenticationForm(request, data=request.POST)
+        form = LoginForm(request.POST)
         if form.is_valid():
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
@@ -43,7 +43,7 @@ def custom_login(request):
         else:
             messages.error(request, 'Invalid username or password.')
     else:
-        form = AuthenticationForm()
+        form = LoginForm()
 
     return render(request, 'accounts/login.html', {'form': form})
 

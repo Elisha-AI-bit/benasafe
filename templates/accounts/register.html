@@ -1,19 +1,14 @@
 {% extends 'base.html' %}
-
-{% block title %}Register - BeneSafe{% endblock %}
-
-{% block content %}
-{% extends 'base.html' %}
 {% load static %}
 
 {% block title %}Register - BeneSafe{% endblock %}
 
 {% block content %}
 <div class="min-vh-100 d-flex align-items-center justify-content-center bg-light py-5">
-    <div class="card border-0 shadow-lg w-100 overflow-hidden" style="max-width: 1200px; border-radius: 1rem;">
+    <div class="card border-0 shadow-lg w-100 overflow-hidden" style="max-width: 1000px; border-radius: 1rem;">
         <div class="row g-0">
             <!-- Left Side: Hero Image -->
-            <div class="col-lg-5 d-none d-lg-block position-relative bg-primary">
+            <div class="col-lg-6 d-none d-lg-block position-relative bg-primary">
                 <div class="position-absolute w-100 h-100"
                     style="background-image: url('{% static 'img/auth_bg.png' %}'); background-size: cover; background-position: center; opacity: 0.8;">
                 </div>
@@ -21,34 +16,54 @@
                 <div
                     class="d-flex align-items-center justify-content-center h-100 position-relative z-2 p-5 text-white">
                     <div class="text-center">
-                        <i class="fas fa-shield-alt fa-3x mb-4 text-white"></i>
-                        <h2 class="fw-bold mb-3">Join BeneSafe</h2>
-                        <ul class="list-unstyled text-start w-75 mx-auto mt-4 opacity-75 lead"
-                            style="font-size: 1.1rem;">
-                            <li class="mb-3"><i class="fas fa-check-circle me-2"></i> Track all your assets</li>
-                            <li class="mb-3"><i class="fas fa-check-circle me-2"></i> Secure document storage</li>
-                            <li class="mb-3"><i class="fas fa-check-circle me-2"></i> Assign beneficiaries</li>
-                        </ul>
+                        <i class="fas fa-user-plus fa-3x mb-4 text-white"></i>
+                        <h2 class="fw-bold mb-3">Join BeneSafe Today</h2>
+                        <p class="lead opacity-75">Start protecting your digital assets and securing your legacy in just
+                            a few simple steps.</p>
+                        <div class="mt-4">
+                            <div class="d-flex align-items-center justify-content-center mb-2">
+                                <i class="fas fa-check-circle text-success me-2"></i>
+                                <span class="small">Free to start</span>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-center mb-2">
+                                <i class="fas fa-check-circle text-success me-2"></i>
+                                <span class="small">No credit card required</span>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-center">
+                                <i class="fas fa-check-circle text-success me-2"></i>
+                                <span class="small">Instant access</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- Right Side: Registration Form -->
-            <div class="col-lg-7 bg-white p-5">
+            <div class="col-lg-6 bg-white p-5">
                 <div class="d-flex align-items-center justify-content-between mb-4">
-                    <h3 class="fw-bold text-dark m-0">Create Account</h3>
-                    <a href="{% url 'accounts:login' %}" class="text-primary text-decoration-none fw-bold small">
-                        Already have an account? Login
-                    </a>
+                    <h3 class="fw-bold text-dark m-0">BeneSafe</h3>
+                    <a href="/" class="text-muted text-decoration-none small"><i class="fas fa-arrow-left me-1"></i>
+                        Back to Home</a>
                 </div>
 
-                <form method="post" enctype="multipart/form-data" class="user">
+                <div class="mb-4">
+                    <h2 class="h4 fw-bold text-dark mb-1">Create Your Account</h2>
+                    <p class="text-muted small">Join thousands protecting their legacy</p>
+                </div>
+
+                <form method="post" class="user">
                     {% csrf_token %}
 
                     {% if form.errors %}
                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        <strong>Please correct the following errors:</strong>
+                        <i class="fas fa-exclamation-circle me-2"></i>
+                        <strong>Registration Failed</strong>
                         <ul class="mb-0 mt-1 ps-3 small">
+                            {% for field in form %}
+                            {% for error in field.errors %}
+                            <li>{{ field.label }}: {{ error }}</li>
+                            {% endfor %}
+                            {% endfor %}
                             {% for error in form.non_field_errors %}
                             <li>{{ error }}</li>
                             {% endfor %}
@@ -58,87 +73,121 @@
                     {% endif %}
 
                     <div class="row g-3">
-                        <div class="col-md-6">
-                            <div class="form-floating mb-3">
+                        <!-- Username -->
+                        <div class="col-12">
+                            <div class="form-floating">
                                 {{ form.username }}
-                                <label for="{{ form.username.id_for_label }}">Username</label>
-                                {% if form.username.errors %}<div class="text-danger small ms-1">{{
-                                    form.username.errors.0 }}</div>{% endif %}
+                                <label for="{{ form.username.id_for_label }}">Username <span
+                                        class="text-danger">*</span></label>
                             </div>
+                            {% if form.username.help_text %}
+                            <small class="text-muted">{{ form.username.help_text }}</small>
+                            {% endif %}
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-floating mb-3">
-                                {{ form.email }}
-                                <label for="{{ form.email.id_for_label }}">Email Address</label>
-                                {% if form.email.errors %}<div class="text-danger small ms-1">{{ form.email.errors.0 }}
-                                </div>{% endif %}
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="row g-3">
+                        <!-- Email -->
+                        <div class="col-12">
+                            <div class="form-floating">
+                                {{ form.email }}
+                                <label for="{{ form.email.id_for_label }}">Email Address <span
+                                        class="text-danger">*</span></label>
+                            </div>
+                        </div>
+
+                        <!-- First Name & Last Name -->
                         <div class="col-md-6">
-                            <div class="form-floating mb-3">
+                            <div class="form-floating">
                                 {{ form.first_name }}
                                 <label for="{{ form.first_name.id_for_label }}">First Name</label>
-                                {% if form.first_name.errors %}<div class="text-danger small ms-1">{{
-                                    form.first_name.errors.0 }}</div>{% endif %}
                             </div>
                         </div>
+
                         <div class="col-md-6">
-                            <div class="form-floating mb-3">
+                            <div class="form-floating">
                                 {{ form.last_name }}
                                 <label for="{{ form.last_name.id_for_label }}">Last Name</label>
-                                {% if form.last_name.errors %}<div class="text-danger small ms-1">{{
-                                    form.last_name.errors.0 }}</div>{% endif %}
                             </div>
                         </div>
-                    </div>
 
-                    {% for field in form %}
-                    {% if field.name not in 'username,email,first_name,last_name,password1,password2,bouquet' %}
-                    <div class="mb-3">
-                        <label class="form-label small text-muted fw-bold">{{ field.label }}</label>
-                        {{ field }}
-                        {% if field.errors %}<div class="text-danger small">{{ field.errors.0 }}</div>{% endif %}
-                    </div>
-                    {% endif %}
-                    {% endfor %}
-
-                    <div class="mb-3 p-3 bg-light rounded border border-light">
-                        <label class="form-label small text-uppercase text-muted fw-bold mb-2">Subscription Plan</label>
-                        {{ form.bouquet }}
-                        {% if form.bouquet.errors %}<div class="text-danger small">{{ form.bouquet.errors.0 }}</div>{%
-                        endif %}
-                    </div>
-
-                    <div class="row g-3">
+                        <!-- Phone & NRC -->
                         <div class="col-md-6">
-                            <div class="form-floating mb-3">
+                            <div class="form-floating">
+                                {{ form.phone }}
+                                <label for="{{ form.phone.id_for_label }}">Phone Number</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-floating">
+                                {{ form.nrc }}
+                                <label for="{{ form.nrc.id_for_label }}">NRC Number</label>
+                            </div>
+                        </div>
+
+                        <!-- Date of Birth -->
+                        <div class="col-12">
+                            <div class="form-floating">
+                                {{ form.date_of_birth }}
+                                <label for="{{ form.date_of_birth.id_for_label }}">Date of Birth</label>
+                            </div>
+                        </div>
+
+                        <!-- Address -->
+                        <div class="col-12">
+                            <div class="form-floating">
+                                {{ form.address }}
+                                <label for="{{ form.address.id_for_label }}">Address</label>
+                            </div>
+                        </div>
+
+                        <!-- Bouquet Selection -->
+                        <div class="col-12">
+                            <div class="form-floating">
+                                {{ form.bouquet }}
+                                <label for="{{ form.bouquet.id_for_label }}">Subscription Plan <span
+                                        class="text-danger">*</span></label>
+                            </div>
+                            {% if form.bouquet.help_text %}
+                            <small class="text-muted">{{ form.bouquet.help_text }}</small>
+                            {% endif %}
+                        </div>
+
+                        <!-- Password -->
+                        <div class="col-12">
+                            <div class="form-floating">
                                 {{ form.password1 }}
-                                <label for="{{ form.password1.id_for_label }}">Password</label>
-                                {% if form.password1.errors %}<div class="text-danger small ms-1">{{
-                                    form.password1.errors.0 }}</div>{% endif %}
+                                <label for="{{ form.password1.id_for_label }}">Password <span
+                                        class="text-danger">*</span></label>
                             </div>
+                            {% if form.password1.help_text %}
+                            <small class="text-muted d-block mt-1">{{ form.password1.help_text }}</small>
+                            {% endif %}
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-floating mb-4">
+
+                        <!-- Confirm Password -->
+                        <div class="col-12">
+                            <div class="form-floating">
                                 {{ form.password2 }}
-                                <label for="{{ form.password2.id_for_label }}">Confirm Password</label>
-                                {% if form.password2.errors %}<div class="text-danger small ms-1">{{
-                                    form.password2.errors.0 }}</div>{% endif %}
+                                <label for="{{ form.password2.id_for_label }}">Confirm Password <span
+                                        class="text-danger">*</span></label>
                             </div>
                         </div>
                     </div>
 
-                    <button type="submit" class="btn btn-primary btn-lg w-100 py-3 fw-bold shadow-sm">
+                    <button type="submit" class="btn btn-primary btn-lg w-100 py-3 fw-bold shadow-sm mt-4">
                         Create Account
                     </button>
+
+                    <div class="text-center mt-4">
+                        <span class="small text-muted">Already have an account?</span>
+                        <a class="small text-decoration-none fw-bold ms-1" href="{% url 'accounts:login' %}">
+                            Sign In
+                        </a>
+                    </div>
                 </form>
 
                 <div class="mt-4 text-center text-muted small">
-                    By registering, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy
-                        Policy</a>.
+                    &copy; {% now "Y" %} BeneSafe. All rights reserved.
                 </div>
             </div>
         </div>
@@ -152,25 +201,41 @@
     }
 
     .form-floating>.form-control:focus~label,
-    .form-floating>.form-control:not(:placeholder-shown)~label {
+    .form-floating>.form-control:not(:placeholder-shown)~label,
+    .form-floating>.form-select:focus~label,
+    .form-floating>.form-select:not([value=""])~label {
         color: var(--brand-primary);
     }
 
-    .form-floating>.form-control:focus {
+    .form-floating>.form-control:focus,
+    .form-floating>.form-select:focus {
         border-color: var(--brand-primary);
         box-shadow: 0 0 0 0.25rem rgba(var(--brand-primary-rgb), 0.25);
     }
 
     /* Ensure form controls look good */
     input[type="text"],
+    input[type="email"],
     input[type="password"],
-    input[type="email"] {
+    input[type="date"],
+    select,
+    textarea {
         border-radius: 0.5rem;
     }
 
-    select.form-control {
-        padding: 0.75rem.75rem;
+    .form-control,
+    .form-select {
+        border: 1px solid #dee2e6;
+        padding: 1rem 0.75rem;
+    }
+
+    textarea.form-control {
+        min-height: 100px;
+    }
+
+    /* Make required asterisk more visible */
+    .text-danger {
+        color: #dc3545 !important;
     }
 </style>
-{% endblock %}
 {% endblock %}
