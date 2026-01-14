@@ -71,27 +71,30 @@
 <body>
 
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-landing fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-landing fixed-top" id="mainNav">
         <div class="container">
-            <a class="navbar-brand d-flex align-items-center fw-bold text-dark" href="#">
-                <i class="fas fa-shield-alt text-primary me-2 fs-4"></i>
-                <span style="letter-spacing: -0.5px;">BeneSafe</span>
+            <a class="navbar-brand d-flex align-items-center fw-bold text-dark" href="/">
+                <span class="material-symbols-outlined text-primary me-2 icon-filled"
+                    style="font-size: 32px;">shield_lock</span>
+                <span style="letter-spacing: -1px; font-size: 24px;">BeneSafe</span>
             </a>
             <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
+                <span class="material-symbols-outlined">menu</span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto align-items-center">
-                    <li class="nav-item"><a class="nav-link text-dark fw-medium px-3" href="#features">Features</a></li>
-                    <li class="nav-item"><a class="nav-link text-dark fw-medium px-3" href="#pricing">Pricing</a></li>
-                    <li class="nav-item"><a class="nav-link text-dark fw-medium px-3" href="#contact">Contact</a></li>
-                    <li class="nav-item ms-lg-2">
-                        <a href="{% url 'accounts:login' %}"
-                            class="btn btn-outline-primary px-4 fw-bold rounded-pill">Login</a>
+                    <li class="nav-item"><a class="nav-link text-dark fw-semibold px-3" href="#features">How it
+                            Works</a></li>
+                    <li class="nav-item"><a class="nav-link text-dark fw-semibold px-3" href="#pricing">Pricing</a></li>
+                    <li class="nav-item"><a class="nav-link text-dark fw-semibold px-3" href="#security">Security</a>
                     </li>
-                    <li class="nav-item ms-2">
-                        <a href="{% url 'accounts:register' %}"
-                            class="btn btn-primary px-4 fw-bold rounded-pill shadow-sm">Get Started</a>
+                    <li class="nav-item ms-lg-4">
+                        <a href="{% url 'accounts:login' %}" class="text-dark fw-bold text-decoration-none">Log In</a>
+                    </li>
+                    <li class="nav-item ms-lg-4">
+                        <a href="{% url 'accounts:register' %}" class="btn-premium btn-premium-primary">
+                            Get Started
+                        </a>
                     </li>
                 </ul>
             </div>
@@ -99,197 +102,367 @@
     </nav>
 
     <!-- Hero Section -->
-    <section class="hero-section">
-        <div class="container position-relative z-1">
+    <section class="hero-wrapper">
+        <div class="container">
             <div class="row align-items-center">
-                <div class="col-lg-6 mb-5 mb-lg-0">
-                    <span class="badge bg-warning text-dark fw-bold mb-3 px-3 py-2 rounded-pill">
-                        <i class="fas fa-star me-1"></i> #1 Digital Asset Manager in Zambia
-                    </span>
-                    <h1 class="display-3 fw-bold mb-4" style="line-height: 1.1;">
-                        Protect Your <span class="text-info">Legacy</span>, Secure Your Future.
+                <div class="col-lg-6 mb-5 mb-lg-0 animate-fade-in" style="animation-delay: 0.1s;">
+                    <div class="hero-tag mb-4">
+                        <span class="material-symbols-outlined me-1" style="font-size: 18px;">verified_user</span>
+                        BANK GRADE PROTECTION
+                    </div>
+                    <h1 class="display-3 mb-4" style="line-height: 1.1; letter-spacing: -2px;">
+                        Your Life’s <br>Critical Documents, <br>
+                        <span style="color: var(--brand-accent)">Secured Forever.</span>
                     </h1>
-                    <p class="lead mb-5 opacity-75">
-                        BeneSafe ensures your assets, documents, and final wishes are securely stored and transferred to
-                        your beneficiaries. Simple, secure, and compliant with Zambian laws.
+                    <p class="lead mb-5 text-muted" style="font-size: 1.15rem; max-width: 500px;">
+                        The digital vault that combines bank-grade security with legal integrity.
+                        Ensure your family's future is protected, no matter what happens.
                     </p>
                     <div class="d-flex flex-column flex-sm-row gap-3">
-                        <a href="{% url 'accounts:register' %}"
-                            class="btn btn-light text-primary btn-lg fw-bold px-5 rounded-pill shadow-lg">
-                            Create Free Account
+                        <a href="{% url 'accounts:register' %}" class="btn-premium btn-premium-primary">
+                            Start Your Vault <span class="material-symbols-outlined">arrow_outward</span>
                         </a>
-                        <a href="#how-it-works" class="btn btn-outline-light btn-lg fw-bold px-5 rounded-pill">
-                            How It Works
+                        <a href="#how-it-works" class="btn-premium btn-premium-outline">
+                            <span class="material-symbols-outlined">play_circle</span> Watch Demo
                         </a>
                     </div>
-                    <div class="mt-5 d-flex align-items-center opacity-75 small">
-                        <div class="d-flex me-4">
-                            <i class="fas fa-check-circle text-success me-2 fs-5"></i>
-                            <span>Bank-Grade Security</span>
+
+                    <div class="mt-5 d-flex align-items-center gap-3">
+                        <div class="d-flex" style="margin-left: 5px;">
+                            <img src="https://ui-avatars.com/api/?name=J&background=random"
+                                class="rounded-circle border border-2 border-white"
+                                style="width: 32px; height: 32px; margin-left: -5px;">
+                            <img src="https://ui-avatars.com/api/?name=A&background=random"
+                                class="rounded-circle border border-2 border-white"
+                                style="width: 32px; height: 32px; margin-left: -8px;">
+                            <img src="https://ui-avatars.com/api/?name=B&background=random"
+                                class="rounded-circle border border-2 border-white"
+                                style="width: 32px; height: 32px; margin-left: -8px;">
                         </div>
-                        <div class="d-flex">
-                            <i class="fas fa-check-circle text-success me-2 fs-5"></i>
-                            <span>Legal Compliance</span>
-                        </div>
+                        <span class="text-muted small fw-medium">Trusted by 13,000+ families</span>
                     </div>
                 </div>
-                <div class="col-lg-6">
-                    <img src="{% static 'img/auth_bg.png' %}"
-                        class="img-fluid rounded-4 shadow-lg border border-5 border-white border-opacity-10"
-                        alt="Dashboard Preview">
+                <div class="col-lg-6 animate-fade-in" style="animation-delay: 0.3s;">
+                    <div class="position-relative">
+                        <!-- Mockup Image -->
+                        <img src="{% static 'img/benesafe_hero_mockup.png' %}" alt="Dashboard Mockup" class="img-fluid"
+                            style="filter: drop-shadow(0 30px 60px rgba(0,0,0,0.12));">
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Features Section -->
-    <section id="features" class="py-5 bg-white">
+    <!-- Simple 3-Step Protection -->
+    <section id="features" class="py-5" style="background-color: white;">
         <div class="container py-5">
-            <div class="text-center mb-5 mw-700 mx-auto">
-                <h2 class="fw-bold display-6 mb-3">Why Choose BeneSafe?</h2>
-                <p class="text-muted lead">We provide a comprehensive platform to track everything you own and owe,
-                    ensuring peace of mind for you and your loved ones.</p>
+            <div class="text-center mb-5 mw-700 mx-auto animate-fade-in">
+                <h2 class="display-5 mb-3">Simple 3-Step Protection</h2>
+                <p class="text-muted">We’ve removed the complexity from estate planning and document security. <br>It’s
+                    as easy as organizing a folder.</p>
             </div>
 
-            <div class="row g-4">
-                <div class="col-md-4">
-                    <div class="card h-100 border-0 shadow-sm feature-card p-4 rounded-4 bg-light">
-                        <div class="card-body">
-                            <div class="mb-4 bg-white p-3 rounded-circle d-inline-block shadow-sm text-primary">
-                                <i class="fas fa-university fa-2x"></i>
-                            </div>
-                            <h4 class="fw-bold mb-3">Asset Tracking</h4>
-                            <p class="text-muted">Easily catalogue your bank accounts, properties, insurance policies,
-                                and vehicles in one secure dashboard. Values tracked in ZMW.</p>
+            <div class="row g-4 pt-4">
+                <div class="col-md-4 animate-fade-in" style="animation-delay: 0.1s;">
+                    <div class="glass-card p-5 h-100">
+                        <div class="mb-4 bg-primary bg-opacity-10 p-3 rounded-4 d-inline-block text-primary">
+                            <span class="material-symbols-outlined" style="font-size: 32px;">cloud_upload</span>
                         </div>
+                        <h4 class="mb-3">1. Upload & Organize</h4>
+                        <p class="text-muted">Securely upload your wills, deeds, and financial records into encrypted
+                            folders labeled for clarity.</p>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="card h-100 border-0 shadow-sm feature-card p-4 rounded-4 bg-light">
-                        <div class="card-body">
-                            <div class="mb-4 bg-white p-3 rounded-circle d-inline-block shadow-sm text-success">
-                                <i class="fas fa-file-contract fa-2x"></i>
-                            </div>
-                            <h4 class="fw-bold mb-3">Document Storage</h4>
-                            <p class="text-muted">Upload and organize critical documents like wills, title deeds, and
-                                certificates. Encrypted and accessible only by you.</p>
+                <div class="col-md-4 animate-fade-in" style="animation-delay: 0.2s;">
+                    <div class="glass-card p-5 h-100">
+                        <div class="mb-4 bg-primary bg-opacity-10 p-3 rounded-4 d-inline-block text-primary">
+                            <span class="material-symbols-outlined" style="font-size: 32px;">group</span>
                         </div>
+                        <h4 class="mb-3">2. Designate Beneficiaries</h4>
+                        <h4 class="mb-3" style="display:none">2. Designate Beneficiaries</h4>
+                        <p class="text-muted">Select trusted individuals or legal representatives who can access
+                            specific documents.</p>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="card h-100 border-0 shadow-sm feature-card p-4 rounded-4 bg-light">
-                        <div class="card-body">
-                            <div class="mb-4 bg-white p-3 rounded-circle d-inline-block shadow-sm text-info">
-                                <i class="fas fa-users fa-2x"></i>
-                            </div>
-                            <h4 class="fw-bold mb-3">Beneficiary Management</h4>
-                            <p class="text-muted">Clearly define who inherits what. Ensure your loved ones are taken
-                                care of without legal hassles.</p>
+                <div class="col-md-4 animate-fade-in" style="animation-delay: 0.3s;">
+                    <div class="glass-card p-5 h-100">
+                        <div class="mb-4 bg-primary bg-opacity-10 p-3 rounded-4 d-inline-block text-primary">
+                            <span class="material-symbols-outlined" style="font-size: 32px;">lock_clock</span>
                         </div>
+                        <h4 class="mb-3">3. Automated Release</h4>
+                        <p class="text-muted">Set "life event" triggers. Documents are only released when specific,
+                            verified conditions are met.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- How it works (brief) -->
-    <section id="how-it-works" class="py-5 bg-light">
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-5" style="background-color: #f8fafc;">
+        <div class="container py-5">
+            <div class="text-center mb-5 mw-700 mx-auto animate-fade-in">
+                <h2 class="display-5 mb-3">Choose Your Protection Level</h2>
+                <p class="text-muted">Transparent pricing for every stage of life.</p>
+            </div>
+
+            <div class="row g-4 pt-4">
+                <!-- Blue Plan -->
+                <div class="col-lg-4 animate-fade-in" style="animation-delay: 0.1s;">
+                    <div class="pricing-card bg-white">
+                        <div class="mb-4">
+                            <h5 class="text-uppercase tracking-widest small fw-bold text-primary">BLUE</h5>
+                            <div class="d-flex align-items-baseline">
+                                <h2 class="display-4 fw-bold mb-0">5k</h2>
+                                <span class="ms-2 text-muted">/ year</span>
+                            </div>
+                            <p class="text-muted small mt-2">Essential document storage</p>
+                        </div>
+                        <ul class="list-unstyled mb-5">
+                            <li class="mb-3 d-flex align-items-center gap-2">
+                                <span class="material-symbols-outlined text-primary"
+                                    style="font-size: 20px;">check_circle</span>
+                                10GB Secure Storage
+                            </li>
+                            <li class="mb-3 d-flex align-items-center gap-2">
+                                <span class="material-symbols-outlined text-primary"
+                                    style="font-size: 20px;">check_circle</span>
+                                1 Beneficiary
+                            </li>
+                            <li class="mb-3 d-flex align-items-center gap-2">
+                                <span class="material-symbols-outlined text-primary"
+                                    style="font-size: 20px;">check_circle</span>
+                                Basic Encryption
+                            </li>
+                        </ul>
+                        <a href="{% url 'accounts:register' %}?plan=blue"
+                            class="btn btn-premium btn-premium-outline w-100 justify-content-center">Select Blue</a>
+                    </div>
+                </div>
+
+                <!-- Silver Plan -->
+                <div class="col-lg-4 animate-fade-in" style="animation-delay: 0.2s;">
+                    <div class="pricing-card bg-white">
+                        <div class="mb-4">
+                            <h5 class="text-uppercase tracking-widest small fw-bold text-primary">SILVER</h5>
+                            <div class="d-flex align-items-baseline">
+                                <h2 class="display-4 fw-bold mb-0">12k</h2>
+                                <span class="ms-2 text-muted">/ year</span>
+                            </div>
+                            <p class="text-muted small mt-2">For growing families</p>
+                        </div>
+                        <ul class="list-unstyled mb-5">
+                            <li class="mb-3 d-flex align-items-center gap-2">
+                                <span class="material-symbols-outlined text-primary"
+                                    style="font-size: 20px;">check_circle</span>
+                                50GB Secure Storage
+                            </li>
+                            <li class="mb-3 d-flex align-items-center gap-2">
+                                <span class="material-symbols-outlined text-primary"
+                                    style="font-size: 20px;">check_circle</span>
+                                5 Beneficiaries
+                            </li>
+                            <li class="mb-3 d-flex align-items-center gap-2">
+                                <span class="material-symbols-outlined text-primary"
+                                    style="font-size: 20px;">check_circle</span>
+                                Standard Legal Templates
+                            </li>
+                            <li class="mb-3 d-flex align-items-center gap-2">
+                                <span class="material-symbols-outlined text-primary"
+                                    style="font-size: 20px;">check_circle</span>
+                                Priority Support
+                            </li>
+                        </ul>
+                        <a href="{% url 'accounts:register' %}?plan=silver"
+                            class="btn btn-premium btn-premium-primary w-100 justify-content-center">Select Silver</a>
+                    </div>
+                </div>
+
+                <!-- Red Bouquet Plan -->
+                <div class="col-lg-4 animate-fade-in" style="animation-delay: 0.3s;">
+                    <div class="pricing-card bg-white featured">
+                        <div class="featured-badge">MOST SECURE</div>
+                        <div class="mb-4">
+                            <div class="d-flex align-items-center gap-2 mb-2">
+                                <h5 class="text-uppercase tracking-widest small fw-bold mb-0">RED BOUQUET</h5>
+                                <span class="material-symbols-outlined text-warning"
+                                    style="font-size: 18px;">workspace_premium</span>
+                            </div>
+                            <div class="d-flex align-items-baseline">
+                                <h2 class="display-4 fw-bold mb-0">25k</h2>
+                                <span class="ms-2 text-muted">/ year</span>
+                            </div>
+                            <p class="text-muted small mt-2">Full legacy protection suite</p>
+                        </div>
+                        <ul class="list-unstyled mb-5">
+                            <li class="mb-3 d-flex align-items-center gap-2 fw-bold">
+                                <span class="material-symbols-outlined text-warning"
+                                    style="font-size: 20px;">check_circle</span>
+                                Unlimited Secure Storage
+                            </li>
+                            <li class="mb-3 d-flex align-items-center gap-2 fw-bold">
+                                <span class="material-symbols-outlined text-warning"
+                                    style="font-size: 20px;">check_circle</span>
+                                Unlimited Beneficiaries
+                            </li>
+                            <li class="mb-3 d-flex align-items-center gap-2">
+                                <span class="material-symbols-outlined text-warning"
+                                    style="font-size: 20px;">check_circle</span>
+                                Attorney Review Network
+                            </li>
+                            <li class="mb-3 d-flex align-items-center gap-2">
+                                <span class="material-symbols-outlined text-warning"
+                                    style="font-size: 20px;">check_circle</span>
+                                24/7 Dedicated Concierge
+                            </li>
+                            <li class="mb-3 d-flex align-items-center gap-2">
+                                <span class="material-symbols-outlined text-warning"
+                                    style="font-size: 20px;">check_circle</span>
+                                Video Will Capabilities
+                            </li>
+                        </ul>
+                        <a href="{% url 'accounts:register' %}?plan=red"
+                            class="btn btn-premium w-100 justify-content-center"
+                            style="background: #0f172a; color: white;">Get Red Bouquet</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Security Section -->
+    <section id="security" class="bg-navy py-5 text-white overflow-hidden">
         <div class="container py-5">
             <div class="row align-items-center">
-                <div class="col-lg-5 mb-5 mb-lg-0">
-                    <h2 class="display-6 fw-bold mb-4">Simple, Secure, sorted.</h2>
-                    <div class="d-flex mb-4">
-                        <div class="me-4">
-                            <span class="display-4 fw-bold text-primary opacity-25">01</span>
-                        </div>
-                        <div>
-                            <h4 class="fw-bold">Create Account</h4>
-                            <p class="text-muted">Sign up in seconds. No complex paperwork required to get started.</p>
-                        </div>
-                    </div>
-                    <div class="d-flex mb-4">
-                        <div class="me-4">
-                            <span class="display-4 fw-bold text-primary opacity-25">02</span>
-                        </div>
-                        <div>
-                            <h4 class="fw-bold">Add Assets</h4>
-                            <p class="text-muted">List your assets and liabilities using our intuitive wizards.</p>
-                        </div>
-                    </div>
-                    <div class="d-flex">
-                        <div class="me-4">
-                            <span class="display-4 fw-bold text-primary opacity-25">03</span>
-                        </div>
-                        <div>
-                            <h4 class="fw-bold">Secure Your Legacy</h4>
-                            <p class="text-muted">Assign beneficiaries and rest easy knowing your information is safe.
-                            </p>
-                        </div>
-                    </div>
+                <div class="col-lg-6 mb-5 mb-lg-0 animate-fade-in">
+                    <h2 class="display-5 text-white mb-4">Bank-Grade Security Architecture</h2>
+                    <p class="text-navy-muted lead mb-5">We use the same encryption standards as the world's leading
+                        financial institutions.</p>
+                    <a href="#" class="text-white fw-bold text-decoration-none d-flex align-items-center gap-2">
+                        Read Security Whitepaper <span class="material-symbols-outlined">arrow_forward</span>
+                    </a>
                 </div>
-                <div class="col-lg-6 offset-lg-1">
-                    <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
-                        <!-- Placeholder for screenshot or illustration -->
-                        <img src="{% static 'img/auth_bg.png' %}" class="img-fluid" style="filter: brightness(0.9);"
-                            alt="App Workflow">
+                <div class="col-lg-6">
+                    <div class="row g-4">
+                        <div class="col-6 animate-fade-in" style="animation-delay: 0.1s;">
+                            <div class="p-4 rounded-4"
+                                style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);">
+                                <span class="material-symbols-outlined mb-3 text-warning">lock</span>
+                                <h6 class="fw-bold text-white">AES-256 Encryption</h6>
+                                <p class="small text-navy-muted mb-0">Military-grade security for your documents.</p>
+                            </div>
+                        </div>
+                        <div class="col-6 animate-fade-in" style="animation-delay: 0.2s;">
+                            <div class="p-4 rounded-4"
+                                style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);">
+                                <span class="material-symbols-outlined mb-3 text-warning">vpn_key</span>
+                                <h6 class="fw-bold text-white">Zero-Knowledge</h6>
+                                <p class="small text-navy-muted mb-0">We can't see your files. Only you have the keys.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-6 animate-fade-in" style="animation-delay: 0.3s;">
+                            <div class="p-4 rounded-4"
+                                style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);">
+                                <span class="material-symbols-outlined mb-3 text-warning">fingerprint</span>
+                                <h6 class="fw-bold text-white">Biometric Access</h6>
+                                <p class="small text-navy-muted mb-0">Support for FaceID, TouchID, and Yubikey.</p>
+                            </div>
+                        </div>
+                        <div class="col-6 animate-fade-in" style="animation-delay: 0.4s;">
+                            <div class="p-4 rounded-4"
+                                style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);">
+                                <span class="material-symbols-outlined mb-3 text-warning">gavel</span>
+                                <h6 class="fw-bold text-white">Legally Binding</h6>
+                                <p class="small text-navy-muted mb-0">Audit trails and digital signatures valid in
+                                    court.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- CTA -->
-    <section class="cta-section py-5 text-white">
-        <div class="container py-5 text-center">
-            <h2 class="display-5 fw-bold mb-4">Ready to Secure Your Future?</h2>
-            <p class="lead mb-5 opacity-90 mx-auto" style="max-width: 600px;">Join thousands of prudent Zambians who
-                trust BeneSafe with their most important information.</p>
-            <a href="{% url 'accounts:register' %}"
-                class="btn btn-light text-primary btn-lg fw-bold px-5 py-3 rounded-pill shadow-lg display-6">
-                Get Started for Free <i class="fas fa-arrow-right ms-2"></i>
-            </a>
+    <!-- Final CTA -->
+    <section class="py-5 bg-white text-center">
+        <div class="container py-5 animate-fade-in">
+            <h2 class="display-5 mb-4">Ready to secure your legacy?</h2>
+            <p class="text-muted lead mb-5 mx-auto" style="max-width: 600px;">Join thousands of families who sleep
+                easier knowing their critical documents are safe, organized, and ready for the future.</p>
+            <div class="d-flex justify-content-center gap-3">
+                <a href="{% url 'accounts:register' %}" class="btn-premium btn-premium-primary">Create Free Account</a>
+                <a href="#" class="btn-premium btn-premium-outline">Talk to Sales</a>
+            </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-dark text-white py-5">
+    <footer class="py-5 border-top" style="background: white;">
         <div class="container">
-            <div class="row g-4 mb-5">
+            <div class="row g-5 mb-5">
                 <div class="col-lg-4">
-                    <h4 class="fw-bold mb-3"><i class="fas fa-shield-alt text-primary me-2"></i> BeneSafe</h4>
-                    <p class="text-secondary small">Your trusted partner in digital asset management and legacy
-                        planning. Built for Zambia.</p>
+                    <div class="d-flex align-items-center gap-2 mb-4">
+                        <span class="material-symbols-outlined text-primary icon-filled"
+                            style="font-size: 28px;">shield_lock</span>
+                        <span class="fw-bold h4 mb-0" style="letter-spacing: -1px;">BeneSafe</span>
+                    </div>
+                    <p class="text-muted small pr-lg-5">
+                        The world's most trusted digital vault for personal and family legacy planning. Secure today,
+                        safe forever.
+                    </p>
                 </div>
-                <div class="col-6 col-lg-2 offset-lg-1">
-                    <h6 class="fw-bold text-light mb-3">Platform</h6>
+                <div class="col-6 col-lg-2">
+                    <h6 class="fw-bold text-dark mb-4">Platform</h6>
                     <ul class="list-unstyled small">
-                        <li class="mb-2"><a href="#" class="text-secondary text-decoration-none">Features</a></li>
-                        <li class="mb-2"><a href="#" class="text-secondary text-decoration-none">Pricing</a></li>
-                        <li class="mb-2"><a href="#" class="text-secondary text-decoration-none">Security</a></li>
+                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none">How it Works</a></li>
+                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none">Pricing</a></li>
+                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none">Security</a></li>
+                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none">Enterprise</a></li>
                     </ul>
                 </div>
                 <div class="col-6 col-lg-2">
-                    <h6 class="fw-bold text-light mb-3">Company</h6>
+                    <h6 class="fw-bold text-dark mb-4">Company</h6>
                     <ul class="list-unstyled small">
-                        <li class="mb-2"><a href="#" class="text-secondary text-decoration-none">About Us</a></li>
-                        <li class="mb-2"><a href="#" class="text-secondary text-decoration-none">Contact</a></li>
-                        <li class="mb-2"><a href="#" class="text-secondary text-decoration-none">Privacy Policy</a></li>
+                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none">About Us</a></li>
+                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none">Careers</a></li>
+                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none">Press</a></li>
+                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none">Contact</a></li>
                     </ul>
                 </div>
-                <div class="col-lg-3">
-                    <h6 class="fw-bold text-light mb-3">Contact Us</h6>
-                    <p class="text-secondary small mb-1"><i class="fas fa-envelope me-2"></i> support@benesafe.zm</p>
-                    <p class="text-secondary small"><i class="fas fa-phone me-2"></i> +260 977 000 000</p>
+                <div class="col-lg-4">
+                    <h6 class="fw-bold text-dark mb-4">Legal</h6>
+                    <ul class="list-unstyled small">
+                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none">Privacy Policy</a></li>
+                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none">Terms of Service</a></li>
+                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none">Cookie Policy</a></li>
+                    </ul>
                 </div>
             </div>
-            <div class="border-top border-secondary pt-4 text-center">
-                <p class="small text-secondary mb-0">&copy; {% now "Y" %} BeneSafe. All rights reserved.</p>
+            <div
+                class="pt-5 border-top d-flex flex-column flex-md-row justify-content-between align-items-center gap-4">
+                <p class="small text-muted mb-0">&copy; 2024 BeneSafe Inc. All rights reserved.</p>
+                <div class="d-flex gap-4">
+                    <a href="#" class="text-muted"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-muted"><i class="fab fa-linkedin"></i></a>
+                </div>
             </div>
         </div>
     </footer>
 
-    <!-- Bootstrap Bundle with Popper -->
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', function () {
+            const nav = document.getElementById('mainNav');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+    </script>
 </body>
 
 </html>
