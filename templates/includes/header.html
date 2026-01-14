@@ -1,0 +1,91 @@
+<header
+    class="h-16 bg-white dark:bg-slate-850 border-b border-slate-200 dark:border-slate-700 flex items-center justify-between px-6 lg:px-8 z-10 flex-shrink-0">
+
+    <!-- Mobile Menu Toggle & Logo -->
+    <div class="flex items-center gap-4 lg:hidden">
+        <button class="text-slate-500 hover:text-primary transition-colors"
+            onclick="const s = document.getElementById('sidebarMenu'); const o = document.getElementById('sidebarOverlay'); if(s.classList.contains('-translate-x-full')) { s.classList.remove('-translate-x-full'); o.classList.remove('hidden'); } else { s.classList.add('-translate-x-full'); o.classList.add('hidden'); }">
+            <span class="material-symbols-outlined">menu</span>
+        </button>
+        <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-primary font-bold">shield_lock</span>
+            <span class="text-lg font-bold text-slate-900 dark:text-white">BeneSafe</span>
+        </div>
+    </div>
+
+    <!-- Desktop Breadcrumbs -->
+    <div class="hidden lg:flex items-center text-slate-500 dark:text-slate-400 text-sm font-medium">
+        <span class="text-slate-900 dark:text-white">{% block header_page_title %}Dashboard{% endblock %}</span>
+        <span class="mx-2">/</span>
+        <span>Overview</span>
+    </div>
+
+    <!-- Right Side Actions -->
+    <div class="flex items-center gap-4">
+        <!-- Search Bar -->
+        <div class="relative hidden md:block group">
+            <span
+                class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-primary transition-colors">search</span>
+            <input
+                class="pl-10 pr-4 py-2 bg-slate-100 dark:bg-slate-800 border-none rounded-lg text-sm w-64 focus:ring-2 focus:ring-primary/50 dark:text-white placeholder:text-slate-400 transition-all"
+                placeholder="Search assets, docs..." type="text" />
+        </div>
+
+        <div class="h-6 w-px bg-slate-200 dark:bg-slate-700 mx-1 hidden md:block"></div>
+
+        <!-- Notifications -->
+        <button
+            class="relative p-2 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors">
+            <span class="material-symbols-outlined">notifications</span>
+            <span
+                class="absolute top-2.5 right-2.5 h-2 w-2 rounded-full bg-red-500 border border-white dark:border-slate-850"></span>
+        </button>
+
+        <!-- User Info -->
+        <div class="hidden sm:flex items-center gap-3 ml-2 border-l border-slate-200 dark:border-slate-700 pl-4">
+            <div class="flex flex-col items-end">
+                <!-- Full Name or Username -->
+                <span class="text-sm font-bold text-slate-900 dark:text-white leading-none">
+                    {% if user %}
+                        {% if user.get_full_name %}
+                            {{ user.get_full_name }}
+                        {% else %}
+                            {{ user.username }}
+                        {% endif %}
+                    {% else %}
+                        Guest
+                    {% endif %}
+                </span>
+
+                <!-- Role -->
+                <span class="text-[10px] text-slate-500 dark:text-slate-400 font-medium mt-1">
+                    {% if user and user.userprofile and user.userprofile.role %}
+                        {{ user.userprofile.role.name }}
+                    {% else %}
+                        Member
+                    {% endif %}
+                </span>
+            </div>
+
+            <!-- Profile Picture or Avatar -->
+            {% if user and user.userprofile and user.userprofile.profile_picture %}
+                <img src="{{ user.userprofile.profile_picture.url }}"
+                    class="h-9 w-9 rounded-full bg-cover bg-center border border-slate-200 dark:border-slate-700"
+                    alt="Profile">
+            {% else %}
+                <div
+                    class="h-9 w-9 rounded-full bg-primary/10 text-primary flex items-center justify-center font-bold text-sm border border-primary/20">
+                    {% if user %}
+                        {% if user.first_name %}
+                            {{ user.first_name|first|upper }}
+                        {% else %}
+                            {{ user.username|first|upper }}
+                        {% endif %}
+                    {% else %}
+                        G
+                    {% endif %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</header>

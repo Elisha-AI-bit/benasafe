@@ -5,6 +5,8 @@ from django.contrib import messages
 from django.db.models import Sum, Count, Q
 from django.contrib.auth.models import User
 from assets.models import Asset
+from liabilities.models import Liability
+from documents.models import Document
 from accounts.models import UserProfile, Bouquet, UserRole
 
 def dashboard(request):
@@ -15,67 +17,94 @@ def dashboard(request):
     try:
         profile = request.user.userprofile
     except UserProfile.DoesNotExist:
-        # Create a default profile with standard role for users who don't have one
-        try:
-            standard_role = UserRole.objects.get(role_type='standard', is_active=True)
-            blue_bouquet = Bouquet.objects.get(name='blue', is_active=True)
-            profile = UserProfile.objects.create(
-                user=request.user,
-                role=standard_role,
-                bouquet=blue_bouquet
-            )
-        except (UserRole.DoesNotExist, Bouquet.DoesNotExist):
-            # Fallback: create profile without role/bouquet if defaults don't exist
-            profile = UserProfile.objects.create(user=request.user)
+        # Handle profile creation for users who don't have one
+        if request.user.is_superuser:
+            try:
+                # Assign superadmin role to superusers
+                admin_role = UserRole.objects.get(role_type='admin', sub_role='super_admin', is_active=True)
+                profile = UserProfile.objects.create(user=request.user, role=admin_role)
+            except UserRole.DoesNotExist:
+                profile = UserProfile.objects.create(user=request.user)
+        else:
+            # Create a default profile with standard role for users who don't have one
+            try:
+                # Try to get a basic standard role
+                standard_role = UserRole.objects.filter(role_type='standard', is_active=True).first()
+                blue_bouquet = Bouquet.objects.filter(name='blue', is_active=True).first()
+                profile = UserProfile.objects.create(
+                    user=request.user,
+                    role=standard_role,
+                    bouquet=blue_bouquet
+                )
+            except Exception:
+                # Fallback: create profile without role/bouquet if defaults don't exist
+                profile = UserProfile.objects.create(user=request.user)
 
-    # If user doesn't have a role or bouquet, show a setup page
-    if not profile.role or not profile.bouquet:
-        # For now, show the standard dashboard but with a warning
-        messages.warning(request, 'Your account is not fully configured. Some features may be limited.')
-        return standard_user_dashboard(request)
+    # Ensure superusers have admin role
+    if request.user.is_superuser and not profile.is_admin:
+        try:
+            admin_role = UserRole.objects.get(role_type='admin', sub_role='super_admin', is_active=True)
+            profile.role = admin_role
+            profile.save()
+        except UserRole.DoesNotExist:
+            pass
 
     # Route to appropriate dashboard based on role
     if profile.is_admin:
         return admin_dashboard(request)
     elif profile.is_verifier:
         return verifier_dashboard(request)
-    else:
+    
+    # For standard users, ensure they have a role and bouquet
+    if not profile.role or not profile.bouquet:
+        # For now, show the standard dashboard but with a warning
+        messages.warning(request, 'Your account is not fully configured. Some features may be limited.')
         return standard_user_dashboard(request)
+
+    return standard_user_dashboard(request)
 
 def standard_user_dashboard(request):
     """Standard user dashboard"""
-    # Get dashboard statistics
-    total_assets = Asset.objects.filter(user=request.user, is_active=True).count()
-    total_liabilities = 0  # Will be implemented when liabilities app is ready
-    total_documents = 0  # Will be implemented when documents app is ready
+    user = request.user
 
-    # Calculate net worth (assets - liabilities)
-    asset_value = Asset.objects.filter(user=request.user, is_active=True).aggregate(
-        total=Sum('value')
-    )['total'] or 0
+    # ---- Assets ----
+    assets = Asset.objects.filter(user=user, is_active=True)
+    total_assets = assets.count()
+    total_assets_value = assets.aggregate(total=Sum("value"))["total"] or 0
 
-    net_worth = asset_value - total_liabilities
+    # ---- Liabilities ----
+    liabilities = Liability.objects.filter(user=user, is_active=True)
+    total_liabilities = liabilities.count()
+    total_liabilities_value = liabilities.aggregate(total=Sum("amount"))["total"] or 0
 
-    # Get recent assets
-    recent_assets = Asset.objects.filter(user=request.user, is_active=True)[:5]
+    # ---- Net Worth ----
+    net_worth = total_assets_value - total_liabilities_value
+
+    # ---- Documents ----
+    total_documents = Document.objects.filter(user=user).count()
+
+    # ---- Recent Assets ----
+    recent_assets = assets.order_by("-created_at")[:5]
 
     # Get profile safely
     try:
         profile = request.user.userprofile
-    except:
+    except UserProfile.DoesNotExist:
         profile = None
 
     context = {
-        'total_assets': total_assets,
-        'total_liabilities': total_liabilities,
-        'net_worth': net_worth,
-        'total_documents': total_documents,
-        'recent_assets': recent_assets,
-        'user': request.user,
-        'profile': profile,
-        'dashboard_type': 'standard',
+        "total_assets": total_assets,
+        "total_assets_value": total_assets_value,
+        "total_liabilities": total_liabilities,
+        "total_liabilities_value": total_liabilities_value,
+        "net_worth": net_worth,
+        "total_documents": total_documents,
+        "recent_assets": recent_assets,
+        "user": user,
+        "profile": profile,
+        "dashboard_type": "standard",
     }
-    return render(request, 'core/dashboard.html', context)
+    return render(request, "core/dashboard.html", context)
 
 def admin_dashboard(request):
     """Admin dashboard with system-wide statistics"""

@@ -27,7 +27,7 @@
                 <select name="type" class="form-select bg-light border-0" id="type">
                     <option value="">All Assets</option>
                     {% for type_value, type_name in asset_types %}
-                    <option value="{{ type_value }}" {% if current_type==type_value %}selected{% endif %}>
+                    <option value="{{ type_value }}" {% if current_type == type_value %}selected{% endif %}>
                         {{ type_name }}
                     </option>
                     {% endfor %}
@@ -179,7 +179,7 @@
                 <select name="type" class="form-select" id="type">
                     <option value="">All Types</option>
                     {% for type_value, type_name in asset_types %}
-                    <option value="{{ type_value }}" {% if current_type==type_value %}selected{% endif %}>
+                    <option value="{{ type_value }}" {% if current_type == type_value %}selected{% endif %}>
                         {{ type_name }}
                     </option>
                     {% endfor %}

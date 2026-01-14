@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Mobile Money Payment - BeneSafe{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-lg border-0 rounded-4 overflow-hidden">
+                <div class="card-header bg-primary text-white p-4">
+                    <h3 class="mb-0 fw-bold"><i class="fas fa-mobile-alt me-2"></i>Mobile Money Payment</h3>
+                </div>
+                <div class="card-body p-4">
+                    <div class="text-center mb-4">
+                        <p class="text-muted mb-1">Total Amount Due</p>
+                        <h1 class="display-4 fw-bold text-primary">K{{ bouquet.price }}</h1>
+                        <span class="badge bg-light text-dark border p-2">{{ bouquet.display_name }}</span>
+                    </div>
+
+                    <div class="alert alert-info border-0 shadow-sm mb-4">
+                        <i class="fas fa-info-circle me-2"></i>Enter your mobile number below to receive a payment
+                        prompt.
+                    </div>
+
+                    <form method="post" id="payment-form">
+                        {% csrf_token %}
+                        <div class="mb-4">
+                            <label class="form-label fw-semibold">Select Network</label>
+                            <div class="row g-2">
+                                <div class="col">
+                                    <input type="radio" class="btn-check" name="network" id="airtel" checked>
+                                    <label class="btn btn-outline-danger w-100 py-3" for="airtel">
+                                        <i class="fas fa-money-bill-wave d-block mb-1"></i>Airtel Money
+                                    </label>
+                                </div>
+                                <div class="col">
+                                    <input type="radio" class="btn-check" name="network" id="mtn">
+                                    <label class="btn btn-outline-warning w-100 py-3" for="mtn">
+                                        <i class="fas fa-money-bill-wave d-block mb-1"></i>MTN Money
+                                    </label>
+                                </div>
+                                <div class="col">
+                                    <input type="radio" class="btn-check" name="network" id="zamtel">
+                                    <label class="btn btn-outline-success w-100 py-3" for="zamtel">
+                                        <i class="fas fa-money-bill-wave d-block mb-1"></i>Zamtel
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="phone_number" class="form-label fw-semibold">Phone Number</label>
+                            <div class="input-group">
+                                <span class="input-group-text">+260</span>
+                                <input type="text" class="form-control form-control-lg" id="phone_number"
+                                    placeholder="97XXXXXXX" required>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-lg w-100 py-3 shadow-sm fw-bold">
+                            Pay Now K{{ bouquet.price }}
+                        </button>
+                    </form>
+
+                    <div class="mt-4 text-center">
+                        <p class="text-muted small mb-0">
+                            <i class="fas fa-lock me-1"></i>Secure mobile money transaction
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .btn-check:checked+.btn-outline-danger {
+        background-color: #dc3545;
+        color: white;
+    }
+
+    .btn-check:checked+.btn-outline-warning {
+        background-color: #ffc107;
+        color: black;
+    }
+
+    .btn-check:checked+.btn-outline-success {
+        background-color: #198754;
+        color: white;
+    }
+</style>
+{% endblock %}

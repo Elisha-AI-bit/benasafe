@@ -24,7 +24,7 @@ class Command(BaseCommand):
                 'name': 'blue',
                 'display_name': 'Blue Bouquet',
                 'description': 'Basic subscription plan with limited features',
-                'price': 0.00,
+                'price': 100.00,
                 'max_assets_per_category': 3,
                 'max_dependents': 1,
                 'max_beneficiaries': 3,
@@ -39,7 +39,7 @@ class Command(BaseCommand):
                 'name': 'red',
                 'display_name': 'Red Bouquet',
                 'description': 'Standard subscription plan with extended features',
-                'price': 29.99,
+                'price': 250.00,
                 'max_assets_per_category': 6,
                 'max_dependents': 3,
                 'max_beneficiaries': 5,
@@ -54,7 +54,7 @@ class Command(BaseCommand):
                 'name': 'gold',
                 'display_name': 'Gold Bouquet',
                 'description': 'Premium subscription plan with unlimited features and reward tracker',
-                'price': 59.99,
+                'price': 500.00,
                 'max_assets_per_category': 999,  # Unlimited
                 'max_dependents': 999,  # Unlimited
                 'max_beneficiaries': 999,  # Unlimited

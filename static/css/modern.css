@@ -1,187 +1,122 @@
-/* Modern BeneSafe Design System */
+/* 
+  BeneSafe Modern Design System v2.0
+  A lean, premium CSS layer to complement Tailwind CSS and Material Symbols.
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Outfit:wght@100..900&display=swap');
 
 :root {
-    /* Primary Color Palette (Deep Navy / Professional Blue) */
-    --primary-900: #0f172a;
-    --primary-800: #1e293b;
-    --primary-700: #334155;
-    --primary-600: #475569;
-    --primary-500: #64748b;
-    --primary-400: #94a3b8;
-    
-    /* Brand Colors */
-    --brand-primary: #0f172a; /* Deep Navy */
-    --brand-accent: #0ea5e9;  /* Bright Blue */
-    --brand-success: #10b981; /* Emerald Green */
-    --brand-danger: #ef4444;  /* Red */
-    --brand-warning: #f59e0b; /* Amber */
-    
-    /* Backgrounds */
-    --bg-body: #f1f5f9;
-    --bg-card: #ffffff;
-    --bg-sidebar: #0f172a;
-    
-    /* Text */
-    --text-main: #1e293b;
-    --text-muted: #64748b;
-    --text-light: #f8fafc;
-    
-    /* Spacing & Layout */
+    --brand-primary: #0f172a;
+    --brand-accent: #0ea5e9;
+    --brand-success: #10b981;
+    --brand-danger: #ef4444;
+    --brand-warning: #f59e0b;
     --sidebar-width: 280px;
-    --header-height: 70px;
-    --border-radius: 12px;
-    --card-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
+/* Base resets & typography */
+html {
+    scroll-behavior: smooth;
 }
 
 body {
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
-    background-color: var(--bg-body);
-    color: var(--text-main);
-    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
-/* Sidebar Styling */
-.sidebar {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    width: var(--sidebar-width);
-    background-color: var(--bg-sidebar);
-    color: var(--text-light);
-    padding: 1.5rem 1rem;
-    z-index: 1000;
-    transition: transform 0.3s ease-in-out;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: 'Outfit', sans-serif;
 }
 
-.sidebar-header {
-    display: flex;
-    align-items: center;
-    padding: 0 1rem 2rem 1rem;
-    color: white;
-    font-weight: 700;
-    font-size: 1.5rem;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-    margin-bottom: 1rem;
+/* Material Symbols Configuration */
+.material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    vertical-align: middle;
+    user-select: none;
 }
 
-.sidebar .nav-link {
-    color: rgba(255,255,255,0.7);
-    padding: 0.875rem 1rem;
-    border-radius: 8px;
-    margin-bottom: 0.25rem;
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    transition: all 0.2s;
-    font-weight: 500;
+.material-symbols-outlined.icon-filled {
+    font-variation-settings: 'FILL' 1;
 }
 
-.sidebar .nav-link:hover, .sidebar .nav-link.active {
-    background: rgba(255,255,255,0.1);
-    color: white;
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
 }
 
-.sidebar .nav-link i {
-    width: 20px;
-    text-align: center;
-}
-
-/* Main Content */
-.main-content {
-    margin-left: var(--sidebar-width);
-    padding: 2rem;
-    min-height: 100vh;
-}
-
-@media (max-width: 991.98px) {
-    .sidebar {
-        transform: translateX(-100%);
-    }
-    .main-content {
-        margin-left: 0;
-    }
-    .sidebar.show {
-        transform: translateX(0);
-    }
-}
-
-/* Card Styling */
-.card {
-    background: var(--bg-card);
-    border: none;
-    border-radius: var(--border-radius);
-    box-shadow: var(--card-shadow);
-    margin-bottom: 1.5rem;
-    overflow: hidden;
-}
-
-.card-header {
+::-webkit-scrollbar-track {
     background: transparent;
-    border-bottom: 1px solid #e2e8f0;
-    padding: 1.25rem 1.5rem;
-    font-weight: 600;
-    color: var(--text-main);
 }
 
-.card-body {
-    padding: 1.5rem;
+::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 10px;
 }
 
-/* Dashboard Stats Cards */
-.stat-card {
-    display: flex;
-    flex-direction: column;
-    padding: 1.5rem;
-    height: 100%;
+.dark ::webkit-scrollbar-thumb {
+    background: #334155;
 }
 
-.stat-label {
-    color: var(--text-muted);
-    font-size: 0.875rem;
-    font-weight: 500;
-    margin-bottom: 0.5rem;
+::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
 }
 
-.stat-value {
-    color: var(--text-main);
-    font-size: 1.75rem;
-    font-weight: 700;
-    letter-spacing: -0.025em;
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-/* Buttons */
-.btn {
-    padding: 0.625rem 1.25rem;
-    border-radius: 8px;
-    font-weight: 500;
-    transition: all 0.2s;
-}
-
-.btn-primary {
-    background-color: var(--brand-accent);
-    border-color: var(--brand-accent);
-}
-
-.btn-primary:hover {
-    background-color: #0284c7;
-    border-color: #0284c7;
-}
-
-/* Forms */
-.form-control {
-    padding: 0.75rem 1rem;
-    border-radius: 8px;
-    border: 1px solid #e2e8f0;
-}
-
-.form-control:focus {
-    border-color: var(--brand-accent);
-    box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
+.animate-fade-in {
+    animation: fadeIn 0.4s ease-out forwards;
 }
 
 /* Utilities */
 .text-kwacha::before {
     content: "K";
     margin-right: 2px;
+}
+
+/* Premium Card Effects */
+.hover-scale {
+    transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.hover-scale:hover {
+    transform: scale(1.02);
+}
+
+/* Glassmorphism Classes (Optional) */
+.glass {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.dark .glass {
+    background: rgba(15, 23, 42, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Sidebar & Mobile Resets */
+@media (max-width: 1024px) {
+    .sidebar-overlay {
+        background-color: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(4px);
+    }
 }

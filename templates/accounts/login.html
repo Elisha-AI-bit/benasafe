@@ -1,50 +1,66 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Login - BeneSafe{% endblock %}
+{% block title %}Secure Sign In - BeneSafe{% endblock %}
 
 {% block content %}
-<div class="min-vh-100 d-flex align-items-center justify-content-center bg-light py-5">
-    <div class="card border-0 shadow-lg w-100 overflow-hidden" style="max-width: 1000px; border-radius: 1rem;">
-        <div class="row g-0">
-            <!-- Left Side: Hero Image -->
-            <div class="col-lg-6 d-none d-lg-block position-relative bg-primary">
-                <div class="position-absolute w-100 h-100"
-                    style="background-image: url('{% static 'img/auth_bg.png' %}'); background-size: cover; background-position: center; opacity: 0.8;">
-                </div>
-                <div class="position-absolute w-100 h-100 bg-gradient-primary-to-secondary" style="opacity: 0.7;"></div>
-                <div
-                    class="d-flex align-items-center justify-content-center h-100 position-relative z-2 p-5 text-white">
-                    <div class="text-center">
-                        <i class="fas fa-shield-alt fa-3x mb-4 text-white"></i>
-                        <h2 class="fw-bold mb-3">Secure Your Legacy</h2>
-                        <p class="lead opacity-75">BeneSafe helps you manage and protect your digital assets for
-                            generations to come.</p>
-                    </div>
+<main class="flex-grow flex items-center justify-center p-4 sm:p-6 lg:p-8">
+    <div
+        class="w-full max-w-[1000px] bg-surface-light dark:bg-surface-dark rounded-2xl border border-slate-200 dark:border-slate-700 shadow-2xl shadow-slate-200/50 dark:shadow-none overflow-hidden flex flex-col md:flex-row min-h-[600px]">
+
+        <!-- Left Side: Branding / Info -->
+        <div class="md:w-1/2 bg-primary p-8 lg:p-12 flex flex-col justify-between relative overflow-hidden">
+            <!-- Background Accent -->
+            <div class="absolute inset-0 opacity-10 pointer-events-none">
+                <div class="absolute -top-24 -left-24 w-64 h-64 rounded-full bg-white blur-3xl"></div>
+                <div class="absolute -bottom-32 -right-32 w-80 h-80 rounded-full bg-blue-400 blur-3xl"></div>
+            </div>
+
+            <div class="relative z-10">
+                <a href="/" class="flex items-center gap-3 text-white mb-12">
+                    <span class="material-symbols-outlined !text-[32px] icon-filled">shield_lock</span>
+                    <span class="text-2xl font-bold tracking-tight">BeneSafe</span>
+                </a>
+
+                <div class="space-y-6">
+                    <h2 class="text-3xl lg:text-4xl font-black text-white leading-tight">
+                        Protect what matters most.
+                    </h2>
+                    <p class="text-blue-100/80 text-lg leading-relaxed max-w-md">
+                        Your digital legacy is safe with us. Access your secure vault and manage your assets with
+                        bank-grade protection.
+                    </p>
                 </div>
             </div>
 
-            <!-- Right Side: Login Form -->
-            <div class="col-lg-6 bg-white p-5">
-                <div class="d-flex align-items-center justify-content-between mb-5">
-                    <h3 class="fw-bold text-dark m-0">BeneSafe</h3>
-                    <a href="/" class="text-muted text-decoration-none small"><i class="fas fa-arrow-left me-1"></i>
-                        Back to Home</a>
+            <div class="relative z-10 space-y-4">
+                <div class="flex items-center gap-3 text-blue-100/90 text-sm font-medium">
+                    <span class="material-symbols-outlined text-blue-200 text-[20px]">verified_user</span>
+                    <span>Multi-factor authentication ready</span>
+                </div>
+                <div class="flex items-center gap-3 text-blue-100/90 text-sm font-medium">
+                    <span class="material-symbols-outlined text-blue-200 text-[20px]">lock</span>
+                    <span>End-to-end encrypted storage</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Side: Form -->
+        <div class="md:w-1/2 p-8 lg:p-12 flex flex-col justify-center bg-surface-light dark:bg-surface-dark">
+            <div class="max-w-[360px] mx-auto w-full">
+                <div class="mb-8">
+                    <h1 class="text-2xl font-black text-slate-900 dark:text-white mb-2 tracking-tight">Welcome Back</h1>
+                    <p class="text-slate-500 dark:text-slate-400 text-sm font-medium">Please enter your credentials to
+                        access your vault.</p>
                 </div>
 
-                <div class="mb-5">
-                    <h2 class="h4 fw-bold text-dark mb-1">Welcome Back!</h2>
-                    <p class="text-muted">Please sign in to continue.</p>
-                </div>
-
-                <form method="post" class="user">
+                <form method="post" class="space-y-6">
                     {% csrf_token %}
 
                     {% if form.errors %}
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        <i class="fas fa-exclamation-circle me-2"></i>
-                        <strong>Login Failed</strong>
-                        <ul class="mb-0 mt-1 ps-3 small">
+                    <div
+                        class="p-4 bg-red-50 border border-red-200 rounded-lg text-red-800 dark:bg-red-900/20 dark:border-red-900/50 dark:text-red-400 mb-6">
+                        <ul class="list-disc ps-5 space-y-1 text-sm font-medium">
                             {% for error in form.non_field_errors %}
                             {% if "verified" not in error %}
                             <li>{{ error }}</li>
@@ -52,66 +68,85 @@
                             {% endfor %}
                             {% for field in form %}
                             {% for error in field.errors %}
-                            <li>{{ error }}</li>
+                            <li class="capitalize">{{ field.label|default:field.name }}: {{ error }}</li>
                             {% endfor %}
                             {% endfor %}
                         </ul>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                     {% endif %}
 
-                    <div class="form-floating mb-3">
-                        {{ form.username }}
-                        <label for="{{ form.username.id_for_label }}">Username</label>
+                    <div class="space-y-4">
+                        <label class="block">
+                            <span
+                                class="text-sm font-semibold text-slate-900 dark:text-slate-200 mb-2 block">Username</span>
+                            <div class="relative group">
+                                <span
+                                    class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-primary transition-colors text-[20px]">person</span>
+                                <input type="text" name="username" id="id_username"
+                                    value="{{ form.username.value|default:'' }}"
+                                    class="w-full rounded-xl border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:border-primary focus:ring-primary h-12 pl-12 pr-4 placeholder:text-slate-400 transition-all shadow-sm"
+                                    placeholder="Enter username" required>
+                            </div>
+                        </label>
+
+                        <label class="block">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-sm font-semibold text-slate-900 dark:text-slate-200">Password</span>
+                                <a href="{% url 'accounts:password_reset' %}"
+                                    class="text-xs font-bold text-primary hover:text-primary-hover transition-colors">Forgot?</a>
+                            </div>
+                            <div class="relative group">
+                                <span
+                                    class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-primary transition-colors text-[20px]">lock</span>
+                                <input type="password" name="password" id="id_password"
+                                    class="w-full rounded-xl border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:border-primary focus:ring-primary h-12 pl-12 pr-12 placeholder:text-slate-400 transition-all shadow-sm"
+                                    placeholder="••••••••" required>
+                                <button type="button"
+                                    class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-primary transition-colors"
+                                    onclick="togglePassword('id_password', this)">
+                                    <span class="material-symbols-outlined text-[20px]">visibility</span>
+                                </button>
+                            </div>
+                        </label>
                     </div>
 
-                    <div class="form-floating mb-4">
-                        {{ form.password }}
-                        <label for="{{ form.password.id_for_label }}">Password</label>
+                    <div class="flex items-center gap-2">
+                        <input type="checkbox" id="remember_me"
+                            class="rounded border-slate-300 text-primary focus:ring-primary h-4 w-4">
+                        <label for="remember_me"
+                            class="text-xs font-semibold text-slate-600 dark:text-slate-400 cursor-pointer">Stay logged
+                            in for 30 days</label>
                     </div>
 
-                    <button type="submit" class="btn btn-primary btn-lg w-100 py-3 fw-bold shadow-sm">
-                        Sign In
+                    <button type="submit"
+                        class="w-full bg-primary hover:bg-primary-hover text-white font-bold h-12 rounded-xl shadow-lg shadow-primary/20 transition-all flex items-center justify-center gap-2 group active:scale-[0.98]">
+                        <span>Sign In to Vault</span>
+                        <span
+                            class="material-symbols-outlined group-hover:translate-x-1 transition-transform">login</span>
                     </button>
 
-                    <div class="d-flex justify-content-between align-items-center mt-4">
-                        <a class="small text-decoration-none" href="{% url 'accounts:password_reset' %}">
-                            Forgot Password?
-                        </a>
-                        <a class="small text-decoration-none fw-bold" href="{% url 'accounts:register' %}">
-                            Create Account
-                        </a>
-                    </div>
+                    <p class="text-center text-sm text-slate-500 dark:text-slate-400 mt-8">
+                        Don't have an account yet?
+                        <a href="{% url 'accounts:register' %}"
+                            class="font-bold text-primary hover:text-primary-hover transition-colors">Join BeneSafe</a>
+                    </p>
                 </form>
-
-                <div class="mt-5 text-center text-muted small">
-                    &copy; {% now "Y" %} BeneSafe. All rights reserved.
-                </div>
             </div>
         </div>
     </div>
-</div>
+</main>
 
-<style>
-    /* Custom overrides for authentication pages */
-    .bg-gradient-primary-to-secondary {
-        background: linear-gradient(135deg, var(--primary-900) 0%, var(--brand-accent) 100%);
+<script>
+    function togglePassword(inputId, btn) {
+        const input = document.getElementById(inputId);
+        const icon = btn.querySelector('.material-symbols-outlined');
+        if (input.type === 'password') {
+            input.type = 'text';
+            icon.innerText = 'visibility_off';
+        } else {
+            input.type = 'password';
+            icon.innerText = 'visibility';
+        }
     }
-
-    .form-floating>.form-control:focus~label,
-    .form-floating>.form-control:not(:placeholder-shown)~label {
-        color: var(--brand-primary);
-    }
-
-    .form-floating>.form-control:focus {
-        border-color: var(--brand-primary);
-        box-shadow: 0 0 0 0.25rem rgba(var(--brand-primary-rgb), 0.25);
-    }
-
-    /* Ensure form controls look good */
-    input[type="text"],
-    input[type="password"] {
-        border-radius: 0.5rem;
-    }
-</style>
+</script>
 {% endblock %}

@@ -55,18 +55,16 @@ def register(request):
     if request.method == 'POST':
         form = RegistrationForm(request.POST, request.FILES)
         if form.is_valid():
-            user = form.save(commit=False)
-            user.is_active = True  # Enable account immediately
+            user = form.save()
+            user.is_active = False
             user.save()
-
-            # No email verification required
-            # send_verification_email(request, user)
             
-            # Log the user in directly
-            login(request, user)
-
-            messages.success(request, 'Registration successful! Welcome to BeneSafe.')
-            return redirect('core:dashboard')
+            # Store registration data in session
+            request.session['registration_user_id'] = user.id
+            request.session['selected_bouquet_id'] = form.cleaned_data['bouquet'].id
+            
+            messages.info(request, 'Please complete the payment to activate your account.')
+            return redirect('billing:initiate_payment')
     else:
         form = RegistrationForm()
 

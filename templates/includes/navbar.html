@@ -1,169 +1,45 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="{% url 'core:dashboard' %}">
-            <i class="fas fa-shield-alt"></i> BeneSafe
-        </a>
+<header
+    class="sticky top-0 z-50 w-full bg-surface-light/80 dark:bg-surface-dark/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-700 transition-colors duration-200">
+    <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16">
+            <!-- Logo -->
+            <a href="/" class="flex items-center gap-3 group">
+                <div class="text-primary transition-transform group-hover:scale-110">
+                    <span class="material-symbols-outlined !text-[32px] icon-filled">shield_lock</span>
+                </div>
+                <span class="text-xl font-bold tracking-tight text-slate-900 dark:text-white">BeneSafe</span>
+            </a>
 
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+            <!-- public Nav Links (Desktop) -->
+            <nav class="hidden md:flex items-center gap-8">
+                <a href="/#features"
+                    class="text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary transition-colors">Features</a>
+                <a href="/#pricing"
+                    class="text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary transition-colors">Pricing</a>
+                <a href="/#contact"
+                    class="text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary transition-colors">Contact</a>
+            </nav>
 
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav me-auto">
-                {% if user.is_authenticated %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'core:dashboard' %}">
-                            <i class="fas fa-tachometer-alt"></i> Dashboard
-                        </a>
-                    </li>
-                    
-                    <!-- Admin Menu Items -->
-                    {% if user_profile.is_admin %}
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                                <i class="fas fa-users-cog"></i> User Management
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="/admin/">
-                                    <i class="fas fa-cog"></i> Django Admin
-                                </a></li>
-                                <li><a class="dropdown-item" href="{% url 'accounts:admin_user_list' %}">
-                                    <i class="fas fa-users"></i> Manage Users
-                                </a></li>
-                                <li><a class="dropdown-item" href="{% url 'accounts:admin_bouquet_management' %}">
-                                    <i class="fas fa-crown"></i> Assign Bouquets
-                                </a></li>
-                                <li><a class="dropdown-item" href="{% url 'accounts:admin_verification_queue' %}">
-                                    <i class="fas fa-user-check"></i> Verification Queue
-                                </a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                                <i class="fas fa-chart-bar"></i> Reports
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">
-                                    <i class="fas fa-download"></i> Export Data
-                                </a></li>
-                                <li><a class="dropdown-item" href="#">
-                                    <i class="fas fa-chart-line"></i> Analytics
-                                </a></li>
-                            </ul>
-                        </li>
-                    {% endif %}
-                    
-                    <!-- Verifier Menu Items -->
-                    {% if user_profile.is_verifier %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <i class="fas fa-user-check"></i> Verification Queue
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <i class="fas fa-history"></i> Verification History
-                            </a>
-                        </li>
-                    {% endif %}
-                    
-                    <!-- Standard User Menu Items -->
-                    {% if user_profile.is_standard_user %}
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                                <i class="fas fa-box"></i> Assets
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="{% url 'assets:bank_account_list' %}">Bank Accounts</a></li>
-                                <li><a class="dropdown-item" href="{% url 'assets:insurance_list' %}">Insurance</a></li>
-                                <li><a class="dropdown-item" href="{% url 'assets:motor_vehicle_list' %}">Vehicles</a></li>
-                                <li><a class="dropdown-item" href="{% url 'assets:house_land_list' %}">Property</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'liabilities:liability_list' %}">
-                                <i class="fas fa-credit-card"></i> Liabilities
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'businesses:business_list' %}">
-                                <i class="fas fa-building"></i> Businesses
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'beneficiaries:beneficiary_list' %}">
-                                <i class="fas fa-heart"></i> Beneficiaries
-                            </a>
-                        </li>
-                        {% if user_profile.bouquet.has_reward_tracker %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <i class="fas fa-gift"></i> Reward Tracker
-                            </a>
-                        </li>
-                        {% endif %}
-                    {% endif %}
-                {% endif %}
-            </ul>
-
-            <ul class="navbar-nav">
-                {% if user.is_authenticated %}
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                            <i class="fas fa-user"></i> {{ user.get_full_name|default:user.username }}
-                            {% if user_profile.role %}
-                                <span class="badge bg-secondary ms-1">{{ user_profile.role.name }}</span>
-                            {% endif %}
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li class="dropdown-header">
-                                <small class="text-muted">
-                                    {% if user_profile.bouquet %}
-                                        {{ user_profile.bouquet.display_name }} Plan
-                                    {% endif %}
-                                </small>
-                            </li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="{% url 'accounts:profile' %}">
-                                <i class="fas fa-user-edit"></i> Profile
-                            </a></li>
-                            <li><a class="dropdown-item" href="{% url 'accounts:password_change' %}">
-                                <i class="fas fa-key"></i> Change Password
-                            </a></li>
-                            
-                            {% if user_profile.is_admin %}
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="/admin/">
-                                    <i class="fas fa-cog"></i> Admin Panel
-                                </a></li>
-                            {% endif %}
-                            
-                            {% if user_profile.is_verifier %}
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="#">
-                                    <i class="fas fa-user-check"></i> Verification Tasks
-                                </a></li>
-                            {% endif %}
-                            
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="{% url 'accounts:logout' %}">
-                                <i class="fas fa-sign-out-alt"></i> Logout
-                            </a></li>
-                        </ul>
-                    </li>
+            <!-- Auth Actions -->
+            <div class="flex items-center gap-4">
+                {% if not user.is_authenticated %}
+                <span class="hidden lg:inline-block text-sm text-slate-500 dark:text-slate-400 font-medium">Already have
+                    an account?</span>
+                <a href="{% url 'accounts:login' %}"
+                    class="flex items-center justify-center rounded-lg h-10 px-6 bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-900 dark:text-white text-sm font-bold transition-all active:scale-95">
+                    Log In
+                </a>
+                <a href="{% url 'accounts:register' %}"
+                    class="hidden sm:flex items-center justify-center rounded-lg h-10 px-6 bg-primary hover:bg-primary-hover text-white text-sm font-bold shadow-lg shadow-primary/20 transition-all active:scale-95">
+                    Get Started
+                </a>
                 {% else %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'accounts:login' %}">
-                            <i class="fas fa-sign-in-alt"></i> Login
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'accounts:register' %}">
-                            <i class="fas fa-user-plus"></i> Register
-                        </a>
-                    </li>
+                <a href="{% url 'core:dashboard' %}"
+                    class="flex items-center justify-center rounded-lg h-10 px-6 bg-primary hover:bg-primary-hover text-white text-sm font-bold shadow-lg shadow-primary/20 transition-all active:scale-95">
+                    Go to Dashboard
+                </a>
                 {% endif %}
-            </ul>
+            </div>
         </div>
     </div>
-</nav>
+</header>

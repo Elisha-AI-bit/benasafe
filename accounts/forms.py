@@ -159,6 +159,18 @@ class ProfileForm(forms.ModelForm):
         
         # Limit bouquet choices to active bouquets
         self.fields['bouquet'].queryset = Bouquet.objects.filter(is_active=True)
+        
+        # Add Bootstrap classes to all fields
+        self.fields['first_name'].widget.attrs.update({'class': 'form-control', 'placeholder': 'First Name'})
+        self.fields['last_name'].widget.attrs.update({'class': 'form-control', 'placeholder': 'Last Name'})
+        self.fields['email'].widget.attrs.update({'class': 'form-control', 'placeholder': 'Email Address'})
+        self.fields['phone'].widget.attrs.update({'class': 'form-control', 'placeholder': 'Phone Number'})
+        self.fields['nrc'].widget.attrs.update({'class': 'form-control', 'placeholder': 'NRC Number'})
+        self.fields['date_of_birth'].widget.attrs.update({'class': 'form-control'})
+        self.fields['address'].widget.attrs.update({'class': 'form-control', 'placeholder': 'Address'})
+        self.fields['bouquet'].widget.attrs.update({'class': 'form-select'})
+        self.fields['profile_picture'].widget.attrs.update({'class': 'form-control'})
+
 
     def save(self, commit=True):
         profile = super().save(commit=False)

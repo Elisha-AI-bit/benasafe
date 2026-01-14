@@ -32,7 +32,7 @@ class Bouquet(models.Model):
         ordering = ['price']
 
     def __str__(self):
-        return f"{self.display_name} - ${self.price}"
+        return f"{self.display_name} - K{self.price}"
 
 class UserRole(models.Model):
     """User roles with specific permissions and access levels"""

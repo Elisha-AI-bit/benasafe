@@ -1,87 +1,127 @@
-<nav class="sidebar collapse d-lg-block" id="sidebarMenu">
-    <div class="sidebar-header">
-        <i class="fas fa-shield-alt me-2 text-primary"></i> BeneSafe
+<aside id="sidebarMenu"
+    class="fixed inset-y-0 left-0 z-50 w-64 bg-white dark:bg-slate-850 border-r border-slate-200 dark:border-slate-700 flex flex-col transition-transform duration-300 transform -translate-x-full lg:relative lg:translate-x-0">
+    <!-- Sidebar Header -->
+    <div class="h-16 flex items-center px-6 border-b border-slate-200 dark:border-slate-700">
+        <div class="flex items-center gap-3">
+            <div class="bg-primary/10 text-primary rounded-lg p-1.5 flex items-center justify-center">
+                <span class="material-symbols-outlined icon-filled" style="font-size: 24px;">shield_lock</span>
+            </div>
+            <div class="flex flex-col">
+                <h1 class="text-slate-900 dark:text-white text-base font-bold leading-none tracking-tight">BeneSafe</h1>
+                <p class="text-slate-500 dark:text-slate-400 text-[10px] font-semibold uppercase tracking-wider mt-1">
+                    Secure Vault</p>
+            </div>
+        </div>
     </div>
 
-    <div class="position-sticky">
-        <ul class="nav flex-column">
-            <li class="nav-item">
-                <a class="nav-link {% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}"
-                    href="{% url 'core:dashboard' %}">
-                    <i class="fas fa-tachometer-alt"></i> <span>Dashboard</span>
-                </a>
-            </li>
+    <!-- Navigation Menu -->
+    <div class="flex-1 overflow-y-auto py-4 px-3 flex flex-col gap-1 no-scrollbar">
+        <!-- Main Dashboard -->
+        <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg {% if request.resolver_match.url_name == 'dashboard' %}bg-primary/10 text-primary{% else %}text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700{% endif %} transition-colors group"
+            href="{% url 'core:dashboard' %}">
+            <span
+                class="material-symbols-outlined {% if request.resolver_match.url_name == 'dashboard' %}icon-filled{% endif %}">dashboard</span>
+            <span class="text-sm font-semibold">Dashboard</span>
+        </a>
 
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#assetsSubmenu" data-bs-toggle="collapse" role="button"
-                    aria-expanded="false">
-                    <i class="fas fa-box"></i> <span>Assets</span> <i class="fas fa-chevron-down ms-auto"
-                        style="font-size: 0.8em;"></i>
-                </a>
-                <ul class="collapse list-unstyled ps-4" id="assetsSubmenu">
-                    <li><a class="nav-link py-2" href="{% url 'assets:bank_account_list' %}">Bank Accounts</a></li>
-                    <li><a class="nav-link py-2" href="{% url 'assets:insurance_list' %}">Insurance</a></li>
-                    <li><a class="nav-link py-2" href="{% url 'assets:motor_vehicle_list' %}">Vehicles</a></li>
-                    <li><a class="nav-link py-2" href="{% url 'assets:house_land_list' %}">Property</a></li>
-                    <li><a class="nav-link py-2" href="{% url 'assets:project_list' %}">Projects</a></li>
-                </ul>
-            </li>
+        {% if user.userprofile.is_standard_user or user.userprofile.is_admin %}
+        <div class="mt-4 mb-1 px-3">
+            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">My Assets</p>
+        </div>
 
-            <li class="nav-item">
-                <a class="nav-link {% if request.resolver_match.app_name == 'liabilities' %}active{% endif %}"
-                    href="{% url 'liabilities:liability_list' %}">
-                    <i class="fas fa-credit-card"></i> <span>Liabilities</span>
-                </a>
-            </li>
+        <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg {% if 'bank_account' in request.path %}bg-primary/10 text-primary{% else %}text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700{% endif %} transition-colors group"
+            href="{% url 'assets:bank_account_list' %}">
+            <span
+                class="material-symbols-outlined {% if 'bank_account' in request.path %}icon-filled{% endif %}">account_balance</span>
+            <span class="text-sm font-medium">Bank Accounts</span>
+        </a>
 
-            <li class="nav-item">
-                <a class="nav-link {% if request.resolver_match.app_name == 'businesses' %}active{% endif %}"
-                    href="{% url 'businesses:business_list' %}">
-                    <i class="fas fa-building"></i> <span>Businesses</span>
-                </a>
-            </li>
+        <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg {% if 'insurance' in request.path %}bg-primary/10 text-primary{% else %}text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700{% endif %} transition-colors group"
+            href="{% url 'assets:insurance_list' %}">
+            <span
+                class="material-symbols-outlined {% if 'insurance' in request.path %}icon-filled{% endif %}">health_and_safety</span>
+            <span class="text-sm font-medium">Insurance</span>
+        </a>
 
-            <li class="nav-item">
-                <a class="nav-link {% if request.resolver_match.app_name == 'professionals' %}active{% endif %}"
-                    href="{% url 'professionals:professional_list' %}">
-                    <i class="fas fa-users"></i> <span>Professionals</span>
-                </a>
-            </li>
+        <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg {% if 'liabilities' in request.path %}bg-primary/10 text-primary{% else %}text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700{% endif %} transition-colors group"
+            href="{% url 'liabilities:liability_list' %}">
+            <span
+                class="material-symbols-outlined {% if 'liabilities' in request.path %}icon-filled{% endif %}">credit_card</span>
+            <span class="text-sm font-medium">Liabilities</span>
+        </a>
 
-            <li class="nav-item">
-                <a class="nav-link {% if request.resolver_match.app_name == 'beneficiaries' %}active{% endif %}"
-                    href="{% url 'beneficiaries:beneficiary_list' %}">
-                    <i class="fas fa-heart"></i> <span>Beneficiaries</span>
-                </a>
-            </li>
+        <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg {% if 'beneficiaries' in request.path %}bg-primary/10 text-primary{% else %}text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700{% endif %} transition-colors group"
+            href="{% url 'beneficiaries:beneficiary_list' %}">
+            <span
+                class="material-symbols-outlined {% if 'beneficiaries' in request.path %}icon-filled{% endif %}">favorite</span>
+            <span class="text-sm font-medium">Beneficiaries</span>
+        </a>
+        {% endif %}
 
-            {% if user.userprofile.role == 'verifier' or user.userprofile.role == 'admin' %}
-            <li class="nav-item mt-3">
-                <h6
-                    class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted text-uppercase small">
-                    <span>Admin Utils</span>
-                </h6>
-                <a class="nav-link {% if request.resolver_match.app_name == 'verification' %}active{% endif %}"
-                    href="{% url 'verification:verification_dashboard' %}">
-                    <i class="fas fa-check-circle"></i> <span>Verification</span>
-                </a>
-            </li>
-            {% endif %}
+        <div class="mt-4 mb-1 px-3">
+            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Vault</p>
+        </div>
 
-            {% if user.userprofile.role == 'admin' %}
-            <li class="nav-item">
-                <a class="nav-link {% if request.resolver_match.app_name == 'billing' %}active{% endif %}"
-                    href="{% url 'billing:billing_dashboard' %}">
-                    <i class="fas fa-dollar-sign"></i> <span>Billing</span>
-                </a>
-            </li>
-            {% endif %}
+        <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg {% if 'documents' in request.path %}bg-primary/10 text-primary{% else %}text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700{% endif %} transition-colors group"
+            href="{% url 'documents:document_list' %}">
+            <span
+                class="material-symbols-outlined {% if 'documents' in request.path %}icon-filled{% endif %}">description</span>
+            <span class="text-sm font-medium">Documents</span>
+        </a>
 
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'documents:document_list' %}">
-                    <i class="fas fa-file-alt"></i> <span>Documents</span>
-                </a>
-            </li>
-        </ul>
+        {% if user.userprofile.is_verifier or user.userprofile.is_admin %}
+        <div class="mt-4 mb-1 px-3">
+            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">System</p>
+        </div>
+
+        <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg {% if 'verification' in request.path %}bg-primary/10 text-primary{% else %}text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700{% endif %} transition-colors group"
+            href="{% url 'verification:verification_dashboard' %}">
+            <span
+                class="material-symbols-outlined {% if 'verification' in request.path %}icon-filled{% endif %}">verified_user</span>
+            <span class="text-sm font-medium">Verification</span>
+        </a>
+        {% endif %}
+
+        {% if user.userprofile.is_admin %}
+        <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg {% if 'billing' in request.path %}bg-primary/10 text-primary{% else %}text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700{% endif %} transition-colors group"
+            href="{% url 'billing:billing_dashboard' %}">
+            <span
+                class="material-symbols-outlined {% if 'billing' in request.path %}icon-filled{% endif %}">payments</span>
+            <span class="text-sm font-medium">Billing</span>
+        </a>
+        {% endif %}
+
+        <div class="mt-auto pt-4 flex flex-col gap-1 border-t border-slate-200 dark:border-slate-700">
+            <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors group"
+                href="{% url 'accounts:profile' %}">
+                <span class="material-symbols-outlined">settings</span>
+                <span class="text-sm font-medium">Profile Settings</span>
+            </a>
+            <form action="{% url 'accounts:logout' %}" method="post" id="logout-form">
+                {% csrf_token %}
+                <button type="submit"
+                    class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-red-600 hover:bg-red-50 dark:hover:bg-red-900/10 transition-colors group">
+                    <span class="material-symbols-outlined">logout</span>
+                    <span class="text-sm font-semibold">Log Out</span>
+                </button>
+            </form>
+        </div>
     </div>
-</nav>
+
+    <!-- Tier Info Widget -->
+    <div class="p-4 bg-slate-50 dark:bg-slate-800/50 border-t border-slate-200 dark:border-slate-700">
+        <div class="bg-gradient-to-br from-primary to-blue-600 rounded-xl p-4 text-white shadow-lg shadow-primary/20">
+            <p class="text-[10px] font-bold uppercase tracking-widest opacity-80">Current Plan</p>
+            <h3 class="text-sm font-bold mt-1">{{ user.userprofile.bouquet.display_name|default:"Basic Blue" }}</h3>
+            <div class="mt-3 bg-white/20 h-1.5 rounded-full overflow-hidden">
+                <div class="bg-white h-full" style="width: 45%"></div>
+            </div>
+            <p class="text-[10px] mt-2 opacity-90 font-medium">45% Vault Space Used</p>
+        </div>
+    </div>
+</aside>
+
+<!-- Sidebar Overlay (Mobile Only) -->
+<div id="sidebarOverlay" class="fixed inset-0 z-40 bg-slate-900/50 backdrop-blur-sm lg:hidden hidden"
+    onclick="document.getElementById('sidebarMenu').classList.add('-translate-x-full'); this.classList.add('hidden')">
+</div>

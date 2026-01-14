@@ -1,64 +1,121 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Register - BeneSafe{% endblock %}
+{% block title %}Secure Sign Up - BeneSafe{% endblock %}
 
 {% block content %}
-<div class="min-vh-100 d-flex align-items-center justify-content-center bg-light py-5">
-    <div class="card border-0 shadow-lg w-100 overflow-hidden" style="max-width: 1000px; border-radius: 1rem;">
-        <div class="row g-0">
-            <!-- Left Side: Hero Image -->
-            <div class="col-lg-6 d-none d-lg-block position-relative bg-primary">
-                <div class="position-absolute w-100 h-100"
-                    style="background-image: url('{% static 'img/auth_bg.png' %}'); background-size: cover; background-position: center; opacity: 0.8;">
-                </div>
-                <div class="position-absolute w-100 h-100 bg-gradient-primary-to-secondary" style="opacity: 0.7;"></div>
-                <div
-                    class="d-flex align-items-center justify-content-center h-100 position-relative z-2 p-5 text-white">
-                    <div class="text-center">
-                        <i class="fas fa-user-plus fa-3x mb-4 text-white"></i>
-                        <h2 class="fw-bold mb-3">Join BeneSafe Today</h2>
-                        <p class="lead opacity-75">Start protecting your digital assets and securing your legacy in just
-                            a few simple steps.</p>
-                        <div class="mt-4">
-                            <div class="d-flex align-items-center justify-content-center mb-2">
-                                <i class="fas fa-check-circle text-success me-2"></i>
-                                <span class="small">Free to start</span>
-                            </div>
-                            <div class="d-flex align-items-center justify-content-center mb-2">
-                                <i class="fas fa-check-circle text-success me-2"></i>
-                                <span class="small">No credit card required</span>
-                            </div>
-                            <div class="d-flex align-items-center justify-content-center">
-                                <i class="fas fa-check-circle text-success me-2"></i>
-                                <span class="small">Instant access</span>
-                            </div>
+<main class="flex-grow flex flex-col items-center justify-start pt-8 pb-20 px-4 sm:px-6">
+    <div class="w-full max-w-[960px] flex flex-col gap-10">
+        <div class="text-center max-w-2xl mx-auto space-y-4">
+            <h1 class="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-slate-900 dark:text-white">
+                Secure Your Legacy with BeneSafe
+            </h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400">
+                Select a protection plan and create your digital vault in minutes.
+            </p>
+        </div>
+
+        <section aria-label="Subscription Tiers">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Blue Tier -->
+                <div onclick="selectPlan('blue', this)"
+                    class="plan-card group relative flex flex-col p-6 rounded-xl border-2 border-slate-200 dark:border-slate-700 bg-surface-light dark:bg-surface-dark hover:border-blue-200 dark:hover:border-blue-900 transition-all cursor-pointer">
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <h3 class="text-lg font-bold text-blue-600 dark:text-blue-400">Blue</h3>
+                            <p class="text-sm text-slate-500 dark:text-slate-400">Essential storage</p>
                         </div>
+                        <span
+                            class="material-symbols-outlined text-slate-300 group-hover:text-blue-400 plan-radio">radio_button_unchecked</span>
                     </div>
+                    <div class="mb-6">
+                        <span class="text-4xl font-black text-slate-900 dark:text-white">Free</span>
+                        <span class="text-slate-500 dark:text-slate-400 font-medium">/ forever</span>
+                    </div>
+                    <ul class="space-y-3 mb-6 flex-1">
+                        <li class="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-300">
+                            <span class="material-symbols-outlined text-green-500 text-[20px]">check</span>
+                            <span>Essential storage (1GB)</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Silver Tier (Default/Popular) -->
+                <div onclick="selectPlan('silver', this)"
+                    class="plan-card active relative flex flex-col p-6 rounded-xl border-2 border-primary bg-surface-light dark:bg-surface-dark shadow-xl shadow-primary/10 transition-all cursor-pointer transform scale-[1.02] md:-mt-2 md:-mb-2 z-10">
+                    <div
+                        class="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                        Most Popular
+                    </div>
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white">Silver</h3>
+                            <p class="text-sm text-slate-500 dark:text-slate-400">Standard protection</p>
+                        </div>
+                        <span class="material-symbols-outlined text-primary fill-current plan-radio"
+                            style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                    </div>
+                    <div class="mb-6">
+                        <span class="text-4xl font-black text-slate-900 dark:text-white">K9</span>
+                        <span class="text-slate-500 dark:text-slate-400 font-medium">/ month</span>
+                    </div>
+                    <ul class="space-y-3 mb-6 flex-1">
+                        <li class="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-300">
+                            <span class="material-symbols-outlined text-primary text-[20px]">check</span>
+                            <span>Expanded capacity (50GB)</span>
+                        </li>
+                        <li class="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-300">
+                            <span class="material-symbols-outlined text-primary text-[20px]">check</span>
+                            <span>Beneficiary Access Control</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Red Bouquet Tier -->
+                <div onclick="selectPlan('red', this)"
+                    class="plan-card group relative flex flex-col p-6 rounded-xl border-2 border-slate-200 dark:border-slate-700 bg-surface-light dark:bg-surface-dark hover:border-red-200 dark:hover:border-red-900 transition-all cursor-pointer">
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <h3 class="text-lg font-bold text-red-600 dark:text-red-400">Red Bouquet</h3>
+                            <p class="text-sm text-slate-500 dark:text-slate-400">Family legacy planning</p>
+                        </div>
+                        <span
+                            class="material-symbols-outlined text-slate-300 group-hover:text-red-400 plan-radio">radio_button_unchecked</span>
+                    </div>
+                    <div class="mb-6">
+                        <span class="text-4xl font-black text-slate-900 dark:text-white">K19</span>
+                        <span class="text-slate-500 dark:text-slate-400 font-medium">/ month</span>
+                    </div>
+                    <ul class="space-y-3 mb-6 flex-1">
+                        <li class="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-300">
+                            <span class="material-symbols-outlined text-green-500 text-[20px]">check</span>
+                            <span>Unlimited Secure Storage</span>
+                        </li>
+                        <li class="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-300">
+                            <span class="material-symbols-outlined text-green-500 text-[20px]">check</span>
+                            <span>Attorney Consultation</span>
+                        </li>
+                    </ul>
                 </div>
             </div>
+        </section>
 
-            <!-- Right Side: Registration Form -->
-            <div class="col-lg-6 bg-white p-5">
-                <div class="d-flex align-items-center justify-content-between mb-4">
-                    <h3 class="fw-bold text-dark m-0">BeneSafe</h3>
-                    <a href="/" class="text-muted text-decoration-none small"><i class="fas fa-arrow-left me-1"></i>
-                        Back to Home</a>
+        <section
+            class="w-full max-w-4xl mx-auto bg-surface-light dark:bg-surface-dark rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden">
+            <div class="p-8">
+                <div class="mb-8 border-b border-slate-100 dark:border-slate-800 pb-4">
+                    <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-2">Create your vault</h2>
+                    <p class="text-sm text-slate-500 dark:text-slate-400">You selected the <span id="selected-plan-name"
+                            class="font-bold text-primary">Silver Plan</span>. Enter your details to proceed.</p>
                 </div>
 
-                <div class="mb-4">
-                    <h2 class="h4 fw-bold text-dark mb-1">Create Your Account</h2>
-                    <p class="text-muted small">Join thousands protecting their legacy</p>
-                </div>
-
-                <form method="post" class="user">
+                <form method="post" class="space-y-6">
                     {% csrf_token %}
 
                     {% if form.errors %}
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        <i class="fas fa-exclamation-circle me-2"></i>
-                        <strong>Registration Failed</strong>
-                        <ul class="mb-0 mt-1 ps-3 small">
+                    <div
+                        class="p-4 bg-red-50 border border-red-200 rounded-lg text-red-800 dark:bg-red-900/20 dark:border-red-900/50 dark:text-red-400 mb-6">
+                        <ul class="list-disc ps-5 space-y-1 text-sm font-medium">
                             {% for field in form %}
                             {% for error in field.errors %}
                             <li>{{ field.label }}: {{ error }}</li>
@@ -68,174 +125,185 @@
                             <li>{{ error }}</li>
                             {% endfor %}
                         </ul>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                     {% endif %}
 
-                    <div class="row g-3">
-                        <!-- Username -->
-                        <div class="col-12">
-                            <div class="form-floating">
-                                {{ form.username }}
-                                <label for="{{ form.username.id_for_label }}">Username <span
-                                        class="text-danger">*</span></label>
-                            </div>
-                            {% if form.username.help_text %}
-                            <small class="text-muted">{{ form.username.help_text }}</small>
-                            {% endif %}
-                        </div>
+                    <!-- Hidden Bouquet Input -->
+                    <select name="bouquet" id="id_bouquet" class="hidden">
+                        {% for value, label in form.fields.bouquet.choices %}
+                        <option value="{{ value }}" {% if forloop.counter0 == 1 %}selected{% endif %}>{{ label }}</option>
+                        {% endfor %}
+                    </select>
 
-                        <!-- Email -->
-                        <div class="col-12">
-                            <div class="form-floating">
-                                {{ form.email }}
-                                <label for="{{ form.email.id_for_label }}">Email Address <span
-                                        class="text-danger">*</span></label>
-                            </div>
-                        </div>
-
-                        <!-- First Name & Last Name -->
-                        <div class="col-md-6">
-                            <div class="form-floating">
-                                {{ form.first_name }}
-                                <label for="{{ form.first_name.id_for_label }}">First Name</label>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="form-floating">
-                                {{ form.last_name }}
-                                <label for="{{ form.last_name.id_for_label }}">Last Name</label>
-                            </div>
-                        </div>
-
-                        <!-- Phone & NRC -->
-                        <div class="col-md-6">
-                            <div class="form-floating">
-                                {{ form.phone }}
-                                <label for="{{ form.phone.id_for_label }}">Phone Number</label>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="form-floating">
-                                {{ form.nrc }}
-                                <label for="{{ form.nrc.id_for_label }}">NRC Number</label>
-                            </div>
-                        </div>
-
-                        <!-- Date of Birth -->
-                        <div class="col-12">
-                            <div class="form-floating">
-                                {{ form.date_of_birth }}
-                                <label for="{{ form.date_of_birth.id_for_label }}">Date of Birth</label>
-                            </div>
-                        </div>
-
-                        <!-- Address -->
-                        <div class="col-12">
-                            <div class="form-floating">
-                                {{ form.address }}
-                                <label for="{{ form.address.id_for_label }}">Address</label>
-                            </div>
-                        </div>
-
-                        <!-- Bouquet Selection -->
-                        <div class="col-12">
-                            <div class="form-floating">
-                                {{ form.bouquet }}
-                                <label for="{{ form.bouquet.id_for_label }}">Subscription Plan <span
-                                        class="text-danger">*</span></label>
-                            </div>
-                            {% if form.bouquet.help_text %}
-                            <small class="text-muted">{{ form.bouquet.help_text }}</small>
-                            {% endif %}
-                        </div>
-
-                        <!-- Password -->
-                        <div class="col-12">
-                            <div class="form-floating">
-                                {{ form.password1 }}
-                                <label for="{{ form.password1.id_for_label }}">Password <span
-                                        class="text-danger">*</span></label>
-                            </div>
-                            {% if form.password1.help_text %}
-                            <small class="text-muted d-block mt-1">{{ form.password1.help_text }}</small>
-                            {% endif %}
-                        </div>
-
-                        <!-- Confirm Password -->
-                        <div class="col-12">
-                            <div class="form-floating">
-                                {{ form.password2 }}
-                                <label for="{{ form.password2.id_for_label }}">Confirm Password <span
-                                        class="text-danger">*</span></label>
-                            </div>
-                        </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <label class="block">
+                            <span class="text-sm font-semibold text-slate-900 dark:text-slate-200 mb-2 block">Username
+                                *</span>
+                            <input type="text" name="username" id="id_username"
+                                value="{{ form.username.value|default:'' }}"
+                                class="w-full rounded-lg border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:border-primary focus:ring-primary h-12 px-4 placeholder:text-slate-400 transition-all"
+                                placeholder="Choose a username" required>
+                        </label>
+                        <label class="block">
+                            <span class="text-sm font-semibold text-slate-900 dark:text-slate-200 mb-2 block">Email
+                                Address *</span>
+                            <input type="email" name="email" id="id_email" value="{{ form.email.value|default:'' }}"
+                                class="w-full rounded-lg border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:border-primary focus:ring-primary h-12 px-4 placeholder:text-slate-400 transition-all"
+                                placeholder="name@example.com" required>
+                        </label>
                     </div>
 
-                    <button type="submit" class="btn btn-primary btn-lg w-100 py-3 fw-bold shadow-sm mt-4">
-                        Create Account
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <label class="block">
+                            <span class="text-sm font-semibold text-slate-900 dark:text-slate-200 mb-2 block">First
+                                Name</span>
+                            <input type="text" name="first_name" id="id_first_name"
+                                value="{{ form.first_name.value|default:'' }}"
+                                class="w-full rounded-lg border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:border-primary focus:ring-primary h-12 px-4 placeholder:text-slate-400 transition-all">
+                        </label>
+                        <label class="block">
+                            <span class="text-sm font-semibold text-slate-900 dark:text-slate-200 mb-2 block">Last
+                                Name</span>
+                            <input type="text" name="last_name" id="id_last_name"
+                                value="{{ form.last_name.value|default:'' }}"
+                                class="w-full rounded-lg border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:border-primary focus:ring-primary h-12 px-4 placeholder:text-slate-400 transition-all">
+                        </label>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <label class="block">
+                            <span class="text-sm font-semibold text-slate-900 dark:text-slate-200 mb-2 block">Phone
+                                Number</span>
+                            <input type="text" name="phone" id="id_phone" value="{{ form.phone.value|default:'' }}"
+                                class="w-full rounded-lg border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:border-primary focus:ring-primary h-12 px-4 placeholder:text-slate-400 transition-all"
+                                placeholder="+260 ...">
+                        </label>
+                        <label class="block">
+                            <span class="text-sm font-semibold text-slate-900 dark:text-slate-200 mb-2 block">NRC
+                                Number</span>
+                            <input type="text" name="nrc" id="id_nrc" value="{{ form.nrc.value|default:'' }}"
+                                class="w-full rounded-lg border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:border-primary focus:ring-primary h-12 px-4 placeholder:text-slate-400 transition-all"
+                                placeholder="000000/00/0">
+                        </label>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <label class="block">
+                            <span class="text-sm font-semibold text-slate-900 dark:text-slate-200 mb-2 block">Master
+                                Password *</span>
+                            <div class="relative">
+                                <input type="password" name="password1" id="id_password1"
+                                    class="w-full rounded-lg border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:border-primary focus:ring-primary h-12 pl-4 pr-10 placeholder:text-slate-400 transition-all"
+                                    placeholder="Create a strong password" required>
+                                <button type="button"
+                                    class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-primary transition-colors"
+                                    onclick="togglePassword('id_password1', this)">
+                                    <span class="material-symbols-outlined text-[20px]">visibility</span>
+                                </button>
+                            </div>
+                        </label>
+                        <label class="block">
+                            <span class="text-sm font-semibold text-slate-900 dark:text-slate-200 mb-2 block">Confirm
+                                Password *</span>
+                            <div class="relative">
+                                <input type="password" name="password2" id="id_password2"
+                                    class="w-full rounded-lg border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:border-primary focus:ring-primary h-12 pl-4 pr-10 placeholder:text-slate-400 transition-all"
+                                    placeholder="Re-enter password" required>
+                                <button type="button"
+                                    class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-primary transition-colors"
+                                    onclick="togglePassword('id_password2', this)">
+                                    <span class="material-symbols-outlined text-[20px]">visibility</span>
+                                </button>
+                            </div>
+                        </label>
+                    </div>
+
+                    <button type="submit"
+                        class="w-full bg-primary hover:bg-primary-hover text-white font-bold h-14 rounded-lg shadow-lg shadow-primary/20 transition-all flex items-center justify-center gap-2 group active:scale-[0.98]">
+                        <span>Create Secure Vault</span>
+                        <span
+                            class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
                     </button>
-
-                    <div class="text-center mt-4">
-                        <span class="small text-muted">Already have an account?</span>
-                        <a class="small text-decoration-none fw-bold ms-1" href="{% url 'accounts:login' %}">
-                            Sign In
-                        </a>
-                    </div>
                 </form>
 
-                <div class="mt-4 text-center text-muted small">
-                    &copy; {% now "Y" %} BeneSafe. All rights reserved.
+                <div
+                    class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-6 pt-6 border-t border-slate-100 dark:border-slate-800">
+                    <div
+                        class="flex items-center gap-2 text-slate-500 dark:text-slate-400 text-xs font-semibold uppercase tracking-wider">
+                        <span class="material-symbols-outlined text-[18px]">lock</span>
+                        256-bit Encryption
+                    </div>
+                    <div class="hidden sm:block w-px h-4 bg-slate-300 dark:bg-slate-700"></div>
+                    <div
+                        class="flex items-center gap-2 text-slate-500 dark:text-slate-400 text-xs font-semibold uppercase tracking-wider">
+                        <span class="material-symbols-outlined text-[18px]">verified_user</span>
+                        SOC2 Compliant
+                    </div>
                 </div>
             </div>
-        </div>
+        </section>
     </div>
-</div>
+</main>
+
+<script>
+    function selectPlan(planSlug, element) {
+        // Update visual state
+        document.querySelectorAll('.plan-card').forEach(card => {
+            card.className = "plan-card group relative flex flex-col p-6 rounded-xl border-2 border-slate-200 dark:border-slate-700 bg-surface-light dark:bg-surface-dark hover:border-blue-200 dark:hover:border-blue-900 transition-all cursor-pointer";
+            const radio = card.querySelector('.plan-radio');
+            radio.innerText = "radio_button_unchecked";
+            radio.className = "material-symbols-outlined text-slate-300 group-hover:text-primary plan-radio";
+            radio.style.variationSettings = "'FILL' 0";
+
+            // Remove popular badge if it was there and not this card
+            const badge = card.querySelector('.absolute.-top-3');
+            if (badge && planSlug !== 'silver') {
+                // Keep badge but adjust card scale
+                card.classList.remove('scale-[1.02]', 'md:-mt-2', 'md:-mb-2', 'z-10', 'border-primary', 'shadow-xl', 'shadow-primary/10');
+            }
+        });
+
+        // Add active classes to selected card
+        element.className = "plan-card active relative flex flex-col p-6 rounded-xl border-2 border-primary bg-surface-light dark:bg-surface-dark shadow-xl shadow-primary/10 transition-all cursor-pointer transform scale-[1.02] md:-mt-2 md:-mb-2 z-10";
+        const selectedRadio = element.querySelector('.plan-radio');
+        selectedRadio.innerText = "check_circle";
+        selectedRadio.className = "material-symbols-outlined text-primary fill-current plan-radio";
+        selectedRadio.style.variationSettings = "'FILL' 1";
+
+        // Update hidden select input
+        const select = document.getElementById('id_bouquet');
+        for (let i = 0; i < select.options.length; i++) {
+            if (select.options[i].text.toLowerCase().includes(planSlug)) {
+                select.selectedIndex = i;
+                break;
+            }
+        }
+
+        // Update display name
+        document.getElementById('selected-plan-name').innerText = element.querySelector('h3').innerText + " Plan";
+    }
+
+    function togglePassword(inputId, btn) {
+        const input = document.getElementById(inputId);
+        const icon = btn.querySelector('.material-symbols-outlined');
+        if (input.type === 'password') {
+            input.type = 'text';
+            icon.innerText = 'visibility_off';
+        } else {
+            input.type = 'password';
+            icon.innerText = 'visibility';
+        }
+    }
+</script>
 
 <style>
-    /* Custom overrides for authentication pages */
-    .bg-gradient-primary-to-secondary {
-        background: linear-gradient(135deg, var(--primary-900) 0%, var(--brand-accent) 100%);
+    .plan-card.active {
+        border-color: #197fe6 !important;
     }
 
-    .form-floating>.form-control:focus~label,
-    .form-floating>.form-control:not(:placeholder-shown)~label,
-    .form-floating>.form-select:focus~label,
-    .form-floating>.form-select:not([value=""])~label {
-        color: var(--brand-primary);
-    }
-
-    .form-floating>.form-control:focus,
-    .form-floating>.form-select:focus {
-        border-color: var(--brand-primary);
-        box-shadow: 0 0 0 0.25rem rgba(var(--brand-primary-rgb), 0.25);
-    }
-
-    /* Ensure form controls look good */
-    input[type="text"],
-    input[type="email"],
-    input[type="password"],
-    input[type="date"],
-    select,
-    textarea {
-        border-radius: 0.5rem;
-    }
-
-    .form-control,
-    .form-select {
-        border: 1px solid #dee2e6;
-        padding: 1rem 0.75rem;
-    }
-
-    textarea.form-control {
-        min-height: 100px;
-    }
-
-    /* Make required asterisk more visible */
-    .text-danger {
-        color: #dc3545 !important;
+    /* Hide default scrollbar for clean look */
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
     }
 </style>
 {% endblock %}
