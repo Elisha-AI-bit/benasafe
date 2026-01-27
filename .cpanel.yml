@@ -1,6 +1,6 @@
----
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/username/public_html/
-    - /bin/cp -R * $DEPLOYPATH
+    - export DEPLOYPATH=/home/bslimted/public_html/
+    - mkdir -p $DEPLOYPATH
+    - /bin/cp -r . $DEPLOYPATH
     - /bin/cp .env $DEPLOYPATH
