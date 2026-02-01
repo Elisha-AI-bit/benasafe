@@ -1,471 +1,431 @@
 <!DOCTYPE html>
-<html lang="en">
+
+<html class="dark" lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BeneSafe - Secure Your Digital Legacy</title>
-
-    <!-- Google Fonts: Inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
-        rel="stylesheet">
-    <!-- Material Symbols Outlined -->
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <!-- Font Awesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <!-- Bootstrap 5 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    {% load static %}
-    <!-- Custom CSS -->
-    <link href="{% static 'css/modern.css' %}" rel="stylesheet">
-
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>BeneSafe | Secure Digital Vault for Legacy Planning</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800;900&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#135bec",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
     <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
         body {
-            font-family: 'Inter', sans-serif;
-            overflow-x: hidden;
-        }
-
-        .navbar-landing {
-            background-color: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-        }
-
-        .hero-section {
-            background: #ffffff;
-            color: var(--brand-primary);
-            padding: 160px 0 100px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url('{% static "img/auth_bg.png" %}');
-            background-size: cover;
-            background-position: center;
-            opacity: 0.1;
-        }
-
-        .feature-card {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            cursor: default;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1) !important;
-        }
-
-        .cta-section {
-            background-color: var(--brand-accent);
-            background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+            font-family: 'Public Sans', sans-serif;
         }
     </style>
 </head>
 
-<body>
-
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-landing fixed-top" id="mainNav">
-        <div class="container">
-            <a class="navbar-brand d-flex align-items-center fw-bold text-dark" href="/">
-                <span class="material-symbols-outlined text-primary me-2 icon-filled"
-                    style="font-size: 32px;">shield_lock</span>
-                <span style="letter-spacing: -1px; font-size: 24px;">BeneSafe</span>
-            </a>
-            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="material-symbols-outlined">menu</span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto align-items-center">
-                    <li class="nav-item"><a class="nav-link text-dark fw-semibold px-3" href="#features">How it
-                            Works</a></li>
-                    <li class="nav-item"><a class="nav-link text-dark fw-semibold px-3" href="#pricing">Pricing</a></li>
-                    <li class="nav-item"><a class="nav-link text-dark fw-semibold px-3" href="#security">Security</a>
-                    </li>
-                    <li class="nav-item ms-lg-4">
-                        <a href="{% url 'accounts:login' %}" class="text-dark fw-bold text-decoration-none">Log In</a>
-                    </li>
-                    <li class="nav-item ms-lg-4">
-                        <a href="{% url 'accounts:register' %}" class="btn-premium btn-premium-primary">
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100">
+    <!-- Top Navigation Bar -->
+    <header
+        class="sticky top-0 z-50 w-full border-b border-solid border-slate-200 dark:border-[#232f48] bg-white/80 dark:bg-background-dark/80 backdrop-blur-md">
+        <div class="max-w-[1280px] mx-auto flex items-center justify-between px-6 py-4">
+            <div class="flex items-center gap-3">
+                <div class="text-primary flex items-center justify-center">
+                    <span class="material-symbols-outlined text-3xl">shield_lock</span>
+                </div>
+                <h2 class="text-xl font-bold tracking-tight">BeneSafe</h2>
+            </div>
+            <nav class="hidden md:flex items-center gap-8">
+                <a class="text-sm font-medium hover:text-primary transition-colors" href="#process">How it Works</a>
+                <a class="text-sm font-medium hover:text-primary transition-colors" href="#pricing">Pricing</a>
+                <a class="text-sm font-medium hover:text-primary transition-colors" href="#security">Security</a>
+            </nav>
+            <div class="flex items-center gap-4">
+                <a class="hidden sm:block text-sm font-bold px-4 py-2 hover:text-primary transition-colors"
+                    href="{% url 'accounts:login' %}">Log In</a>
+                <a href="{% url 'accounts:register' %}"
+                    class="bg-primary hover:bg-blue-600 text-white text-sm font-bold px-5 py-2.5 rounded-lg transition-all shadow-lg shadow-primary/20">
+                    Get Started
+                </a>
+            </div>
+        </div>
+    </header>
+    <main>
+        <!-- Hero Section -->
+        <section class="relative overflow-hidden pt-16 pb-24 md:pt-24 md:pb-32">
+            <div class="max-w-[1280px] mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="flex flex-col gap-8">
+                    <div
+                        class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary w-fit">
+                        <span class="material-symbols-outlined text-sm">verified_user</span>
+                        <span class="text-xs font-bold uppercase tracking-wider">Bank Grade Protection</span>
+                    </div>
+                    <div class="flex flex-col gap-6">
+                        <h1
+                            class="text-5xl md:text-7xl font-black leading-[1.1] tracking-tight text-slate-900 dark:text-white">
+                            Your Life’s Critical Documents, <span class="text-primary">Secured Forever.</span>
+                        </h1>
+                        <p class="text-lg md:text-xl text-slate-600 dark:text-slate-400 leading-relaxed max-w-xl">
+                            The ultimate digital vault for legacy planning, legal documents, and absolute peace of mind
+                            for you and your heirs.
+                        </p>
+                    </div>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="{% url 'accounts:register' %}"
+                            class="bg-primary hover:bg-blue-600 text-white text-lg font-bold px-8 py-4 rounded-xl transition-all shadow-xl shadow-primary/30">
+                            Start Your Vault
+                        </a>
+                        <a href="#process"
+                            class="bg-white dark:bg-[#232f48] border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-900 dark:text-white text-lg font-bold px-8 py-4 rounded-xl transition-all flex items-center gap-2">
+                            <span class="material-symbols-outlined">play_circle</span>
+                            Watch Demo
+                        </a>
+                    </div>
+                    <div class="flex items-center gap-6 pt-4 grayscale opacity-60">
+                        <span class="text-xs font-semibold uppercase tracking-widest">Trusted By Leaders In</span>
+                        <span class="material-symbols-outlined">account_balance</span>
+                        <span class="material-symbols-outlined">gavel</span>
+                        <span class="material-symbols-outlined">health_and_safety</span>
+                    </div>
+                </div>
+                <div class="relative">
+                    <div class="absolute -inset-4 bg-primary/20 blur-3xl rounded-full"></div>
+                    <div class="relative w-full aspect-square rounded-3xl overflow-hidden shadow-2xl border border-white/10"
+                        data-alt="Abstract 3D digital security vault visualization"
+                        style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBFMfGZGwPZpT3gZu2KR2zITzhgBaFaItWka2Lc3tSQDCWCVHhn5ni_xM3gW8tfjaQR4BhfZEnPDnRr2U7X8HMiCa63GxLTu5_53igiLfu62koykh_BxvZVxZT0sjsq3SXKmNchJYG2uLWj36h9M8i-eTXq5tV7h7udB5gQdhoIJc-Zk2XittzcYiQA7xwvRQ5xRRVkkRwZa9rHsoS5Aw47HyfwUgUnf8hAIX-wgq_uYfL253HE3UPFIzBJqYxdYKY5wrmKHi6F7y8o'); background-size: cover; background-position: center;">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-tr from-background-dark/80 via-transparent to-transparent">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Process Section -->
+        <section id="process" class="py-24 bg-slate-50 dark:bg-[#151c2c]">
+            <div class="max-w-[1280px] mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-black mb-4">Simple 3-Step Protection</h2>
+                    <p class="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">Ensuring your legacy is preserved
+                        and passed on shouldn't be complicated. Our automated system handles the heavy lifting.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Step 1 -->
+                    <div
+                        class="group p-8 rounded-2xl bg-white dark:bg-[#1d2636] border border-slate-200 dark:border-[#324467] hover:border-primary transition-all shadow-sm hover:shadow-xl">
+                        <div
+                            class="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-6 group-hover:scale-110 transition-transform">
+                            <span class="material-symbols-outlined text-3xl">cloud_upload</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">1. Upload &amp; Organize</h3>
+                        <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
+                            Securely upload your wills, deeds, passwords, and memories to our military-grade encrypted
+                            cloud.
+                        </p>
+                    </div>
+                    <!-- Step 2 -->
+                    <div
+                        class="group p-8 rounded-2xl bg-white dark:bg-[#1d2636] border border-slate-200 dark:border-[#324467] hover:border-primary transition-all shadow-sm hover:shadow-xl">
+                        <div
+                            class="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-6 group-hover:scale-110 transition-transform">
+                            <span class="material-symbols-outlined text-3xl">group_add</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">2. Designate Beneficiaries</h3>
+                        <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
+                            Choose trusted individuals who will receive access to specific documents or folders at the
+                            right time.
+                        </p>
+                    </div>
+                    <!-- Step 3 -->
+                    <div
+                        class="group p-8 rounded-2xl bg-white dark:bg-[#1d2636] border border-slate-200 dark:border-[#324467] hover:border-primary transition-all shadow-sm hover:shadow-xl">
+                        <div
+                            class="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-6 group-hover:scale-110 transition-transform">
+                            <span class="material-symbols-outlined text-3xl">lock_clock</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">3. Automated Release</h3>
+                        <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
+                            Our proprietary Smart Lock-Clock triggers the release of information based on your
+                            predefined conditions.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Pricing Section -->
+        <section id="pricing" class="py-24">
+            <div class="max-w-[1280px] mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-black mb-4">Choose Your Peace of Mind</h2>
+                    <p class="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">Plans designed for individual
+                        security or full generational legacy management.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- BLUE Tier -->
+                    <div
+                        class="flex flex-col p-8 rounded-2xl border border-slate-200 dark:border-[#324467] bg-white dark:bg-[#192233] transition-all hover:translate-y-[-8px]">
+                        <h3 class="text-sm font-black text-primary uppercase tracking-widest mb-2">Blue</h3>
+                        <div class="flex items-baseline gap-1 mb-8">
+                            <span class="text-4xl font-black">K5,000</span>
+                            <span class="text-slate-500 font-medium">/year</span>
+                        </div>
+                        <a href="{% url 'accounts:register' %}?plan=blue"
+                            class="w-full text-center block bg-slate-900 dark:bg-[#232f48] hover:bg-slate-800 dark:hover:bg-slate-700 text-white font-bold py-3 rounded-lg mb-8 transition-colors">
                             Get Started
                         </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <section class="hero-section">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-6 mb-5 mb-lg-0 animate-fade-in" style="animation-delay: 0.1s;">
-                    <div class="hero-tag mb-4">
-                        <span class="material-symbols-outlined me-1" style="font-size: 18px;">verified_user</span>
-                        BANK GRADE PROTECTION
-                    </div>
-                    <h1 class="display-3 mb-4" style="line-height: 1.1; letter-spacing: -2px;">
-                        Your Life’s <br>Critical Documents, <br>
-                        <span style="color: var(--brand-accent)">Secured Forever.</span>
-                    </h1>
-                    <p class="lead mb-5 text-muted mx-auto mx-lg-0" style="font-size: 1.15rem; max-width: 500px;">
-                        The digital vault that combines bank-grade security with legal integrity.
-                        Ensure your family's future is protected, no matter what happens.
-                    </p>
-                    <div class="d-flex flex-column flex-sm-row gap-3 justify-content-center justify-content-lg-start">
-                        <a href="{% url 'accounts:register' %}" class="btn-premium btn-premium-primary">
-                            Start Your Vault <span class="material-symbols-outlined">arrow_outward</span>
-                        </a>
-                        <a href="#how-it-works" class="btn-premium btn-premium-outline">
-                            <span class="material-symbols-outlined">play_circle</span> Watch Demo
-                        </a>
-                    </div>
-
-                    <div class="mt-5 d-flex align-items-center gap-3 justify-content-center justify-content-lg-start">
-                        <div class="d-flex" style="margin-left: 5px;">
-                            <img src="https://ui-avatars.com/api/?name=J&background=random"
-                                class="rounded-circle border border-2 border-white"
-                                style="width: 32px; height: 32px; margin-left: -5px;">
-                            <img src="https://ui-avatars.com/api/?name=A&background=random"
-                                class="rounded-circle border border-2 border-white"
-                                style="width: 32px; height: 32px; margin-left: -8px;">
-                            <img src="https://ui-avatars.com/api/?name=B&background=random"
-                                class="rounded-circle border border-2 border-white"
-                                style="width: 32px; height: 32px; margin-left: -8px;">
-                        </div>
-                        <span class="text-muted small fw-medium">Trusted by 13,000+ families</span>
-                    </div>
-                </div>
-                <div class="col-lg-6 animate-fade-in" style="animation-delay: 0.3s;">
-                    <div class="position-relative">
-                        <!-- Mockup Image -->
-                        <img src="{% static 'img/benesafe_hero_mockup.png' %}" alt="Dashboard Mockup" class="img-fluid"
-                            style="filter: drop-shadow(0 30px 60px rgba(0,0,0,0.12));">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Simple 3-Step Protection -->
-    <section id="features" class="py-5" style="background-color: white;">
-        <div class="container py-5">
-            <div class="text-center mb-5 mw-700 mx-auto animate-fade-in">
-                <h2 class="display-5 mb-3">Simple 3-Step Protection</h2>
-                <p class="text-muted">We’ve removed the complexity from estate planning and document security. <br>It’s
-                    as easy as organizing a folder.</p>
-            </div>
-
-            <div class="row g-4 pt-4">
-                <div class="col-md-4 animate-fade-in" style="animation-delay: 0.1s;">
-                    <div class="glass-card p-5 h-100">
-                        <div class="mb-4 bg-primary bg-opacity-10 p-3 rounded-4 d-inline-block text-primary">
-                            <span class="material-symbols-outlined" style="font-size: 32px;">cloud_upload</span>
-                        </div>
-                        <h4 class="mb-3">1. Upload & Organize</h4>
-                        <p class="text-muted">Securely upload your wills, deeds, and financial records into encrypted
-                            folders labeled for clarity.</p>
-                    </div>
-                </div>
-                <div class="col-md-4 animate-fade-in" style="animation-delay: 0.2s;">
-                    <div class="glass-card p-5 h-100">
-                        <div class="mb-4 bg-primary bg-opacity-10 p-3 rounded-4 d-inline-block text-primary">
-                            <span class="material-symbols-outlined" style="font-size: 32px;">group</span>
-                        </div>
-                        <h4 class="mb-3">2. Designate Beneficiaries</h4>
-                        <h4 class="mb-3" style="display:none">2. Designate Beneficiaries</h4>
-                        <p class="text-muted">Select trusted individuals or legal representatives who can access
-                            specific documents.</p>
-                    </div>
-                </div>
-                <div class="col-md-4 animate-fade-in" style="animation-delay: 0.3s;">
-                    <div class="glass-card p-5 h-100">
-                        <div class="mb-4 bg-primary bg-opacity-10 p-3 rounded-4 d-inline-block text-primary">
-                            <span class="material-symbols-outlined" style="font-size: 32px;">lock_clock</span>
-                        </div>
-                        <h4 class="mb-3">3. Automated Release</h4>
-                        <p class="text-muted">Set "life event" triggers. Documents are only released when specific,
-                            verified conditions are met.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Pricing Section -->
-    <section id="pricing" class="py-5" style="background-color: #f8fafc;">
-        <div class="container py-5">
-            <div class="text-center mb-5 mw-700 mx-auto animate-fade-in">
-                <h2 class="display-5 mb-3">Choose Your Protection Level</h2>
-                <p class="text-muted">Transparent pricing for every stage of life.</p>
-            </div>
-
-            <div class="row g-4 pt-4">
-                <!-- Blue Plan -->
-                <div class="col-lg-4 animate-fade-in" style="animation-delay: 0.1s;">
-                    <div class="pricing-card bg-white">
-                        <div class="mb-4">
-                            <h5 class="text-uppercase tracking-widest small fw-bold text-primary">BLUE</h5>
-                            <div class="d-flex align-items-baseline">
-                                <h2 class="display-4 fw-bold mb-0">5k</h2>
-                                <span class="ms-2 text-muted">/ year</span>
+                        <div class="space-y-4">
+                            <div class="flex items-center gap-3 text-sm">
+                                <span class="material-symbols-outlined text-primary text-xl">check_circle</span>
+                                <span>Essential Secure Storage</span>
                             </div>
-                            <p class="text-muted small mt-2">Essential document storage</p>
-                        </div>
-                        <ul class="list-unstyled mb-5">
-                            <li class="mb-3 d-flex align-items-center gap-2">
-                                <span class="material-symbols-outlined text-primary"
-                                    style="font-size: 20px;">check_circle</span>
-                                10GB Secure Storage
-                            </li>
-                            <li class="mb-3 d-flex align-items-center gap-2">
-                                <span class="material-symbols-outlined text-primary"
-                                    style="font-size: 20px;">check_circle</span>
-                                1 Beneficiary
-                            </li>
-                            <li class="mb-3 d-flex align-items-center gap-2">
-                                <span class="material-symbols-outlined text-primary"
-                                    style="font-size: 20px;">check_circle</span>
-                                Basic Encryption
-                            </li>
-                        </ul>
-                        <a href="{% url 'accounts:register' %}?plan=blue"
-                            class="btn btn-premium btn-premium-outline w-100 justify-content-center">Select Blue</a>
-                    </div>
-                </div>
-
-                <!-- Silver Plan -->
-                <div class="col-lg-4 animate-fade-in" style="animation-delay: 0.2s;">
-                    <div class="pricing-card bg-white">
-                        <div class="mb-4">
-                            <h5 class="text-uppercase tracking-widest small fw-bold text-primary">SILVER</h5>
-                            <div class="d-flex align-items-baseline">
-                                <h2 class="display-4 fw-bold mb-0">12k</h2>
-                                <span class="ms-2 text-muted">/ year</span>
+                            <div class="flex items-center gap-3 text-sm">
+                                <span class="material-symbols-outlined text-primary text-xl">check_circle</span>
+                                <span>10GB Encrypted Space</span>
                             </div>
-                            <p class="text-muted small mt-2">For growing families</p>
+                            <div class="flex items-center gap-3 text-sm">
+                                <span class="material-symbols-outlined text-primary text-xl">check_circle</span>
+                                <span>1 Designated Beneficiary</span>
+                            </div>
+                            <div class="flex items-center gap-3 text-sm text-slate-400 line-through">
+                                <span
+                                    class="material-symbols-outlined text-slate-300 dark:text-slate-600 text-xl">cancel</span>
+                                <span>Legal Template Library</span>
+                            </div>
                         </div>
-                        <ul class="list-unstyled mb-5">
-                            <li class="mb-3 d-flex align-items-center gap-2">
-                                <span class="material-symbols-outlined text-primary"
-                                    style="font-size: 20px;">check_circle</span>
-                                50GB Secure Storage
-                            </li>
-                            <li class="mb-3 d-flex align-items-center gap-2">
-                                <span class="material-symbols-outlined text-primary"
-                                    style="font-size: 20px;">check_circle</span>
-                                5 Beneficiaries
-                            </li>
-                            <li class="mb-3 d-flex align-items-center gap-2">
-                                <span class="material-symbols-outlined text-primary"
-                                    style="font-size: 20px;">check_circle</span>
-                                Standard Legal Templates
-                            </li>
-                            <li class="mb-3 d-flex align-items-center gap-2">
-                                <span class="material-symbols-outlined text-primary"
-                                    style="font-size: 20px;">check_circle</span>
-                                Priority Support
-                            </li>
-                        </ul>
+                    </div>
+                    <!-- SILVER Tier -->
+                    <div
+                        class="flex flex-col p-8 rounded-2xl border-2 border-primary bg-white dark:bg-[#192233] shadow-2xl shadow-primary/10 relative transition-all hover:translate-y-[-8px]">
+                        <div
+                            class="absolute -top-4 left-1/2 -translate-x-1/2 bg-primary text-white text-[10px] font-black uppercase px-4 py-1 rounded-full tracking-widest">
+                            Most Popular
+                        </div>
+                        <h3 class="text-sm font-black text-primary uppercase tracking-widest mb-2">Silver</h3>
+                        <div class="flex items-baseline gap-1 mb-8">
+                            <span class="text-4xl font-black">K12,000</span>
+                            <span class="text-slate-500 font-medium">/year</span>
+                        </div>
                         <a href="{% url 'accounts:register' %}?plan=silver"
-                            class="btn btn-premium btn-premium-primary w-100 justify-content-center">Select Silver</a>
+                            class="w-full text-center block bg-primary hover:bg-blue-600 text-white font-bold py-3 rounded-lg mb-8 transition-colors">
+                            Get Started
+                        </a>
+                        <div class="space-y-4">
+                            <div class="flex items-center gap-3 text-sm">
+                                <span class="material-symbols-outlined text-primary text-xl">check_circle</span>
+                                <span>Perfect for Growing Families</span>
+                            </div>
+                            <div class="flex items-center gap-3 text-sm">
+                                <span class="material-symbols-outlined text-primary text-xl">check_circle</span>
+                                <span>50GB Encrypted Space</span>
+                            </div>
+                            <div class="flex items-center gap-3 text-sm">
+                                <span class="material-symbols-outlined text-primary text-xl">check_circle</span>
+                                <span>5 Beneficiaries</span>
+                            </div>
+                            <div class="flex items-center gap-3 text-sm">
+                                <span class="material-symbols-outlined text-primary text-xl">check_circle</span>
+                                <span>Legal Templates &amp; Drafting</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- RED BOUQUET Tier -->
+                    <div
+                        class="flex flex-col p-8 rounded-2xl border border-rose-500/30 bg-white dark:bg-[#192233] transition-all hover:translate-y-[-8px] relative overflow-hidden group">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-br from-rose-500/5 to-transparent pointer-events-none">
+                        </div>
+                        <div class="flex items-center justify-between mb-2">
+                            <h3 class="text-sm font-black text-rose-500 uppercase tracking-widest">Red Bouquet</h3>
+                            <span
+                                class="bg-rose-500 text-white text-[10px] font-black uppercase px-2 py-0.5 rounded tracking-widest">Elite</span>
+                        </div>
+                        <div class="flex items-baseline gap-1 mb-8">
+                            <span class="text-4xl font-black">K25,000</span>
+                            <span class="text-slate-500 font-medium">/year</span>
+                        </div>
+                        <a href="{% url 'accounts:register' %}?plan=red"
+                            class="w-full text-center block bg-rose-500 hover:bg-rose-600 text-white font-bold py-3 rounded-lg mb-8 transition-colors relative z-10">
+                            Contact Concierge
+                        </a>
+                        <div class="space-y-4 relative z-10">
+                            <div class="flex items-center gap-3 text-sm">
+                                <span class="material-symbols-outlined text-rose-500 text-xl">check_circle</span>
+                                <span>Unlimited Encrypted Storage</span>
+                            </div>
+                            <div class="flex items-center gap-3 text-sm">
+                                <span class="material-symbols-outlined text-rose-500 text-xl">check_circle</span>
+                                <span>Personal Attorney Review</span>
+                            </div>
+                            <div class="flex items-center gap-3 text-sm">
+                                <span class="material-symbols-outlined text-rose-500 text-xl">check_circle</span>
+                                <span>24/7 Concierge Service</span>
+                            </div>
+                            <div class="flex items-center gap-3 text-sm">
+                                <span class="material-symbols-outlined text-rose-500 text-xl">check_circle</span>
+                                <span>High-Production Video Wills</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
-
-                <!-- Red Bouquet Plan -->
-                <div class="col-lg-4 animate-fade-in" style="animation-delay: 0.3s;">
-                    <div class="pricing-card bg-white featured">
-                        <div class="featured-badge">MOST SECURE</div>
-                        <div class="mb-4">
-                            <div class="d-flex align-items-center gap-2 mb-2">
-                                <h5 class="text-uppercase tracking-widest small fw-bold mb-0">RED BOUQUET</h5>
-                                <span class="material-symbols-outlined text-warning"
-                                    style="font-size: 18px;">workspace_premium</span>
-                            </div>
-                            <div class="d-flex align-items-baseline">
-                                <h2 class="display-4 fw-bold mb-0">25k</h2>
-                                <span class="ms-2 text-muted">/ year</span>
-                            </div>
-                            <p class="text-muted small mt-2">Full legacy protection suite</p>
-                        </div>
-                        <ul class="list-unstyled mb-5">
-                            <li class="mb-3 d-flex align-items-center gap-2 fw-bold">
-                                <span class="material-symbols-outlined text-warning"
-                                    style="font-size: 20px;">check_circle</span>
-                                Unlimited Secure Storage
+            </div>
+        </section>
+        <!-- Security Architecture Grid -->
+        <section id="security" class="py-24 bg-slate-900 text-white">
+            <div class="max-w-[1280px] mx-auto px-6">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                    <div>
+                        <h2 class="text-3xl md:text-5xl font-black mb-6">Bank-Grade Security Architecture</h2>
+                        <p class="text-slate-400 text-lg mb-8">We utilize the same standards as global financial
+                            institutions and government intelligence agencies to protect your most sensitive data.</p>
+                        <ul class="space-y-4">
+                            <li class="flex items-center gap-3">
+                                <span class="material-symbols-outlined text-primary">verified</span>
+                                <span class="font-semibold">SOC2 Type II Compliant</span>
                             </li>
-                            <li class="mb-3 d-flex align-items-center gap-2 fw-bold">
-                                <span class="material-symbols-outlined text-warning"
-                                    style="font-size: 20px;">check_circle</span>
-                                Unlimited Beneficiaries
-                            </li>
-                            <li class="mb-3 d-flex align-items-center gap-2">
-                                <span class="material-symbols-outlined text-warning"
-                                    style="font-size: 20px;">check_circle</span>
-                                Attorney Review Network
-                            </li>
-                            <li class="mb-3 d-flex align-items-center gap-2">
-                                <span class="material-symbols-outlined text-warning"
-                                    style="font-size: 20px;">check_circle</span>
-                                24/7 Dedicated Concierge
-                            </li>
-                            <li class="mb-3 d-flex align-items-center gap-2">
-                                <span class="material-symbols-outlined text-warning"
-                                    style="font-size: 20px;">check_circle</span>
-                                Video Will Capabilities
+                            <li class="flex items-center gap-3">
+                                <span class="material-symbols-outlined text-primary">verified</span>
+                                <span class="font-semibold">GDPR &amp; HIPAA Ready</span>
                             </li>
                         </ul>
-                        <a href="{% url 'accounts:register' %}?plan=red"
-                            class="btn btn-premium w-100 justify-content-center"
-                            style="background: #0f172a; color: white;">Get Red Bouquet</a>
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Security Section -->
-    <section id="security" class="bg-navy py-5 text-white overflow-hidden">
-        <div class="container py-5">
-            <div class="row align-items-center">
-                <div class="col-lg-6 mb-5 mb-lg-0 animate-fade-in">
-                    <h2 class="display-5 text-white mb-4">Bank-Grade Security Architecture</h2>
-                    <p class="text-navy-muted lead mb-5">We use the same encryption standards as the world's leading
-                        financial institutions.</p>
-                    <a href="#" class="text-white fw-bold text-decoration-none d-flex align-items-center gap-2">
-                        Read Security Whitepaper <span class="material-symbols-outlined">arrow_forward</span>
-                    </a>
-                </div>
-                <div class="col-lg-6">
-                    <div class="row g-4">
-                        <div class="col-6 animate-fade-in" style="animation-delay: 0.1s;">
-                            <div class="p-4 rounded-4"
-                                style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);">
-                                <span class="material-symbols-outlined mb-3 text-warning">lock</span>
-                                <h6 class="fw-bold text-white">AES-256 Encryption</h6>
-                                <p class="small text-navy-muted mb-0">Military-grade security for your documents.</p>
-                            </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div
+                            class="p-6 bg-white/5 border border-white/10 rounded-2xl hover:bg-white/10 transition-colors">
+                            <span class="material-symbols-outlined text-primary text-3xl mb-4">encrypted</span>
+                            <h4 class="font-bold mb-2">AES-256 Bit</h4>
+                            <p class="text-xs text-slate-400">The global standard for top-secret data encryption at rest
+                                and in transit.</p>
                         </div>
-                        <div class="col-6 animate-fade-in" style="animation-delay: 0.2s;">
-                            <div class="p-4 rounded-4"
-                                style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);">
-                                <span class="material-symbols-outlined mb-3 text-warning">vpn_key</span>
-                                <h6 class="fw-bold text-white">Zero-Knowledge</h6>
-                                <p class="small text-navy-muted mb-0">We can't see your files. Only you have the keys.
-                                </p>
-                            </div>
+                        <div
+                            class="p-6 bg-white/5 border border-white/10 rounded-2xl hover:bg-white/10 transition-colors">
+                            <span class="material-symbols-outlined text-primary text-3xl mb-4">key_visualizer</span>
+                            <h4 class="font-bold mb-2">Zero-Knowledge</h4>
+                            <p class="text-xs text-slate-400">Only you hold the keys. Even BeneSafe employees cannot
+                                access your files.</p>
                         </div>
-                        <div class="col-6 animate-fade-in" style="animation-delay: 0.3s;">
-                            <div class="p-4 rounded-4"
-                                style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);">
-                                <span class="material-symbols-outlined mb-3 text-warning">fingerprint</span>
-                                <h6 class="fw-bold text-white">Biometric Access</h6>
-                                <p class="small text-navy-muted mb-0">Support for FaceID, TouchID, and Yubikey.</p>
-                            </div>
+                        <div
+                            class="p-6 bg-white/5 border border-white/10 rounded-2xl hover:bg-white/10 transition-colors">
+                            <span class="material-symbols-outlined text-primary text-3xl mb-4">fingerprint</span>
+                            <h4 class="font-bold mb-2">Biometric Access</h4>
+                            <p class="text-xs text-slate-400">Multi-factor authentication including FaceID and
+                                Fingerprint security.</p>
                         </div>
-                        <div class="col-6 animate-fade-in" style="animation-delay: 0.4s;">
-                            <div class="p-4 rounded-4"
-                                style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);">
-                                <span class="material-symbols-outlined mb-3 text-warning">gavel</span>
-                                <h6 class="fw-bold text-white">Legally Binding</h6>
-                                <p class="small text-navy-muted mb-0">Audit trails and digital signatures valid in
-                                    court.</p>
-                            </div>
+                        <div
+                            class="p-6 bg-white/5 border border-white/10 rounded-2xl hover:bg-white/10 transition-colors">
+                            <span class="material-symbols-outlined text-primary text-3xl mb-4">gavel</span>
+                            <h4 class="font-bold mb-2">Legally Binding</h4>
+                            <p class="text-xs text-slate-400">Digital signatures and timestamping that hold up in
+                                international courts.</p>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- Final CTA -->
-    <section class="py-5 bg-white text-center">
-        <div class="container py-5 animate-fade-in">
-            <h2 class="display-5 mb-4">Ready to secure your legacy?</h2>
-            <p class="text-muted lead mb-5 mx-auto" style="max-width: 600px;">Join thousands of families who sleep
-                easier knowing their critical documents are safe, organized, and ready for the future.</p>
-            <div class="d-flex justify-content-center gap-3">
-                <a href="{% url 'accounts:register' %}" class="btn-premium btn-premium-primary">Create Free Account</a>
-                <a href="#" class="btn-premium btn-premium-outline">Talk to Sales</a>
+        </section>
+        <!-- Final CTA Section -->
+        <section class="py-24 relative overflow-hidden">
+            <div class="absolute inset-0 bg-primary/5 pointer-events-none"></div>
+            <div class="max-w-[960px] mx-auto px-6 text-center">
+                <div
+                    class="bg-white dark:bg-[#1d2636] border border-slate-200 dark:border-[#324467] p-12 md:p-20 rounded-[2rem] shadow-2xl">
+                    <h2 class="text-3xl md:text-5xl font-black mb-6">Ready to secure your legacy?</h2>
+                    <p class="text-slate-600 dark:text-slate-400 text-lg md:text-xl mb-10 max-w-xl mx-auto">Join
+                        thousands of families protecting their future with the world's most secure digital vault.</p>
+                    <div class="flex flex-wrap justify-center gap-4">
+                        <a href="{% url 'accounts:register' %}"
+                            class="bg-primary hover:bg-blue-600 text-white text-lg font-bold px-10 py-4 rounded-xl transition-all shadow-xl shadow-primary/20">
+                            Create Free Account
+                        </a>
+                        <a href="#"
+                            class="bg-transparent border border-slate-300 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-900 dark:text-white text-lg font-bold px-10 py-4 rounded-xl transition-all">
+                            Talk to Sales
+                        </a>
+                    </div>
+                </div>
             </div>
-        </div>
-    </section>
-
+        </section>
+    </main>
     <!-- Footer -->
-    <footer class="py-5 border-top" style="background: white;">
-        <div class="container">
-            <div class="row g-5 mb-5">
-                <div class="col-lg-4">
-                    <div class="d-flex align-items-center gap-2 mb-4">
-                        <span class="material-symbols-outlined text-primary icon-filled"
-                            style="font-size: 28px;">shield_lock</span>
-                        <span class="fw-bold h4 mb-0" style="letter-spacing: -1px;">BeneSafe</span>
+    <footer class="bg-slate-950 text-white pt-20 pb-10">
+        <div class="max-w-[1280px] mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+                <div class="flex flex-col gap-6">
+                    <div class="flex items-center gap-3">
+                        <span class="material-symbols-outlined text-primary text-2xl">shield_lock</span>
+                        <h2 class="text-xl font-bold">BeneSafe</h2>
                     </div>
-                    <p class="text-muted small pr-lg-5">
-                        The world's most trusted digital vault for personal and family legacy planning. Secure today,
-                        safe forever.
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        Leading the world in legacy preservation. We provide the tools and security necessary to ensure
+                        your life's work is never lost.
                     </p>
+                    <div class="flex gap-4">
+                        <a class="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center hover:bg-primary transition-colors"
+                            href="#">
+                            <span class="material-symbols-outlined text-lg">public</span>
+                        </a>
+                        <a class="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center hover:bg-primary transition-colors"
+                            href="#">
+                            <span class="material-symbols-outlined text-lg">share</span>
+                        </a>
+                    </div>
                 </div>
-                <div class="col-6 col-lg-2">
-                    <h6 class="fw-bold text-dark mb-4">Platform</h6>
-                    <ul class="list-unstyled small">
-                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none">How it Works</a></li>
-                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none">Pricing</a></li>
-                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none">Security</a></li>
-                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none">Enterprise</a></li>
+                <div>
+                    <h4 class="font-bold mb-6 text-primary uppercase tracking-widest text-xs">Platform</h4>
+                    <ul class="space-y-4 text-sm text-slate-400">
+                        <li><a class="hover:text-white transition-colors" href="#">Digital Vault</a></li>
+                        <li><a class="hover:text-white transition-colors" href="#">Estate Planning</a></li>
+                        <li><a class="hover:text-white transition-colors" href="#">Beneficiary Tools</a></li>
+                        <li><a class="hover:text-white transition-colors" href="#">Vault Security</a></li>
                     </ul>
                 </div>
-                <div class="col-6 col-lg-2">
-                    <h6 class="fw-bold text-dark mb-4">Company</h6>
-                    <ul class="list-unstyled small">
-                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none">About Us</a></li>
-                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none">Careers</a></li>
-                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none">Press</a></li>
-                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none">Contact</a></li>
+                <div>
+                    <h4 class="font-bold mb-6 text-primary uppercase tracking-widest text-xs">Company</h4>
+                    <ul class="space-y-4 text-sm text-slate-400">
+                        <li><a class="hover:text-white transition-colors" href="#">About Us</a></li>
+                        <li><a class="hover:text-white transition-colors" href="#">Careers</a></li>
+                        <li><a class="hover:text-white transition-colors" href="#">Trust Center</a></li>
+                        <li><a class="hover:text-white transition-colors" href="#">Contact</a></li>
                     </ul>
                 </div>
-                <div class="col-lg-4">
-                    <h6 class="fw-bold text-dark mb-4">Legal</h6>
-                    <ul class="list-unstyled small">
-                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none">Privacy Policy</a></li>
-                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none">Terms of Service</a></li>
-                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none">Cookie Policy</a></li>
+                <div>
+                    <h4 class="font-bold mb-6 text-primary uppercase tracking-widest text-xs">Legal</h4>
+                    <ul class="space-y-4 text-sm text-slate-400">
+                        <li><a class="hover:text-white transition-colors" href="#">Privacy Policy</a></li>
+                        <li><a class="hover:text-white transition-colors" href="#">Terms of Service</a></li>
+                        <li><a class="hover:text-white transition-colors" href="#">Cookie Policy</a></li>
+                        <li><a class="hover:text-white transition-colors" href="#">Compliance</a></li>
                     </ul>
                 </div>
             </div>
-            <div
-                class="pt-5 border-top d-flex flex-column flex-md-row justify-content-between align-items-center gap-4">
-                <p class="small text-muted mb-0">&copy; 2024 BeneSafe Inc. All rights reserved.</p>
-                <div class="d-flex gap-4">
-                    <a href="#" class="text-muted"><i class="fab fa-twitter"></i></a>
-                    <a href="#" class="text-muted"><i class="fab fa-linkedin"></i></a>
+            <div class="border-t border-white/10 pt-10 flex flex-col md:flex-row justify-between items-center gap-6">
+                <p class="text-slate-500 text-xs">© 2024 BeneSafe Vault Systems Inc. All rights reserved.</p>
+                <div class="flex items-center gap-6 text-xs text-slate-500">
+                    <span class="flex items-center gap-1"><span
+                            class="material-symbols-outlined text-[14px]">lock</span> Encrypted</span>
+                    <span class="flex items-center gap-1"><span
+                            class="material-symbols-outlined text-[14px]">language</span> English (US)</span>
                 </div>
             </div>
         </div>
     </footer>
-
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        // Navbar scroll effect
-        window.addEventListener('scroll', function () {
-            const nav = document.getElementById('mainNav');
-            if (window.scrollY > 50) {
-                nav.classList.add('scrolled');
-            } else {
-                nav.classList.remove('scrolled');
-            }
-        });
-    </script>
 </body>
 
 </html>
