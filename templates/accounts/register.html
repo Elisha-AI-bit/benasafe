@@ -138,10 +138,13 @@
 
                     <!-- Hidden Bouquet Input -->
                     <select name="bouquet" id="id_bouquet" class="hidden">
-                        {% for value, label in form.fields.bouquet.choices %}
-                        <option value="{{ value }}" {% if forloop.counter0==1 %}selected{% endif %}>{{ label }}</option>
-                        {% endfor %}
-                    </select>
+    {% for value, label in form.fields.bouquet.choices %}
+        <option value="{{ value }}" {% if forloop.counter0 == 1 %}selected{% endif %}>
+            {{ label }}
+        </option>
+    {% endfor %}
+</select>
+
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <label class="block">

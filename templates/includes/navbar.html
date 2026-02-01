@@ -25,14 +25,20 @@
                 {% if not user.is_authenticated %}
                 <span class="hidden lg:inline-block text-sm text-slate-500 dark:text-slate-400 font-medium">Already have
                     an account?</span>
+                {% with view_name=request.resolver_match.view_name %}
+                {% if view_name != 'accounts:login' %}
                 <a href="{% url 'accounts:login' %}"
                     class="flex items-center justify-center rounded-lg h-10 px-6 bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-900 dark:text-white text-sm font-bold transition-all active:scale-95">
                     Log In
                 </a>
+                {% endif %}
+                {% if view_name != 'accounts:register' %}
                 <a href="{% url 'accounts:register' %}"
                     class="hidden sm:flex items-center justify-center rounded-lg h-10 px-6 bg-primary hover:bg-primary-hover text-white text-sm font-bold shadow-lg shadow-primary/20 transition-all active:scale-95">
                     Get Started
                 </a>
+                {% endif %}
+                {% endwith %}
                 {% else %}
                 <a href="{% url 'core:dashboard' %}"
                     class="flex items-center justify-center rounded-lg h-10 px-6 bg-primary hover:bg-primary-hover text-white text-sm font-bold shadow-lg shadow-primary/20 transition-all active:scale-95">
