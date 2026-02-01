@@ -5,16 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% load static %}
-    <title>{% block title %}BeneSafe - Digital Asset Management{% endblock %}</title>
+    <title>{% block title %}BeneSafe - Professional Asset Management{% endblock %}</title>
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <!-- Material Symbols -->
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
         rel="stylesheet" />
-    <!-- Google Fonts: Public Sans & Inter -->
+    <!-- Google Fonts: Inter & Outfit -->
     <link
-        href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;900&family=Inter:wght@300;400;500;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;700&family=Inter:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
 
     <script id="tailwind-config">
@@ -23,25 +23,38 @@
             theme: {
                 extend: {
                     colors: {
-                        "primary": "#197fe6",
-                        "primary-hover": "#166dba",
-                        "background-light": "#f6f7f8",
-                        "background-dark": "#111921",
+                        // Professional Palette mapping
+                        "primary": "#0f172a", // Slate 900
+                        "primary-hover": "#1e293b", // Slate 800
+                        "accent": "#0ea5e9", // Sky 500
+                        "accent-hover": "#0284c7", // Sky 600
+
+                        "background-light": "#f8fafc", // Slate 50
+                        "background-dark": "#020617", // Slate 950
+
                         "surface-light": "#ffffff",
-                        "surface-dark": "#1c2631",
-                        "slate-850": "#1a2531",
+                        "surface-dark": "#0f172a", // Slate 900
+
+                        "slate-850": "#1e293b", // Custom slate
                     },
                     fontFamily: {
-                        "display": ["Public Sans", "sans-serif"],
-                        "body": ["Public Sans", "sans-serif"],
+                        "display": ["Outfit", "sans-serif"],
+                        "body": ["Inter", "sans-serif"],
                         "sans": ["Inter", "sans-serif"],
                     },
                     borderRadius: {
                         "DEFAULT": "0.375rem",
                         "lg": "0.5rem",
                         "xl": "0.75rem",
+                        "2xl": "1rem",
+                        "3xl": "1.5rem",
                         "full": "9999px"
                     },
+                    boxShadow: {
+                        'subtle': '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
+                        'card': '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
+                        'elevated': '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+                    }
                 },
             },
         }
@@ -64,7 +77,7 @@
 </head>
 
 <body
-    class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 h-screen flex overflow-hidden font-sans transition-colors duration-200">
+    class="bg-background-light dark:bg-background-dark text-slate-800 dark:text-slate-200 h-screen flex overflow-hidden font-sans transition-colors duration-200 antialiased selection:bg-accent selection:text-white">
 
     <!-- Sidebar -->
     {% if user.is_authenticated %}
@@ -82,13 +95,13 @@
         {% endif %}
 
         <!-- Content Scroll Area -->
-        <main class="flex-1 overflow-y-auto bg-background-light dark:bg-background-dark p-6 lg:p-8">
-            <div class="max-w-[1400px] mx-auto flex flex-col gap-6">
+        <main class="flex-1 overflow-y-auto p-6 md:p-8 lg:p-10 scroll-smooth">
+            <div class="max-w-[1600px] mx-auto flex flex-col gap-8">
                 <!-- Messages -->
                 {% if messages %}
-                <div class="space-y-4 mb-6">
+                <div class="space-y-4 mb-4">
                     {% for message in messages %}
-                    <div class="flex items-center justify-between p-4 rounded-lg shadow-sm border {% if message.tags == 'error' %}bg-red-50 border-red-200 text-red-800 dark:bg-red-900/20 dark:border-red-900/50 dark:text-red-400{% elif message.tags == 'success' %}bg-green-50 border-green-200 text-green-800 dark:bg-green-900/20 dark:border-green-900/50 dark:text-green-400{% else %}bg-blue-50 border-blue-200 text-blue-800 dark:bg-blue-900/20 dark:border-blue-900/50 dark:text-blue-400{% endif %}"
+                    <div class="flex items-center justify-between p-4 rounded-xl border shadow-sm {% if message.tags == 'error' %}bg-red-50 border-red-200 text-red-800 dark:bg-red-900/20 dark:border-red-900/50 dark:text-red-300{% elif message.tags == 'success' %}bg-green-50 border-green-200 text-green-800 dark:bg-green-900/20 dark:border-green-900/50 dark:text-green-300{% else %}bg-blue-50 border-blue-200 text-blue-800 dark:bg-blue-900/20 dark:border-blue-900/50 dark:text-blue-300{% endif %}"
                         role="alert">
                         <div class="flex items-center gap-3">
                             <span class="material-symbols-outlined text-[20px]">
@@ -107,39 +120,37 @@
                 {% endif %}
 
                 <!-- Page Content -->
-               {% block content %}
+                {% block content %}
 
-<!-- Dashboard Header Title -->
-<div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+                <!-- Dashboard Header Title -->
+                <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-2">
 
-    <div>
-        {% block page_title %}
-            {% if user.is_authenticated %}
-                <h2 class="text-2xl font-bold text-slate-900 dark:text-white tracking-tight">
-                    Overview
-                </h2>
-            {% endif %}
-        {% endblock %}
+                    <div>
+                        {% block page_title %}
+                        {% if user.is_authenticated %}
+                        <h2 class="text-3xl font-bold text-slate-900 dark:text-white tracking-tight font-display">
+                            Overview
+                        </h2>
+                        {% endif %}
+                        {% endblock %}
 
-        {% block breadcrumbs %}
-            {% if user.is_authenticated %}
-                <!-- breadcrumbs go here -->
-            {% endif %}
-        {% endblock %}
-    </div>
+                        {% block breadcrumbs %}
+                        <!-- breadcrumbs inserted here by child templates -->
+                        {% endblock %}
+                    </div>
 
-    {% block page_actions %}
-        {% if user.is_authenticated %}
-            <!-- page actions go here -->
-        {% endif %}
-    {% endblock %}
+                    {% block page_actions %}
+                    {% if user.is_authenticated %}
+                    <!-- page actions go here -->
+                    {% endif %}
+                    {% endblock %}
 
-</div>
+                </div>
 
-{% endblock %}
+                {% endblock %}
 
-<!-- Footer -->
-{% include 'includes/footer.html' %}
+                <!-- Footer -->
+                {% include 'includes/footer.html' %}
 
         </main>
     </div>

@@ -1,17 +1,18 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Secure Sign Up - BeneSafe{% endblock %}
+{% block title %}Sign Up - BeneSafe{% endblock %}
 
 {% block content %}
-<main class="flex-grow flex flex-col items-center justify-start pt-8 pb-20 px-4 sm:px-6">
-    <div class="w-full max-w-[960px] flex flex-col gap-10">
-        <div class="text-center max-w-2xl mx-auto space-y-4">
-            <h1 class="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-slate-900 dark:text-white">
-                Secure Your Legacy with BeneSafe
+<main class="flex-grow flex flex-col items-center justify-start pt-12 pb-20 px-4 sm:px-6 max-w-[1200px] mx-auto">
+
+    <div class="w-full flex flex-col gap-10">
+        <div class="text-center max-w-3xl mx-auto space-y-3">
+            <h1 class="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
+                Create Your Vault
             </h1>
-            <p class="text-lg text-slate-600 dark:text-slate-400">
-                Select a protection plan and create your digital vault in minutes.
+            <p class="text-lg text-slate-500 dark:text-slate-400">
+                Choose a plan that fits your needs. No hidden fees.
             </p>
         </div>
 
@@ -19,94 +20,101 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <!-- Blue Tier -->
                 <div onclick="selectPlan('blue', this)"
-                    class="plan-card group relative flex flex-col p-6 rounded-xl border-2 border-slate-200 dark:border-slate-700 bg-surface-light dark:bg-surface-dark hover:border-blue-200 dark:hover:border-blue-900 transition-all cursor-pointer">
+                    class="plan-card group relative flex flex-col p-6 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-sky-500/50 dark:hover:border-sky-500/50 hover:shadow-lg hover:shadow-sky-500/5 transition-all cursor-pointer">
                     <div class="flex justify-between items-start mb-4">
                         <div>
-                            <h3 class="text-lg font-bold text-blue-600 dark:text-blue-400">Blue</h3>
-                            <p class="text-sm text-slate-500 dark:text-slate-400">Essential storage</p>
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white">Blue</h3>
+                            <p class="text-sm text-slate-500 dark:text-slate-400 font-medium">Starter</p>
                         </div>
                         <span
-                            class="material-symbols-outlined text-slate-300 group-hover:text-blue-400 plan-radio">radio_button_unchecked</span>
+                            class="material-symbols-outlined text-slate-300 group-hover:text-sky-500 plan-radio transition-colors">radio_button_unchecked</span>
                     </div>
                     <div class="mb-6">
-                        <span class="text-4xl font-black text-slate-900 dark:text-white">Free</span>
-                        <span class="text-slate-500 dark:text-slate-400 font-medium">/ forever</span>
+                        <span class="text-3xl font-bold text-slate-900 dark:text-white">Free</span>
+                        <span class="text-slate-500 dark:text-slate-400 text-sm font-medium">/ forever</span>
                     </div>
-                    <ul class="space-y-3 mb-6 flex-1">
-                        <li class="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-300">
-                            <span class="material-symbols-outlined text-green-500 text-[20px]">check</span>
-                            <span>Essential storage (1GB)</span>
-                        </li>
-                    </ul>
+                    <div class="pt-6 border-t border-slate-100 dark:border-slate-700 mt-auto">
+                        <ul class="space-y-3">
+                            <li class="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-300">
+                                <span class="material-symbols-outlined text-sky-500 text-[18px]">check</span>
+                                <span>Essential storage (1GB)</span>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
 
                 <!-- Silver Tier (Default/Popular) -->
                 <div onclick="selectPlan('silver', this)"
-                    class="plan-card active relative flex flex-col p-6 rounded-xl border-2 border-primary bg-surface-light dark:bg-surface-dark shadow-xl shadow-primary/10 transition-all cursor-pointer transform scale-[1.02] md:-mt-2 md:-mb-2 z-10">
+                    class="plan-card active relative flex flex-col p-6 rounded-2xl border-2 border-slate-900 dark:border-white bg-slate-900 dark:bg-slate-800 text-white shadow-xl transition-all cursor-pointer transform scale-[1.02] md:-mt-2 md:-mb-2 z-10">
                     <div
-                        class="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
-                        Most Popular
+                        class="absolute -top-3 left-1/2 -translate-x-1/2 bg-sky-500 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">
+                        Recommended
                     </div>
                     <div class="flex justify-between items-start mb-4">
                         <div>
-                            <h3 class="text-lg font-bold text-slate-900 dark:text-white">Silver</h3>
-                            <p class="text-sm text-slate-500 dark:text-slate-400">Standard protection</p>
+                            <h3 class="text-lg font-bold text-white">Silver</h3>
+                            <p class="text-sm text-slate-300 font-medium">Standard</p>
                         </div>
-                        <span class="material-symbols-outlined text-primary fill-current plan-radio"
+                        <span class="material-symbols-outlined text-sky-400 fill-current plan-radio"
                             style="font-variation-settings: 'FILL' 1;">check_circle</span>
                     </div>
                     <div class="mb-6">
-                        <span class="text-4xl font-black text-slate-900 dark:text-white">K9</span>
-                        <span class="text-slate-500 dark:text-slate-400 font-medium">/ month</span>
+                        <span class="text-3xl font-bold text-white">K9</span>
+                        <span class="text-slate-300 text-sm font-medium">/ month</span>
                     </div>
-                    <ul class="space-y-3 mb-6 flex-1">
-                        <li class="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-300">
-                            <span class="material-symbols-outlined text-primary text-[20px]">check</span>
-                            <span>Expanded capacity (50GB)</span>
-                        </li>
-                        <li class="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-300">
-                            <span class="material-symbols-outlined text-primary text-[20px]">check</span>
-                            <span>Beneficiary Access Control</span>
-                        </li>
-                    </ul>
+                    <div class="pt-6 border-t border-slate-700 mt-auto">
+                        <ul class="space-y-3">
+                            <li class="flex items-center gap-3 text-sm text-slate-200">
+                                <span class="material-symbols-outlined text-sky-400 text-[18px]">check</span>
+                                <span>50GB Secure Storage</span>
+                            </li>
+                            <li class="flex items-center gap-3 text-sm text-slate-200">
+                                <span class="material-symbols-outlined text-sky-400 text-[18px]">check</span>
+                                <span>Beneficiary Access</span>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
 
                 <!-- Red Bouquet Tier -->
                 <div onclick="selectPlan('red', this)"
-                    class="plan-card group relative flex flex-col p-6 rounded-xl border-2 border-slate-200 dark:border-slate-700 bg-surface-light dark:bg-surface-dark hover:border-red-200 dark:hover:border-red-900 transition-all cursor-pointer">
+                    class="plan-card group relative flex flex-col p-6 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-amber-500/50 dark:hover:border-amber-500/50 hover:shadow-lg hover:shadow-amber-500/5 transition-all cursor-pointer">
                     <div class="flex justify-between items-start mb-4">
                         <div>
-                            <h3 class="text-lg font-bold text-red-600 dark:text-red-400">Red Bouquet</h3>
-                            <p class="text-sm text-slate-500 dark:text-slate-400">Family legacy planning</p>
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white">Red</h3>
+                            <p class="text-sm text-slate-500 dark:text-slate-400 font-medium">Premium</p>
                         </div>
                         <span
-                            class="material-symbols-outlined text-slate-300 group-hover:text-red-400 plan-radio">radio_button_unchecked</span>
+                            class="material-symbols-outlined text-slate-300 group-hover:text-amber-500 plan-radio transition-colors">radio_button_unchecked</span>
                     </div>
                     <div class="mb-6">
-                        <span class="text-4xl font-black text-slate-900 dark:text-white">K19</span>
-                        <span class="text-slate-500 dark:text-slate-400 font-medium">/ month</span>
+                        <span class="text-3xl font-bold text-slate-900 dark:text-white">K19</span>
+                        <span class="text-slate-500 dark:text-slate-400 text-sm font-medium">/ month</span>
                     </div>
-                    <ul class="space-y-3 mb-6 flex-1">
-                        <li class="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-300">
-                            <span class="material-symbols-outlined text-green-500 text-[20px]">check</span>
-                            <span>Unlimited Secure Storage</span>
-                        </li>
-                        <li class="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-300">
-                            <span class="material-symbols-outlined text-green-500 text-[20px]">check</span>
-                            <span>Attorney Consultation</span>
-                        </li>
-                    </ul>
+                    <div class="pt-6 border-t border-slate-100 dark:border-slate-700 mt-auto">
+                        <ul class="space-y-3">
+                            <li class="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-300">
+                                <span class="material-symbols-outlined text-amber-500 text-[18px]">check</span>
+                                <span>Unlimited Storage</span>
+                            </li>
+                            <li class="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-300">
+                                <span class="material-symbols-outlined text-amber-500 text-[18px]">check</span>
+                                <span>Priority Support</span>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <section
-            class="w-full max-w-4xl mx-auto bg-surface-light dark:bg-surface-dark rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden">
-            <div class="p-8">
-                <div class="mb-8 border-b border-slate-100 dark:border-slate-800 pb-4">
-                    <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-2">Create your vault</h2>
-                    <p class="text-sm text-slate-500 dark:text-slate-400">You selected the <span id="selected-plan-name"
-                            class="font-bold text-primary">Silver Plan</span>. Enter your details to proceed.</p>
+        <section class="w-full max-w-4xl mx-auto">
+
+            <div
+                class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden p-8">
+                <div class="mb-8 border-b border-slate-100 dark:border-slate-700 pb-6">
+                    <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-1">Account Details</h2>
+                    <p class="text-sm text-slate-500 dark:text-slate-400">Selected Plan: <span id="selected-plan-name"
+                            class="font-bold text-slate-900 dark:text-white">Silver Plan</span></p>
                 </div>
 
                 <form method="post" class="space-y-6">
@@ -114,8 +122,8 @@
 
                     {% if form.errors %}
                     <div
-                        class="p-4 bg-red-50 border border-red-200 rounded-lg text-red-800 dark:bg-red-900/20 dark:border-red-900/50 dark:text-red-400 mb-6">
-                        <ul class="list-disc ps-5 space-y-1 text-sm font-medium">
+                        class="p-4 bg-red-50 border border-red-200 rounded-lg text-red-800 dark:bg-red-900/20 dark:border-red-900/50 dark:text-red-400 mb-6 text-sm">
+                        <ul class="list-disc ps-5 space-y-1">
                             {% for field in form %}
                             {% for error in field.errors %}
                             <li>{{ field.label }}: {{ error }}</li>
@@ -131,86 +139,85 @@
                     <!-- Hidden Bouquet Input -->
                     <select name="bouquet" id="id_bouquet" class="hidden">
                         {% for value, label in form.fields.bouquet.choices %}
-                        <option value="{{ value }}" {% if forloop.counter0 == 1 %}selected{% endif %}>{{ label }}</option>
+                        <option value="{{ value }}" {% if forloop.counter0==1 %}selected{% endif %}>{{ label }}</option>
                         {% endfor %}
                     </select>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <label class="block">
-                            <span class="text-sm font-semibold text-slate-900 dark:text-slate-200 mb-2 block">Username
+                            <span
+                                class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1.5 block">Username
                                 *</span>
                             <input type="text" name="username" id="id_username"
-                                value="{{ form.username.value|default:'' }}"
-                                class="w-full rounded-lg border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:border-primary focus:ring-primary h-12 px-4 placeholder:text-slate-400 transition-all"
+                                value="{{ form.username.value|default:'' }}" class="input-professional"
                                 placeholder="Choose a username" required>
                         </label>
                         <label class="block">
-                            <span class="text-sm font-semibold text-slate-900 dark:text-slate-200 mb-2 block">Email
-                                Address *</span>
+                            <span
+                                class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1.5 block">Email
+                                *</span>
                             <input type="email" name="email" id="id_email" value="{{ form.email.value|default:'' }}"
-                                class="w-full rounded-lg border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:border-primary focus:ring-primary h-12 px-4 placeholder:text-slate-400 transition-all"
-                                placeholder="name@example.com" required>
+                                class="input-professional" placeholder="name@example.com" required>
                         </label>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <label class="block">
-                            <span class="text-sm font-semibold text-slate-900 dark:text-slate-200 mb-2 block">First
+                            <span
+                                class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1.5 block">First
                                 Name</span>
                             <input type="text" name="first_name" id="id_first_name"
-                                value="{{ form.first_name.value|default:'' }}"
-                                class="w-full rounded-lg border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:border-primary focus:ring-primary h-12 px-4 placeholder:text-slate-400 transition-all">
+                                value="{{ form.first_name.value|default:'' }}" class="input-professional">
                         </label>
                         <label class="block">
-                            <span class="text-sm font-semibold text-slate-900 dark:text-slate-200 mb-2 block">Last
+                            <span
+                                class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1.5 block">Last
                                 Name</span>
                             <input type="text" name="last_name" id="id_last_name"
-                                value="{{ form.last_name.value|default:'' }}"
-                                class="w-full rounded-lg border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:border-primary focus:ring-primary h-12 px-4 placeholder:text-slate-400 transition-all">
+                                value="{{ form.last_name.value|default:'' }}" class="input-professional">
                         </label>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <label class="block">
-                            <span class="text-sm font-semibold text-slate-900 dark:text-slate-200 mb-2 block">Phone
-                                Number</span>
+                            <span
+                                class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1.5 block">Phone</span>
                             <input type="text" name="phone" id="id_phone" value="{{ form.phone.value|default:'' }}"
-                                class="w-full rounded-lg border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:border-primary focus:ring-primary h-12 px-4 placeholder:text-slate-400 transition-all"
-                                placeholder="+260 ...">
+                                class="input-professional" placeholder="+260 ...">
                         </label>
                         <label class="block">
-                            <span class="text-sm font-semibold text-slate-900 dark:text-slate-200 mb-2 block">NRC
+                            <span
+                                class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1.5 block">NRC
                                 Number</span>
                             <input type="text" name="nrc" id="id_nrc" value="{{ form.nrc.value|default:'' }}"
-                                class="w-full rounded-lg border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:border-primary focus:ring-primary h-12 px-4 placeholder:text-slate-400 transition-all"
-                                placeholder="000000/00/0">
+                                class="input-professional" placeholder="000000/00/0">
                         </label>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <label class="block">
-                            <span class="text-sm font-semibold text-slate-900 dark:text-slate-200 mb-2 block">Master
-                                Password *</span>
+                            <span
+                                class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1.5 block">Password
+                                *</span>
                             <div class="relative">
                                 <input type="password" name="password1" id="id_password1"
-                                    class="w-full rounded-lg border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:border-primary focus:ring-primary h-12 pl-4 pr-10 placeholder:text-slate-400 transition-all"
-                                    placeholder="Create a strong password" required>
+                                    class="input-professional pr-10" placeholder="Create password" required>
                                 <button type="button"
-                                    class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-primary transition-colors"
+                                    class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors"
                                     onclick="togglePassword('id_password1', this)">
                                     <span class="material-symbols-outlined text-[20px]">visibility</span>
                                 </button>
                             </div>
                         </label>
                         <label class="block">
-                            <span class="text-sm font-semibold text-slate-900 dark:text-slate-200 mb-2 block">Confirm
-                                Password *</span>
+                            <span
+                                class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1.5 block">Confirm
+                                *</span>
                             <div class="relative">
                                 <input type="password" name="password2" id="id_password2"
-                                    class="w-full rounded-lg border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:border-primary focus:ring-primary h-12 pl-4 pr-10 placeholder:text-slate-400 transition-all"
-                                    placeholder="Re-enter password" required>
+                                    class="input-professional pr-10" placeholder="Re-enter password" required>
                                 <button type="button"
-                                    class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-primary transition-colors"
+                                    class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors"
                                     onclick="togglePassword('id_password2', this)">
                                     <span class="material-symbols-outlined text-[20px]">visibility</span>
                                 </button>
@@ -218,25 +225,27 @@
                         </label>
                     </div>
 
-                    <button type="submit"
-                        class="w-full bg-primary hover:bg-primary-hover text-white font-bold h-14 rounded-lg shadow-lg shadow-primary/20 transition-all flex items-center justify-center gap-2 group active:scale-[0.98]">
-                        <span>Create Secure Vault</span>
-                        <span
-                            class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
-                    </button>
+                    <div class="pt-4">
+                        <button type="submit"
+                            class="w-full bg-slate-900 hover:bg-slate-800 dark:bg-white dark:hover:bg-slate-200 dark:text-slate-900 text-white font-bold h-12 rounded-xl shadow-lg shadow-slate-900/10 transition-all flex items-center justify-center gap-2 group active:scale-[0.98]">
+                            <span>Complete Registration</span>
+                            <span
+                                class="material-symbols-outlined text-[18px] group-hover:translate-x-0.5 transition-transform">arrow_forward</span>
+                        </button>
+                    </div>
                 </form>
 
                 <div
-                    class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-6 pt-6 border-t border-slate-100 dark:border-slate-800">
+                    class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-6 pt-6 border-t border-slate-100 dark:border-slate-700">
                     <div
-                        class="flex items-center gap-2 text-slate-500 dark:text-slate-400 text-xs font-semibold uppercase tracking-wider">
-                        <span class="material-symbols-outlined text-[18px]">lock</span>
+                        class="flex items-center gap-2 text-slate-500 dark:text-slate-400 text-xs font-bold uppercase tracking-wider">
+                        <span class="material-symbols-outlined text-[16px]">lock</span>
                         256-bit Encryption
                     </div>
-                    <div class="hidden sm:block w-px h-4 bg-slate-300 dark:bg-slate-700"></div>
+                    <div class="hidden sm:block w-px h-4 bg-slate-200 dark:bg-slate-700"></div>
                     <div
-                        class="flex items-center gap-2 text-slate-500 dark:text-slate-400 text-xs font-semibold uppercase tracking-wider">
-                        <span class="material-symbols-outlined text-[18px]">verified_user</span>
+                        class="flex items-center gap-2 text-slate-500 dark:text-slate-400 text-xs font-bold uppercase tracking-wider">
+                        <span class="material-symbols-outlined text-[16px]">verified_user</span>
                         SOC2 Compliant
                     </div>
                 </div>
@@ -247,28 +256,69 @@
 
 <script>
     function selectPlan(planSlug, element) {
-        // Update visual state
+        // Reset all cards to default state
         document.querySelectorAll('.plan-card').forEach(card => {
-            card.className = "plan-card group relative flex flex-col p-6 rounded-xl border-2 border-slate-200 dark:border-slate-700 bg-surface-light dark:bg-surface-dark hover:border-blue-200 dark:hover:border-blue-900 transition-all cursor-pointer";
+            // Apply unselected default classes
+            card.className = "plan-card group relative flex flex-col p-6 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-sky-500/50 dark:hover:border-sky-500/50 hover:shadow-lg hover:shadow-sky-500/5 transition-all cursor-pointer";
+
+            // Reset text colors within card
+            const title = card.querySelector('h3');
+            if (title) title.className = "text-lg font-bold text-slate-900 dark:text-white";
+
+            const p = card.querySelector('p');
+            if (p) p.className = "text-sm text-slate-500 dark:text-slate-400 font-medium";
+
+            const price = card.querySelector('.text-3xl');
+            if (price) price.className = "text-3xl font-bold text-slate-900 dark:text-white";
+
+            const period = card.querySelector('.text-sm.font-medium');
+            if (period) period.className = "text-slate-500 dark:text-slate-400 text-sm font-medium";
+
+            // Reset Radio Button
             const radio = card.querySelector('.plan-radio');
             radio.innerText = "radio_button_unchecked";
-            radio.className = "material-symbols-outlined text-slate-300 group-hover:text-primary plan-radio";
+            radio.className = "material-symbols-outlined text-slate-300 group-hover:text-sky-500 plan-radio transition-colors";
             radio.style.variationSettings = "'FILL' 0";
 
-            // Remove popular badge if it was there and not this card
+            // Reset list items text color
+            const listItems = card.querySelectorAll('li');
+            listItems.forEach(li => li.className = "flex items-center gap-3 text-sm text-slate-600 dark:text-slate-300");
+
+            // Remove/Reset Badge
             const badge = card.querySelector('.absolute.-top-3');
             if (badge && planSlug !== 'silver') {
-                // Keep badge but adjust card scale
-                card.classList.remove('scale-[1.02]', 'md:-mt-2', 'md:-mb-2', 'z-10', 'border-primary', 'shadow-xl', 'shadow-primary/10');
+                // If this is the originally recommended card but now unselected, hide badge or change style? 
+                // For simplicity, we can hide it or let it persist. Let's let it persist but maybe change color if unselected?
+                // Actually the current logic completely wipes classes so the badge container might disappear if not careful.
+                // The badge is inside the Silver div hardcoded.
+                // I will just let the HTML structure handle the badge visibility.
             }
         });
 
-        // Add active classes to selected card
-        element.className = "plan-card active relative flex flex-col p-6 rounded-xl border-2 border-primary bg-surface-light dark:bg-surface-dark shadow-xl shadow-primary/10 transition-all cursor-pointer transform scale-[1.02] md:-mt-2 md:-mb-2 z-10";
-        const selectedRadio = element.querySelector('.plan-radio');
-        selectedRadio.innerText = "check_circle";
-        selectedRadio.className = "material-symbols-outlined text-primary fill-current plan-radio";
-        selectedRadio.style.variationSettings = "'FILL' 1";
+        // Apply active state to selected card
+        // Note: I'm using a 'black' theme for the active card (Slate 900)
+        element.className = "plan-card active relative flex flex-col p-6 rounded-2xl border-2 border-slate-900 dark:border-white bg-slate-900 dark:bg-slate-800 text-white shadow-xl transition-all cursor-pointer transform scale-[1.02] md:-mt-2 md:-mb-2 z-10";
+
+        // Update Internal text colors for contrast on dark bg
+        const title = element.querySelector('h3');
+        if (title) title.className = "text-lg font-bold text-white";
+
+        const p = element.querySelector('p');
+        if (p) p.className = "text-sm text-slate-300 font-medium";
+
+        const price = element.querySelector('.text-3xl');
+        if (price) price.className = "text-3xl font-bold text-white";
+
+        const period = element.querySelector('.text-sm.font-medium');
+        if (period) period.className = "text-slate-300 text-sm font-medium";
+
+        const radio = element.querySelector('.plan-radio');
+        radio.innerText = "check_circle";
+        radio.className = "material-symbols-outlined text-sky-400 fill-current plan-radio";
+        radio.style.variationSettings = "'FILL' 1";
+
+        const listItems = element.querySelectorAll('li');
+        listItems.forEach(li => li.className = "flex items-center gap-3 text-sm text-slate-200");
 
         // Update hidden select input
         const select = document.getElementById('id_bouquet');
@@ -280,7 +330,8 @@
         }
 
         // Update display name
-        document.getElementById('selected-plan-name').innerText = element.querySelector('h3').innerText + " Plan";
+        const planName = element.querySelector('h3').innerText;
+        document.getElementById('selected-plan-name').innerText = planName + " Plan";
     }
 
     function togglePassword(inputId, btn) {
@@ -295,15 +346,4 @@
         }
     }
 </script>
-
-<style>
-    .plan-card.active {
-        border-color: #197fe6 !important;
-    }
-
-    /* Hide default scrollbar for clean look */
-    .no-scrollbar::-webkit-scrollbar {
-        display: none;
-    }
-</style>
 {% endblock %}
